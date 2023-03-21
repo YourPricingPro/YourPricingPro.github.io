@@ -2588,7 +2588,7 @@ h1, h2, h3, h4, h5,
   box-shadow: 0px 5px 21px -14px rgba(0, 0, 0, 0.14);
   border-radius: 5px; }
   .testimony-wrap .user-img {
-    width: 80px;
+    width: r0px;
     height: 80px;
     position: relative;
     -webkit-border-radius: 50%;
@@ -2797,7 +2797,7 @@ textarea.form-control {
     background: #FD7E14;
     position: relative; }
     .counter .icon span {
-      font-size: 40px;
+      font-size: 30px;
       color: #fff; }
   .counter .text {
     width: calc(100% - 60px);
