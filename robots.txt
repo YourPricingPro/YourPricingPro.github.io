@@ -1,5 +1,7 @@
 User-agent: *
-Disallow: /css/
-Disallow: /fonts/
-Disallow: /images/
-Disallow: /js/
+Sitemap: https://yourpricing.pro/Sitemap.xml
+Disallow: /*.jpg$
+#Disallow: /css/
+#Disallow: /fonts/
+#Disallow: /images/
+#Disallow: /js/
