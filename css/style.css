@@ -2219,6 +2219,11 @@ button.bg-dark:focus {
   text-align: center !important;
 }
 
+.text-highlight {
+  color: #fd7e14 !important;
+	font-weight: 700 !important;
+}
+
 .font-weight-bold {
   font-weight: 700 !important;
 }
