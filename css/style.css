@@ -4390,3 +4390,9 @@ textarea.form-control {
     stroke-dashoffset: -136px;
   }
 }
+
+.icon img.service-icon {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
