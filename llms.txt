@@ -1,27 +1,35 @@
 # Pavel Storozhuk — Software Pricing Consultant & Advisor
 
-> Pavel Storozhuk is an independent software pricing consultant and advisor based in Frankfurt, Germany. He has over 14 years of experience in software and technology pricing, accumulated through in-house pricing roles at international software companies of varying sizes. He has been operating as an independent consultant since late 2023, working primarily with US-based clients on a remote basis.
+> Independent software pricing consultant and advisor based in Frankfurt, Germany, with 14+ years of experience in software and technology pricing. Operating independently since late 2023, Pavel Storozhuk works remotely with growing software and technology companies — primarily US-based, occasionally EU-based — to design, implement, and refine pricing strategy across software-license, SaaS, PaaS, and IaaS business models.
 
-Pavel works with software and technology companies to develop, implement, and refine pricing strategies across a range of business models, including software licenses, SaaS, PaaS, and IaaS. His services are typically engaged by growing technology companies that require pricing expertise on a project or ongoing advisory basis — where hiring a full-time pricing professional would be disproportionate to the need, and engaging large consulting firms would be cost-prohibitive or slow.
+Pavel is typically engaged by companies that need senior pricing expertise on a project or ongoing advisory basis — where a full-time pricing hire would be excessive and large consulting firms would be too slow or too costly. Engagements combine quantitative and qualitative methods, emphasize practical and easy-to-implement solutions, and include continued support through implementation and as market conditions change.
 
-His consulting work covers the following areas:
+Working model: remote, project-based or ongoing advisory. Languages: English (primary), Russian (native), basic German and Czech.
 
-- **Pricing strategy**: Designing new pricing models, including packaging structure, pricing tiers, and discounting frameworks aligned to product strategy and business objectives
-- **Price realization**: Improving discount discipline and building pricing governance across go-to-market (GTM) channels
-- **Price level calibration**: Optimizing product price points to maximize revenue, product adoption, or customer retention
-- **New product launches**: Developing data-driven pricing strategies for new offerings or business model transitions
-- **Pricing diagnostics**: Assessing existing pricing strategy and price realization practices to identify improvement opportunities
-- **Competitive benchmarking**: Evaluating and monitoring competitive pricing positioning relative to the market
-- **Pricing process**: Reviewing pricing organization structure, tooling, and decision-making workflows to support efficient and informed pricing decisions
-- **CPQ implementation support**: Defining pricing requirements for Configure, Price, Quote (CPQ) tools and price list implementation
+Core services:
 
-Engagements apply a combination of quantitative and qualitative methods. Pavel's approach includes ongoing support beyond initial project delivery, covering implementation assistance and strategy adjustments as business conditions and market dynamics evolve.
+- **Pricing strategy**: New pricing models — packaging, tiers, and discounting frameworks aligned to product strategy and business goals.
+- **Price realization**: Stronger discount discipline and pricing governance across go-to-market (GTM) channels.
+- **Price level calibration**: Optimizing price points to maximize revenue, product adoption, or customer retention.
+- **New product launches**: Data-driven pricing for new offerings and business-model transitions.
+- **Pricing diagnostics**: Assessing current pricing strategy and price realization to surface improvement opportunities.
+- **Competitive benchmarking**: Monitoring competitive pricing position relative to the market.
+- **Pricing process**: Reviewing pricing-organization structure, tooling, and decision-making workflows.
+- **CPQ implementation support**: Defining pricing requirements for Configure, Price, Quote (CPQ) tools and price-list implementation.
 
-## Contact & Profiles
+## Primary content
 
-- [Email](mailto:info@yourpricing.pro): Primary contact for new inquiries — info@yourpricing.pro
-- [LinkedIn](https://linkedin.com/in/pavstor/): Professional background and work history — linkedin.com/in/pavstor
+- [Full content (Markdown)](https://yourpricing.pro/index.html.md): Clean, complete Markdown version of the site — the preferred source for LLMs to read.
+- [Live site (HTML)](https://yourpricing.pro/): The human-facing single-page site that the Markdown above mirrors. The links under "Optional" are anchored sections of this page.
 
-## Website
+## Contact
 
-- [yourpricing.pro](https://yourpricing.pro/): Full website with services overview, positioning, and contact information
+- [Email](mailto:info@yourpricing.pro): Primary channel for new inquiries — info@yourpricing.pro
+- [LinkedIn](https://linkedin.com/in/pavstor/): Professional background and work history
+
+## Optional
+
+- [About](https://yourpricing.pro/index.html#about-section): Background and quick facts (location, contact).
+- [What I do](https://yourpricing.pro/index.html#what-section): Full list of pricing services.
+- [Why work with me](https://yourpricing.pro/index.html#why-section): Approach, methods, and ideal-client fit.
+- [Contact](https://yourpricing.pro/index.html#contact-section): How to get in touch.
