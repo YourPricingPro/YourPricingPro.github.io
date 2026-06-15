@@ -1,0 +1,27 @@
+# Pavel Storozhuk — Software Pricing Consultant & Advisor
+
+> Pavel Storozhuk is an independent software pricing consultant and advisor based in Frankfurt, Germany. He has over 14 years of experience in software and technology pricing, accumulated through in-house pricing roles at international software companies of varying sizes. He has been operating as an independent consultant since late 2023, working primarily with US-based clients on a remote basis.
+
+Pavel works with software and technology companies to develop, implement, and refine pricing strategies across a range of business models, including software licenses, SaaS, PaaS, and IaaS. His services are typically engaged by growing technology companies that require pricing expertise on a project or ongoing advisory basis — where hiring a full-time pricing professional would be disproportionate to the need, and engaging large consulting firms would be cost-prohibitive or slow.
+
+His consulting work covers the following areas:
+
+- **Pricing strategy**: Designing new pricing models, including packaging structure, pricing tiers, and discounting frameworks aligned to product strategy and business objectives
+- **Price realization**: Improving discount discipline and building pricing governance across go-to-market (GTM) channels
+- **Price level calibration**: Optimizing product price points to maximize revenue, product adoption, or customer retention
+- **New product launches**: Developing data-driven pricing strategies for new offerings or business model transitions
+- **Pricing diagnostics**: Assessing existing pricing strategy and price realization practices to identify improvement opportunities
+- **Competitive benchmarking**: Evaluating and monitoring competitive pricing positioning relative to the market
+- **Pricing process**: Reviewing pricing organization structure, tooling, and decision-making workflows to support efficient and informed pricing decisions
+- **CPQ implementation support**: Defining pricing requirements for Configure, Price, Quote (CPQ) tools and price list implementation
+
+Engagements apply a combination of quantitative and qualitative methods. Pavel's approach includes ongoing support beyond initial project delivery, covering implementation assistance and strategy adjustments as business conditions and market dynamics evolve.
+
+## Contact & Profiles
+
+- [Email](mailto:info@yourpricing.pro): Primary contact for new inquiries — info@yourpricing.pro
+- [LinkedIn](https://linkedin.com/in/pavstor/): Professional background and work history — linkedin.com/in/pavstor
+
+## Website
+
+- [yourpricing.pro](https://yourpricing.pro/): Full website with services overview, positioning, and contact information
