@@ -226,6 +226,16 @@ button {
 	padding: 1rem 1.5rem;
 }
 
+/* Inline SVG icon, sized by font-size and coloured by color like an icon font:
+ * <svg class="icon" viewBox="..." aria-hidden="true"><path d="..."/></svg> */
+.icon {
+	display: inline-block;
+	width: auto;
+	height: 1em;
+	vertical-align: -0.143em;
+	fill: currentColor;
+}
+
 /* Fades an element up when it scrolls into view (main.js adds .is-revealed) */
 .reveal {
 	opacity: 0;
@@ -746,7 +756,7 @@ button {
 	.stat__icon { height: 55px; }
 }
 
-.stat__icon .fa {
+.stat__icon .icon {
 	font-size: 30px;
 	color: #fff;
 }
@@ -889,7 +899,7 @@ button {
 	border-radius: 50%;
 }
 
-.interest__icon .fa {
+.interest__icon .icon {
 	font-size: 18px;
 	color: #000;
 }
