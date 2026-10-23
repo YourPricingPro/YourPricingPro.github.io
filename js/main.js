@@ -15,13 +15,13 @@
 
 		var outer = document.createElement('div');
 		var stage = document.createElement('div');
-		outer.className = 'owl-stage-outer';
-		stage.className = 'owl-stage';
+		outer.className = 'hero-slider__viewport';
+		stage.className = 'hero-slider__track';
 		outer.appendChild(stage);
 
 		var wrap = function (el, isClone) {
 			var item = document.createElement('div');
-			item.className = 'owl-item' + (isClone ? ' cloned' : '');
+			item.className = 'hero-slider__item' + (isClone ? ' is-clone' : '');
 			item.appendChild(isClone ? el.cloneNode(true) : el);
 			return item;
 		};
@@ -33,12 +33,12 @@
 
 		// one dot per slide
 		var dotsWrap = document.createElement('div');
-		dotsWrap.className = 'owl-dots';
+		dotsWrap.className = 'hero-slider__dots';
 		var dots = slides.map(function (s, i) {
 			var dot = document.createElement('button');
-			dot.className = 'owl-dot';
+			dot.className = 'hero-slider__dot';
+			dot.type = 'button';
 			dot.setAttribute('aria-label', 'Show slide ' + (i + 1));
-			dot.appendChild(document.createElement('span'));
 			dot.addEventListener('click', function () {
 				// take the shortest way round the loop
 				var d = i - (index % count);
@@ -49,16 +49,15 @@
 			return dot;
 		});
 		root.appendChild(dotsWrap);
-		root.classList.add('owl-loaded');
 
-		var items = $$('.owl-item', stage);
+		var items = $$('.hero-slider__item', stage);
 		var index = count, width = 0, timer = null, hovered = false;
 
 		var move = function (speed) {
 			stage.style.transition = speed ? (speed / 1000) + 's' : '0s';
 			stage.style.transform = 'translate3d(' + (-index * width) + 'px, 0px, 0px)';
-			items.forEach(function (it, i) { it.classList.toggle('active', i === index); });
-			dots.forEach(function (dot, i) { dot.classList.toggle('active', i === ((index % count) + count) % count); });
+			items.forEach(function (it, i) { it.classList.toggle('is-active', i === index); });
+			dots.forEach(function (dot, i) { dot.classList.toggle('is-active', i === ((index % count) + count) % count); });
 		};
 		var layout = function () {
 			width = root.clientWidth;
@@ -116,7 +115,7 @@
 		// test/screenshot hook: stop autoplay and show the first slide
 		window.__siteFreeze = function () { clearTimeout(timer); timer = null; index = count; move(0); play = function () {}; };
 	};
-	$$('.home-slider').forEach(slider);
+	$$('[data-slider]').forEach(slider);
 
 
 	// Parallax: hero text drifts at 70% of the scroll distance
@@ -153,30 +152,26 @@
 		toggle.addEventListener('click', function (event) {
 			event.preventDefault();
 			if (busy) return;
-			var open = nav.classList.contains('show');
-			toggle.classList.toggle('active', !open);
-			toggle.classList.toggle('collapsed', open);
+			var open = nav.classList.contains('is-open');
 			toggle.setAttribute('aria-expanded', String(!open));
 			busy = true;
 
 			if (open) {
 				nav.style.height = nav.getBoundingClientRect().height + 'px';
 				nav.offsetHeight; // force reflow so the height transition starts from the current height
-				nav.classList.add('collapsing');
-				nav.classList.remove('collapse', 'show');
+				nav.classList.add('is-animating');
+				nav.classList.remove('is-open');
 				nav.style.height = '';
 			} else {
-				nav.classList.remove('collapse');
-				nav.classList.add('collapsing');
+				nav.classList.add('is-animating');
 				nav.style.height = '0px';
 				nav.offsetHeight;
 				nav.style.height = nav.scrollHeight + 'px';
 			}
 
 			var done = function () {
-				nav.classList.remove('collapsing');
-				nav.classList.add('collapse');
-				if (!open) nav.classList.add('show');
+				nav.classList.remove('is-animating');
+				if (!open) nav.classList.add('is-open');
 				nav.style.height = '';
 				busy = false;
 			};
@@ -189,14 +184,14 @@
 
 	// Navbar: becomes fixed after 150px, slides in after 350px, slides out when scrolling back up
 	var navbar = function () {
-		var bar = $('.ftco_navbar');
+		var bar = $('[data-nav]');
 		if (!bar) return;
 		var onScroll = function () {
 			var st = window.pageYOffset, c = bar.classList;
-			if (st > 150) c.add('scrolled');
-			if (st < 150 && c.contains('scrolled')) c.remove('scrolled', 'sleep');
-			if (st > 350) c.add('awake');
-			if (st < 350 && c.contains('awake')) { c.remove('awake'); c.add('sleep'); }
+			if (st > 150) c.add('is-sticky');
+			if (st < 150 && c.contains('is-sticky')) c.remove('is-sticky', 'is-leaving');
+			if (st > 350) c.add('is-visible');
+			if (st < 350 && c.contains('is-visible')) { c.remove('is-visible'); c.add('is-leaving'); }
 		};
 		window.addEventListener('scroll', onScroll, { passive: true });
 		onScroll();
@@ -220,12 +215,12 @@
 	};
 
 
-	// Counters: count up from 0 over 7s
+	// Counters: count up from 0 to data-count over 7s
 	var counters = function () {
 		var DURATION = 7000;
 		var format = function (n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ','); };
 		var run = function (el) {
-			var target = parseInt(el.getAttribute('data-number'), 10), start = null;
+			var target = parseInt(el.getAttribute('data-count'), 10), start = null;
 			var step = function (t) {
 				if (start === null) start = t;
 				var p = Math.min((t - start) / DURATION, 1);
@@ -234,8 +229,9 @@
 			};
 			requestAnimationFrame(step);
 		};
-		var section = $('#section-counter');
-		if (section) whenVisible([section], function () { $$('[data-number]').forEach(run); });
+		$$('[data-counters]').forEach(function (section) {
+			whenVisible([section], function () { $$('[data-count]', section).forEach(run); });
+		});
 	};
 	counters();
 
@@ -243,16 +239,20 @@
 	// Reveal: fade elements up as they scroll into view, staggered by 50ms
 	var reveal = function () {
 		var queue = [];
-		whenVisible($$('.animate'), function (el) {
+		whenVisible($$('.reveal'), function (el) {
 			queue.push(el);
 			setTimeout(function () {
 				queue.forEach(function (el, k) {
-					setTimeout(function () { el.classList.add('fadeInUp', 'animated'); }, k * 50);
+					setTimeout(function () { el.classList.add('is-revealed'); }, k * 50);
 				});
 				queue = [];
 			}, 100);
 		});
 	};
 	reveal();
+
+
+	// Footer year
+	$$('[data-year]').forEach(function (el) { el.textContent = new Date().getFullYear(); });
 
 })();
