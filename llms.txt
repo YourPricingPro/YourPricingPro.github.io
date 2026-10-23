@@ -29,7 +29,7 @@ Core services:
 
 ## Optional
 
-- [About](https://yourpricing.pro/index.html#about-section): Background and quick facts (location, contact).
-- [What I do](https://yourpricing.pro/index.html#what-section): Full list of pricing services.
-- [Why work with me](https://yourpricing.pro/index.html#why-section): Approach, methods, and ideal-client fit.
-- [Contact](https://yourpricing.pro/index.html#contact-section): How to get in touch.
+- [About](https://yourpricing.pro/#about-section): Background and quick facts (location, contact).
+- [What I do](https://yourpricing.pro/#what-section): Full list of pricing services.
+- [Why work with me](https://yourpricing.pro/#why-section): Approach, methods, and ideal-client fit.
+- [Contact](https://yourpricing.pro/#contact-section): How to get in touch.
