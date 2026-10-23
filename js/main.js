@@ -15,13 +15,13 @@
 
 		var outer = document.createElement('div');
 		var stage = document.createElement('div');
-		outer.className = 'hero-slider__viewport';
-		stage.className = 'hero-slider__track';
+		outer.className = 'hero-slider_viewport';
+		stage.className = 'hero-slider_track';
 		outer.appendChild(stage);
 
 		var wrap = function (el, isClone) {
 			var item = document.createElement('div');
-			item.className = 'hero-slider__item' + (isClone ? ' is-clone' : '');
+			item.className = 'hero-slider_item' + (isClone ? ' is-clone' : '');
 			item.appendChild(isClone ? el.cloneNode(true) : el);
 			return item;
 		};
@@ -33,10 +33,10 @@
 
 		// one dot per slide
 		var dotsWrap = document.createElement('div');
-		dotsWrap.className = 'hero-slider__dots';
+		dotsWrap.className = 'hero-slider_dots';
 		var dots = slides.map(function (s, i) {
 			var dot = document.createElement('button');
-			dot.className = 'hero-slider__dot';
+			dot.className = 'hero-slider_dot';
 			dot.type = 'button';
 			dot.setAttribute('aria-label', 'Show slide ' + (i + 1));
 			dot.addEventListener('click', function () {
@@ -50,7 +50,7 @@
 		});
 		root.appendChild(dotsWrap);
 
-		var items = $$('.hero-slider__item', stage);
+		var items = $$('.hero-slider_item', stage);
 		var index = count, width = 0, timer = null, hovered = false;
 
 		var move = function (speed) {
@@ -118,30 +118,6 @@
 	$$('[data-slider]').forEach(slider);
 
 
-	// Parallax: hero text drifts at 70% of the scroll distance
-	var parallax = function () {
-		var els = $$('[data-parallax]');
-		var update = function () {
-			els.forEach(function (el) {
-				var top = el.parentNode.getBoundingClientRect().top;
-				el.style.transform = 'translateY(' + (-top * 0.7) + 'px)';
-			});
-		};
-		var queued = false;
-		// wait a frame so layout changes from other scroll handlers (navbar) are applied first
-		var schedule = function () {
-			if (queued) return;
-			queued = true;
-			requestAnimationFrame(function () { queued = false; update(); });
-		};
-		window.addEventListener('scroll', schedule, { passive: true });
-		window.addEventListener('resize', schedule);
-		window.addEventListener('transitionend', schedule); // navbar slide-in shifts the layout without scrolling
-		schedule();
-	};
-	parallax();
-
-
 	// Mobile menu: animated collapse
 	var menu = function () {
 		var toggle = $('[data-nav-toggle]');
@@ -178,6 +154,16 @@
 			var duration = parseFloat(getComputedStyle(nav).transitionDuration) * 1000;
 			setTimeout(done, duration || 0);
 		});
+
+		// Close the menu at once when one of its links is followed, so the page
+		// doesn't shift under the smooth scroll to the section
+		$$('a', nav).forEach(function (link) {
+			link.addEventListener('click', function () {
+				if (!nav.classList.contains('is-open')) return;
+				nav.classList.remove('is-open');
+				toggle.setAttribute('aria-expanded', 'false');
+			});
+		});
 	};
 	menu();
 
@@ -186,14 +172,26 @@
 	var navbar = function () {
 		var bar = $('[data-nav]');
 		if (!bar) return;
+		// On mobile the bar is part of the page flow: keep its space while it is fixed,
+		// so the content doesn't jump up (and anchor links land below the bar)
+		var stick = function (on) {
+			var inFlow = getComputedStyle(bar).position === 'relative';
+			document.body.style.paddingTop = on && inFlow ? bar.offsetHeight + 'px' : '';
+			bar.classList.toggle('is-sticky', on);
+			if (!on) bar.classList.remove('is-leaving');
+		};
 		var onScroll = function () {
 			var st = window.pageYOffset, c = bar.classList;
-			if (st > 150) c.add('is-sticky');
-			if (st < 150 && c.contains('is-sticky')) c.remove('is-sticky', 'is-leaving');
+			if (st > 150 && !c.contains('is-sticky')) stick(true);
+			if (st < 150 && c.contains('is-sticky')) stick(false);
 			if (st > 350) c.add('is-visible');
 			if (st < 350 && c.contains('is-visible')) { c.remove('is-visible'); c.add('is-leaving'); }
 		};
 		window.addEventListener('scroll', onScroll, { passive: true });
+		// re-measure after crossing a breakpoint (the bar is in the flow on mobile only)
+		window.addEventListener('resize', function () {
+			if (bar.classList.contains('is-sticky')) { stick(false); onScroll(); }
+		});
 		onScroll();
 	};
 	navbar();

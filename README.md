@@ -19,7 +19,7 @@ To preview locally, open `index.html` in a browser, or serve the folder (`python
 ## Styling conventions
 
 - **Theme values** (colours, font, card shadow, gutter) are CSS variables in `:root` at the top of `style.css`. Change the accent colour there, for example.
-- **Class names** describe what a thing is: `block`, `block__part`, `block--variant` (e.g. `service-card`, `service-card__icon`, `btn--primary`).
+- **Class names** describe what a thing is: `block`, `block_part`, `block--variant` (e.g. `service-card`, `service-card_icon`, `btn--primary`).
 - **State classes** set by JavaScript start with `is-` (`is-sticky`, `is-open`, `is-active`, `is-revealed`).
 - **JavaScript hooks** are `data-` attributes, so restyling never breaks behaviour.
 - **Breakpoints**: md 768px, lg 992px, xl 1200px (listed at the top of `style.css`).
@@ -41,7 +41,7 @@ To preview locally, open `index.html` in a browser, or serve the folder (`python
 </section>
 ```
 
-Link it from the menu by adding an `<li>` to `.site-nav__list` pointing at `#my-section`.
+Link it from the menu by adding an `<li>` to `.site-nav_list` with `href="#my-section"`. Menu links scroll smoothly to the section and stop just below the sticky navbar.
 
 ### Service card
 
@@ -49,7 +49,7 @@ Add another card inside `.services` (the grid places 1 / 2 / 4 per row automatic
 
 ```html
 <div class="service-card">
-	<div class="service-card__icon"><img src="images/icons/strategy.png" alt="…"></div>
+	<div class="service-card_icon"><img src="images/icons/strategy.png" alt="…"></div>
 	<h3>Title</h3>
 	<p>Description.</p>
 </div>
@@ -57,14 +57,14 @@ Add another card inside `.services` (the grid places 1 / 2 / 4 per row automatic
 
 ### Stat (counter)
 
-Add inside `.stats__grid`. The number counts up from 0 to `data-count`:
+Add inside `.stats_grid`. The number counts up from 0 to `data-count`:
 
 ```html
 <div class="stat reveal">
-	<div class="stat__icon"><svg class="icon" …></svg></div>
-	<div class="stat__text">
-		<strong class="stat__number" data-count="42">0</strong>
-		<span class="stat__label">Label</span>
+	<div class="stat_icon"><svg class="icon" …></svg></div>
+	<div class="stat_text">
+		<strong class="stat_number" data-count="42">0</strong>
+		<span class="stat_label">Label</span>
 	</div>
 </div>
 ```
@@ -86,9 +86,8 @@ Icons are inline SVG with class `icon`; they take their size from `font-size` an
 | Hook | What it does |
 |---|---|
 | `data-slider` | Hero slider |
-| `data-parallax` | Element drifts at 70% of the scroll distance (on the hero's second slide) |
 | `data-nav` | Navbar becomes fixed after 150px of scrolling, slides in after 350px, slides out when scrolling back up |
-| `data-nav-toggle="#id"` | Mobile menu button; animates the target open/closed |
+| `data-nav-toggle="#id"` | Mobile menu button; animates the target open/closed and closes it when one of its links is followed |
 | `.reveal` | Fades the element up when it scrolls into view (staggered by 50ms) |
 | `data-counters` / `data-count` | Counts numbers up over 7s when the section scrolls into view |
 | `data-year` | Filled with the current year |
