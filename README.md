@@ -77,6 +77,15 @@ Copy a `.slide` inside `.hero-slider`. The slider loops, autoplays every 5s, pau
 
 `btn btn--primary` (orange), `btn btn--white` (white on orange), plus `btn--large` for more padding.
 
+### Photos
+
+Each photo has a smaller modern copy next to the original, which stays as the fallback for older browsers: `bg_1`, `bg_2` and `about-1` have an `.avif`, and the transparent `author.png` has a `.webp`. When replacing a photo, replace both files. Background photos list them with `image-set()` (keep the plain `url(….jpg)` before it for browsers without `type()` support); the CTA photo uses `<picture>`. To make the copies:
+
+```
+ffmpeg -i bg_1.jpg -vf "scale=out_range=tv:out_color_matrix=bt709,format=yuv420p10le" -color_range tv -colorspace bt709 -color_primaries bt709 -color_trc iec61966-2-1 -c:v libsvtav1 -crf 24 -preset 4 -frames:v 1 bg_1.avif
+cwebp -q 85 -alpha_q 100 -m 6 -sharp_yuv -metadata none author.png -o author.webp
+```
+
 ### Icons
 
 Icons are inline SVG with class `icon`; they take their size from `font-size` and colour from `color`, like an icon font. Paste any SVG icon (e.g. from fontawesome.com) as `<svg class="icon" viewBox="…" aria-hidden="true"><path d="…"/></svg>`.

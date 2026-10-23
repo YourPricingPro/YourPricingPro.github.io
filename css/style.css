@@ -1024,6 +1024,9 @@ button {
 	color: #fff;
 }
 
+/* The <picture> around the photo is layout-neutral, so the <img> stays the grid item */
+.cta__grid > picture { display: contents; }
+
 .cta__photo {
 	align-self: end;
 	max-width: 100%;
