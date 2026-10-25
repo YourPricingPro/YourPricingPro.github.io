@@ -333,7 +333,9 @@ button {
 	.site-nav_inner { flex-wrap: nowrap; }
 }
 
-.site-nav_brand {
+.site-nav_brand,
+.site-nav_brand:hover,
+.site-nav_brand:focus {
 	display: inline-block;
 	margin-right: 1rem;
 	padding: 0.7rem 0;
@@ -343,11 +345,6 @@ button {
 	text-decoration: none;
 	white-space: nowrap;
 	color: var(--nav-fg);
-}
-
-.site-nav_brand:hover,
-.site-nav_brand:focus {
-	color: #000;
 }
 
 .site-nav.is-sticky .site-nav_brand {
@@ -1021,12 +1018,23 @@ button {
 	margin: 0 auto;
 }
 
+/* Phones: the diagram is centred below the second paragraph instead of floating beside it */
 @media (max-width: 767.98px) {
 	.illustration {
 		float: none;
 		width: 18em;
 		height: auto;
 		margin-bottom: 1rem;
+		order: 1;
+	}
+
+	#why-section .section-heading {
+		display: flex;
+		flex-direction: column;
+	}
+
+	#why-section .section-heading > p:last-child {
+		order: 2;
 	}
 }
 
