@@ -333,7 +333,9 @@ button {
 	.site-nav_inner { flex-wrap: nowrap; }
 }
 
-.site-nav_brand {
+.site-nav_brand,
+.site-nav_brand:hover,
+.site-nav_brand:focus {
 	display: inline-block;
 	margin-right: 1rem;
 	padding: 0.7rem 0;
@@ -343,11 +345,6 @@ button {
 	text-decoration: none;
 	white-space: nowrap;
 	color: var(--nav-fg);
-}
-
-.site-nav_brand:hover,
-.site-nav_brand:focus {
-	color: #000;
 }
 
 .site-nav.is-sticky .site-nav_brand {
@@ -587,6 +584,11 @@ button {
 	}
 }
 
+/* Phones: the person stands right of centre in the photos, so shift them into the middle */
+@media (max-width: 767.98px) {
+	.slide_photo { background-position: 58% center; }
+}
+
 /* White slanted panels along the photo's left edge */
 .slide_shape {
 	position: absolute;
@@ -633,6 +635,14 @@ button {
 		z-index: 1;
 		width: 100%;
 		padding: 1em;
+	}
+}
+
+/* Phones: text starts just below the neck (the photo fills the slide height, so it's a fixed offset) */
+@media (max-width: 767.98px) {
+	.slide_content {
+		align-items: flex-start;
+		padding-top: 20rem;
 	}
 }
 
@@ -683,7 +693,7 @@ button {
 }
 
 @media (max-width: 767.98px) {
-	.slide_title { font-size: 40px; }
+	.slide_title { font-size: 34px; }
 }
 
 .slide_text p {
@@ -721,6 +731,10 @@ button {
 	.stats_grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 
+@media (max-width: 767.98px) {
+	.stats_grid { padding-left: 15%; }
+}
+
 .stat {
 	display: flex;
 }
@@ -730,7 +744,7 @@ button {
 }
 
 @media (max-width: 767.98px) {
-	.stat { margin-bottom: calc(2em + 20px); }
+	.stat { margin-bottom: 30px; }
 }
 
 .stat_icon {
@@ -806,6 +820,14 @@ button {
 	box-shadow: -20px 20px 69px -27px rgba(0, 0, 0, 0.33);
 }
 
+/* Phones: one column, so the photo needs its own height (it otherwise takes the text column's) */
+@media (max-width: 767.98px) {
+	.about_photo {
+		height: 320px;
+		background-position: center 20%;
+	}
+}
+
 .about_body {
 	padding: 3rem 0 4rem;
 }
@@ -878,6 +900,21 @@ button {
 		float: left;
 		width: 50%;
 		margin-bottom: 10px;
+	}
+}
+
+/* Phones: the 2 x 2 block is centred, columns stay aligned */
+@media (max-width: 767.98px) {
+	.interests {
+		display: grid;
+		grid-template-columns: repeat(2, auto);
+		justify-content: center;
+		column-gap: 40px;
+	}
+
+	.interest {
+		float: none;
+		width: auto;
 	}
 }
 
@@ -981,6 +1018,26 @@ button {
 	margin: 0 auto;
 }
 
+/* Phones: the diagram is centred below the second paragraph instead of floating beside it */
+@media (max-width: 767.98px) {
+	.illustration {
+		float: none;
+		width: 18em;
+		height: auto;
+		margin-bottom: 1rem;
+		order: 1;
+	}
+
+	#why-section .section-heading {
+		display: flex;
+		flex-direction: column;
+	}
+
+	#why-section .section-heading > p:last-child {
+		order: 2;
+	}
+}
+
 /* Call to action: orange band with text and photo */
 .cta {
 	padding: 0;
@@ -988,7 +1045,7 @@ button {
 	background: var(--accent);
 }
 
-/* Text 8/12 + photo 4/12 with a gutter between them, at every width */
+/* Text 8/12 + photo 4/12 with a gutter between them; on phones the photo goes under the text */
 .cta_grid {
 	display: grid;
 	grid-template-columns: calc(66.666667% - 10px) calc(33.333333% - 20px);
@@ -996,7 +1053,7 @@ button {
 }
 
 @media (max-width: 767.98px) {
-	.cta_grid { column-gap: 15px; }
+	.cta_grid { grid-template-columns: 100%; }
 }
 
 .cta_text {
@@ -1031,6 +1088,16 @@ button {
 
 @media (min-width: 992px) {
 	.cta_photo { margin-top: -90px; }
+}
+
+/* Phones: photo under the text, pulled up so the head sits level with the button, to its right */
+@media (max-width: 767.98px) {
+	.cta_photo {
+		justify-self: end;
+		width: 200px;
+		margin-top: -100px; /* 55px button + 24px text padding + 21px transparent space above the head */
+		pointer-events: none; /* its transparent corner overlaps the button; keep the button clickable */
+	}
 }
 
 /* Footer */

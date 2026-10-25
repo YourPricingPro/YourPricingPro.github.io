@@ -1,14 +1,21 @@
 # Pavel Storozhuk — Software Pricing Consultant & Advisor
 
-*I am Pavel, and pricing is what I do best.*
+*I'm Pavel, and pricing is what I do best.*
 
-I'm a freelance pricing consultant and tech pricing expert based in Frankfurt, Germany, with over 14 years of experience. I help software and technology companies build and implement pricing strategies that reflect the real value of their products — across software licenses, SaaS, PaaS, IaaS, and any other model.
+Freelance software pricing consultant based in Frankfurt, Germany, with more than 14 years of experience at leading software companies. I help software companies create and implement pricing strategies that reflect the value of their offerings — across software licenses, SaaS, PaaS, IaaS, and any other model.
 
 [Get pricing help now](mailto:info@yourpricing.pro)
 
+## At a Glance
+
+- **Projects completed:** 32
+- **Happy clients:** 18
+- **Years of experience:** 14
+- **Cups of coffee:** 19,478
+
 ## About Me
 
-I'm a freelance pricing consultant and tech pricing expert with over 14 years of experience in the industry. I've worked for top international software companies — from large to small — and I'm here to sprinkle some magic on your pricing strategy and offer approaches that have been battle-tested and proven to work in the real world!
+I'm a freelance pricing consultant with more than 14 years of experience in tech pricing. I've worked for leading international software companies, large and small, and I'm here to sprinkle some magic on your pricing strategy with approaches battle-tested at dozens of SaaS companies.
 
 - **Name:** Pavel Storozhuk
 - **Location:** Frankfurt, Germany
@@ -18,17 +25,17 @@ I'm a freelance pricing consultant and tech pricing expert with over 14 years of
 
 ## What I Do
 
-I specialize in helping **software and technology companies** create and implement pricing strategies that reflect the value of their unique products, correspond to their product strategy, strongly contribute to achieving their business goals, and help differentiate them from the competition. Whether it's **software licenses**, **SaaS**, **PaaS**, **IaaS**, or any other pricing model — I've worked with them all.
+I help **software companies** create and implement pricing strategies that reflect the value of their offerings, align with their product strategy, drive their business goals, and set them apart from the competition. Whether it's **software licenses**, **SaaS**, **PaaS**, **IaaS**, or any other pricing model, I've got you covered — I've worked with them all.
 
 Most commonly, I help my clients with:
 
 ### Pricing strategy
 
-Introducing a new pricing strategy with a different packaging, pricing, and discounting structure.
+Designing a new pricing strategy, including packaging, price structure, and discounting.
 
 ### Price realization
 
-Becoming more strategic with discounts and building pricing discipline across go-to-market (GTM) channels.
+Making discounting more strategic and building pricing discipline across go-to-market (GTM) channels.
 
 ### Price level calibration
 
@@ -40,31 +47,33 @@ Developing a comprehensive, data-driven pricing strategy for new offerings or bu
 
 ### Pricing diagnostics
 
-Analyzing your pricing strategy and price realization to understand your pricing opportunities.
+Analyzing your current pricing strategy and price realization to identify and size pricing opportunities.
 
 ### Competitive benchmarking
 
-Staying on top of your competitive pricing position and being ahead of the market.
+Tracking your competitive pricing position and staying ahead of the market.
 
 ### Pricing process
 
-Ensuring your pricing org setup, tools, and processes allow for efficient and informed decision-making.
+Ensuring your pricing organization, tools, and processes enable efficient, well-informed decision-making.
 
-### New CPQ tool
+### CPQ implementation
 
-Having comprehensive pricing requirements for your new Configure, Price, Quote (CPQ) tool and price-list implementation.
+Defining comprehensive pricing requirements for a new Configure, Price, Quote (CPQ) tool and price-list implementation.
 
 ## Why Work With Me
 
-You are a growing company in need of pricing help. You understand pricing is crucial, but don't know how to get it right or what you're missing. Hiring someone full-time is overkill, and engaging big consulting firms will leave a hole in your budget and take an eternity to complete. Sounds familiar?
+You are a growing company in need of pricing help. You understand pricing is crucial, but don't know how to get it right or what you're missing. Hiring someone full-time would be overkill, and bringing in the big consulting firms would blow a hole in your budget — and likely your timeline, too. Sounds familiar?
 
-That's where I come in. With straightforward quantitative and qualitative methods and real-world experience, I help clients understand their pricing challenges and offer **practical, easy-to-implement solutions**. My strategies have been battle-tested in the real world and proven effective during my time owning pricing at world-class software companies.
+That's where I come in. With straightforward quantitative and qualitative methods and real-world experience, I help clients understand their pricing challenges, and I offer **practical, easy-to-implement solutions**. My strategies have been battle-tested and proven effective during my time owning pricing at world-class software companies.
 
-Furthermore, I don't walk away once the initial work is done. I work with my clients continuously — answering questions, assisting with implementation challenges, and making necessary course corrections along the way. **Pricing is a journey, not a destination.** It involves defining a pricing strategy, monitoring its performance, and making tweaks as needed. The tech market is constantly changing, and so are the parameters of your pricing model. Staying ahead of the curve is what differentiates success from failure.
+And I don't walk away once the initial work is done. I support my clients continuously during rollout, assist with implementation challenges, and make necessary course corrections along the way. **Pricing is a journey, not a destination.** It involves defining a pricing strategy, measuring its effectiveness, and iterating as needed. The tech market is constantly changing, and so are the parameters of your pricing model. Staying ahead of the curve is a prerequisite for success.
+
+The strategic pricing cycle: **Price → Measure → Iterate**.
 
 ## Ready to Level Up Your Pricing?
 
-Are you a growing tech company seeking expert pricing advice? Look no further! Let's work together to create a pricing strategy that drives growth and success for your business. Contact me to discuss your challenge.
+Are you a growing tech company seeking expert pricing advice? You're in the right place. Let's work together to create a pricing strategy that drives growth and success for your business. Contact me to discuss your challenges.
 
 [Contact me](mailto:info@yourpricing.pro)
 
