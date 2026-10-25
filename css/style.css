@@ -906,6 +906,21 @@ button {
 	}
 }
 
+/* Phones: the 2 x 2 block is centred, columns stay aligned */
+@media (max-width: 767.98px) {
+	.interests {
+		display: grid;
+		grid-template-columns: repeat(2, auto);
+		justify-content: center;
+		column-gap: 40px;
+	}
+
+	.interest {
+		float: none;
+		width: auto;
+	}
+}
+
 .interest_icon {
 	display: flex;
 	align-items: center;
