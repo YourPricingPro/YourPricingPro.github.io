@@ -824,7 +824,7 @@ button {
 @media (max-width: 767.98px) {
 	.about_photo {
 		height: 320px;
-		background-position: center 20%;
+		background-position: center top; /* keep the space above the head, as on desktop */
 	}
 }
 
