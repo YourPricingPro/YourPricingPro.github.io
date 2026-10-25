@@ -1067,10 +1067,13 @@ button {
 	.cta_photo { margin-top: -90px; }
 }
 
+/* Phones: photo under the text, pulled up so the head sits level with the button, to its right */
 @media (max-width: 767.98px) {
 	.cta_photo {
-		justify-self: center;
+		justify-self: end;
 		width: 200px;
+		margin-top: -100px; /* 55px button + 24px text padding + 21px transparent space above the head */
+		pointer-events: none; /* its transparent corner overlaps the button; keep the button clickable */
 	}
 }
 
