@@ -750,16 +750,13 @@ button {
 .stat_icon {
 	position: relative;
 	display: flex;
+	flex: none; /* never squeezed by the text next to it, so it stays a circle */
 	align-items: center;
 	justify-content: center;
 	width: 60px;
 	height: 60px;
 	background: var(--accent);
 	border-radius: 50%;
-}
-
-@media (max-width: 767.98px) {
-	.stat_icon { height: 55px; }
 }
 
 .stat_icon .icon {
@@ -771,10 +768,6 @@ button {
 	position: relative;
 	width: calc(100% - 60px);
 	padding-left: 15px;
-}
-
-@media (max-width: 767.98px) {
-	.stat_text { width: 100%; }
 }
 
 .stat_number {
