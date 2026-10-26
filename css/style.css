@@ -13,6 +13,7 @@
  *   5. Navigation
  *   6. Hero slider
  *   7. Page sections: stats, about, services, illustration, call to action, footer
+ *   8. Contact modal
  */
 
 
@@ -21,8 +22,15 @@
 :root {
 	color-scheme: light dark;
 	--accent: #fd7e14;
-	--accent-pressed: #a24a01;
 	--on-accent: #fff; /* text and icons on orange */
+	/* Buttons: hover and press darken the fill a step each */
+	--accent-hover: #d9640a;
+	--accent-pressed: #a24a01;
+	--btn-ink: #1f2124; /* focus ring on the orange band */
+	--btn-light: var(--bg); /* the button on the orange band: white, with orange text */
+	--btn-light-hover: #fff3e8;
+	--btn-light-pressed: #ffe3cc;
+	--btn-light-text-active: #a24a01; /* hover and press darken its orange text too */
 	--text: #7b7b7b;
 	--heading: rgba(0, 0, 0, 0.9);
 	--ink: #000; /* strongest text: hero title, labels, nav links */
@@ -42,8 +50,12 @@
  * on it keeps 4.5:1. Every text pair passes WCAG AA. */
 @media (prefers-color-scheme: dark) {
 	:root {
-		--accent-pressed: #e06d0c; /* the light theme's dark orange is too dark behind dark text */
 		--on-accent: #1f2124; /* white on orange is only 2.6:1 */
+		--accent-hover: #ec6c0c; /* lighter than the light theme's: dark text sits on them */
+		--accent-pressed: #e06d0c;
+		--btn-light-hover: #2b2e32; /* the band's button is page grey here and darkens */
+		--btn-light-pressed: #1f2124;
+		--btn-light-text-active: var(--accent);
 		--text: #dfe2e6;
 		--heading: #f7f8f9;
 		--ink: #f7f8f9;
@@ -218,35 +230,74 @@ button {
 	box-shadow: 0 24px 36px -11px rgba(0, 0, 0, 0.09);
 	cursor: pointer;
 	user-select: none;
-	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, transform 0.15s ease-in-out;
 }
 
+/* Every button: hover lifts it with a darker fill, press sets it back down with the darkest fill */
 .btn:hover {
 	text-decoration: none;
+	box-shadow: 0 8px 18px -6px rgba(0, 0, 0, 0.3);
+	transform: translateY(-1px);
+}
+
+.btn:active {
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+	transform: translateY(1px);
+	transition-duration: 0.05s; /* a press should feel instant */
+}
+
+.btn:focus-visible {
+	outline-color: var(--ink); /* the orange ring would blend into an orange button */
 }
 
 @media (prefers-reduced-motion: reduce) {
 	.btn { transition: none; }
+	.btn:hover,
+	.btn:active { transform: none; }
 }
 
+/* :focus is listed so the global a:focus orange text can't win on a focused link button */
 .btn--primary,
-.btn--primary:hover,
 .btn--primary:focus {
 	color: var(--on-accent);
 	background: var(--accent);
 	border-color: var(--accent);
 }
 
-.btn--primary:active {
-	background: var(--accent-pressed);
+.btn--primary:hover {
+	color: var(--on-accent);
+	background: var(--accent-hover);
+	border-color: var(--accent-hover);
 }
 
+.btn--primary:active {
+	background: var(--accent-pressed);
+	border-color: var(--accent-pressed);
+}
+
+/* For the orange band: white, or the grey page colour in dark mode */
 .btn--white,
-.btn--white:hover,
 .btn--white:focus {
 	color: var(--accent);
-	background: var(--bg); /* white, or the grey page colour in dark mode */
-	border-color: var(--bg);
+	background: var(--btn-light);
+	border-color: var(--btn-light);
+}
+
+.btn--white:hover {
+	color: var(--btn-light-text-active);
+	background: var(--btn-light-hover);
+	border-color: var(--btn-light-hover);
+}
+
+.btn--white:active {
+	color: var(--btn-light-text-active);
+	background: var(--btn-light-pressed);
+	border-color: var(--btn-light-pressed);
+}
+
+.btn:disabled {
+	box-shadow: none;
+	transform: none;
 }
 
 .btn--large {
@@ -1132,7 +1183,7 @@ button {
 }
 
 .cta :focus-visible {
-	outline-color: var(--on-accent); /* the default orange ring would vanish on the orange band */
+	outline-color: var(--btn-ink); /* the default orange ring would vanish on the orange band; dark keeps 6.3:1 */
 }
 
 .cta h2 {
@@ -1178,4 +1229,189 @@ button {
 
 .site-footer p {
 	color: rgba(255, 255, 255, 0.7);
+}
+
+
+/* 8. Contact modal ---------------------------------------------------------
+ * A native <dialog> that main.js opens with showModal(), so it sits above the
+ * whole page (sticky nav included), keeps focus inside and closes on Esc.
+ * main.js sets .has-modal on <html> while it is open.
+ */
+
+html.has-modal {
+	overflow: hidden; /* the page behind doesn't scroll */
+}
+
+.contact-modal {
+	width: min(560px, calc(100% - 32px));
+	max-height: calc(100% - 32px);
+	padding: 0;
+	color: var(--text);
+	background: var(--bg-card);
+	border: none;
+	border-radius: 0.3rem;
+	box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.25);
+	overflow-y: auto;
+	overscroll-behavior: contain;
+}
+
+.contact-modal::backdrop {
+	background: rgba(0, 0, 0, 0.35);
+	-webkit-backdrop-filter: blur(4px);
+	backdrop-filter: blur(4px);
+}
+
+@media (prefers-color-scheme: dark) {
+	.contact-modal::backdrop { background: rgba(0, 0, 0, 0.5); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.contact-modal[open] { animation: modal-in 0.3s ease-out; }
+	.contact-modal[open]::backdrop { animation: fade-in 0.3s ease-out; }
+}
+
+@keyframes modal-in {
+	from {
+		opacity: 0;
+		transform: translate3d(0, 20px, 0);
+	}
+}
+
+@keyframes fade-in {
+	from { opacity: 0; }
+}
+
+.contact-modal_card {
+	position: relative;
+	padding: 40px;
+}
+
+@media (max-width: 575.98px) {
+	.contact-modal_card { padding: 30px 20px; }
+}
+
+.contact-modal_close {
+	position: absolute;
+	top: 12px;
+	right: 12px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 40px;
+	height: 40px;
+	padding: 0;
+	color: var(--text);
+	background: transparent;
+	border: none;
+	border-radius: 50%;
+	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
+}
+
+.contact-modal_close:hover,
+.contact-modal_close:focus-visible {
+	color: var(--ink);
+	background: color-mix(in srgb, var(--ink) 8%, transparent);
+}
+
+/* Keyboard focus: a grey ring instead of the orange one, which looked loud on this small button */
+.contact-modal_close:focus-visible {
+	outline-color: color-mix(in srgb, var(--ink) 45%, transparent);
+}
+
+.contact-modal:focus {
+	outline: none; /* main.js focuses the dialog itself on open */
+}
+
+.contact-modal_close svg {
+	width: 20px;
+	height: 20px;
+	fill: none;
+	stroke: currentColor;
+	stroke-width: 2;
+	stroke-linecap: round;
+}
+
+.contact-modal h2 {
+	margin-bottom: 0.75rem;
+	padding-right: 40px; /* clear of the close button */
+	font-size: 30px;
+	font-weight: 600;
+}
+
+@media (max-width: 575.98px) {
+	.contact-modal h2 { font-size: 26px; }
+}
+
+.contact-modal h2:focus {
+	outline: none; /* focused by main.js only to announce the thank-you message */
+}
+
+.contact-done p {
+	margin-bottom: 1.5rem;
+}
+
+.contact-form_trap {
+	display: none; /* web3forms honeypot: only bots tick it */
+}
+
+.contact-form_field {
+	margin-bottom: 1.25rem;
+}
+
+.contact-form_field label {
+	display: block;
+	margin-bottom: 0.35rem;
+	font-size: 14px;
+	font-weight: 600;
+	color: var(--ink);
+}
+
+.contact-form_field input,
+.contact-form_field textarea {
+	display: block;
+	width: 100%;
+	margin: 0;
+	padding: 0.75rem 1rem;
+	font-family: inherit;
+	font-size: 16px; /* 16px or more, so iPhones don't zoom in on focus */
+	line-height: 1.5;
+	color: var(--ink);
+	background: var(--bg);
+	border: 1px solid color-mix(in srgb, var(--text) 40%, transparent);
+	border-radius: 5px;
+	transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.contact-form_field textarea {
+	min-height: 12rem;
+	resize: vertical;
+}
+
+.contact-form_field input:focus,
+.contact-form_field textarea:focus {
+	outline: none;
+	border-color: var(--accent);
+	box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent);
+}
+
+.contact-form_error {
+	padding: 0.75rem 1rem;
+	font-size: 14px;
+	color: var(--ink);
+	background: color-mix(in srgb, #dc3545 12%, transparent);
+	border-left: 3px solid #dc3545;
+	border-radius: 5px;
+}
+
+.contact-form_error a {
+	color: inherit; /* orange is under 4.5:1 on the red tint; the underline still marks the link */
+}
+
+.contact-form_submit:disabled {
+	opacity: 0.7;
+	cursor: progress;
+}
+
+@media (max-width: 575.98px) {
+	.contact-modal .btn { width: 100%; }
 }
