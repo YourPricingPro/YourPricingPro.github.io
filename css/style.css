@@ -22,8 +22,14 @@
 :root {
 	color-scheme: light dark;
 	--accent: #fd7e14;
-	--accent-pressed: #a24a01;
 	--on-accent: #fff; /* text and icons on orange */
+	/* Buttons, the same in both themes: dark text, as white on orange is only 2.6:1.
+	 * Hover and press darken the fill a step each, keeping the text above 4.5:1 */
+	--btn-ink: #1f2124;
+	--btn-hover: #ec6c0c; /* 5.2:1 with --btn-ink */
+	--btn-pressed: #e06309; /* 4.6:1 */
+	--btn-light-hover: #ffe1c7; /* the white button on the orange band: peach, 13:1 */
+	--btn-light-pressed: #ffc999; /* 10.8:1 */
 	--text: #7b7b7b;
 	--heading: rgba(0, 0, 0, 0.9);
 	--ink: #000; /* strongest text: hero title, labels, nav links */
@@ -43,7 +49,6 @@
  * on it keeps 4.5:1. Every text pair passes WCAG AA. */
 @media (prefers-color-scheme: dark) {
 	:root {
-		--accent-pressed: #e06d0c; /* the light theme's dark orange is too dark behind dark text */
 		--on-accent: #1f2124; /* white on orange is only 2.6:1 */
 		--text: #dfe2e6;
 		--heading: #f7f8f9;
@@ -219,35 +224,73 @@ button {
 	box-shadow: 0 24px 36px -11px rgba(0, 0, 0, 0.09);
 	cursor: pointer;
 	user-select: none;
-	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, transform 0.15s ease-in-out;
 }
 
+/* Every button: hover lifts it with a darker fill, press sets it back down with the darkest fill */
 .btn:hover {
 	text-decoration: none;
+	box-shadow: 0 8px 18px -6px rgba(0, 0, 0, 0.3);
+	transform: translateY(-1px);
+}
+
+.btn:active {
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+	transform: translateY(1px);
+	transition-duration: 0.05s; /* a press should feel instant */
+}
+
+.btn:focus-visible {
+	outline-color: var(--ink); /* the orange ring would blend into an orange button */
 }
 
 @media (prefers-reduced-motion: reduce) {
 	.btn { transition: none; }
+	.btn:hover,
+	.btn:active { transform: none; }
 }
 
+/* :focus is listed so the global a:focus orange text can't win on a focused link button */
 .btn--primary,
-.btn--primary:hover,
 .btn--primary:focus {
-	color: var(--on-accent);
+	color: var(--btn-ink);
 	background: var(--accent);
 	border-color: var(--accent);
 }
 
-.btn--primary:active {
-	background: var(--accent-pressed);
+.btn--primary:hover {
+	color: var(--btn-ink);
+	background: var(--btn-hover);
+	border-color: var(--btn-hover);
 }
 
+.btn--primary:active {
+	background: var(--btn-pressed);
+	border-color: var(--btn-pressed);
+}
+
+/* For the orange band: white in both themes */
 .btn--white,
-.btn--white:hover,
 .btn--white:focus {
-	color: var(--accent);
-	background: var(--bg); /* white, or the grey page colour in dark mode */
-	border-color: var(--bg);
+	color: var(--btn-ink);
+	background: #fff;
+	border-color: #fff;
+}
+
+.btn--white:hover {
+	color: var(--btn-ink);
+	background: var(--btn-light-hover);
+	border-color: var(--btn-light-hover);
+}
+
+.btn--white:active {
+	background: var(--btn-light-pressed);
+	border-color: var(--btn-light-pressed);
+}
+
+.btn:disabled {
+	box-shadow: none;
+	transform: none;
 }
 
 .btn--large {
@@ -1133,7 +1176,7 @@ button {
 }
 
 .cta :focus-visible {
-	outline-color: var(--on-accent); /* the default orange ring would vanish on the orange band */
+	outline-color: var(--btn-ink); /* the default orange ring would vanish on the orange band; dark keeps 6.3:1 */
 }
 
 .cta h2 {
