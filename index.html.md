@@ -75,7 +75,7 @@ The strategic pricing cycle: **Price → Measure → Iterate**.
 
 Are you a growing tech company seeking expert pricing advice? You're in the right place. Let's work together to create a pricing strategy that drives growth and success for your business. Contact me to discuss your challenges.
 
-[Contact me](mailto:info@yourpricing.pro)
+[Contact me](mailto:info@yourpricing.pro) — by email, or through the contact form on the [website](https://yourpricing.pro/#contact-section).
 
 ---
 

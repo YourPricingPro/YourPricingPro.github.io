@@ -250,6 +250,79 @@
 	reveal();
 
 
+	// Contact form: [data-contact] buttons open it in a modal dialog (their mailto: links stay as
+	// the no-JS fallback); it posts to web3forms as JSON, so the visitor stays on the page
+	var contactForm = function () {
+		var modal = $('[data-contact-modal]');
+		if (!modal || !modal.showModal) return;
+		var form = $('[data-contact-form]', modal);
+		var error = $('[data-contact-error]', modal);
+		var done = $('[data-contact-done]', modal);
+		var submit = $('[type=submit]', form);
+		var label = submit.textContent, busy = false;
+
+		var open = function () {
+			if (!done.hidden) { form.reset(); form.hidden = false; done.hidden = true; } // start over after a sent message
+			error.hidden = true;
+			modal.showModal();
+			modal.focus(); // showModal() would focus the close button and show its focus ring straight away
+			document.documentElement.classList.add('has-modal');
+		};
+		modal.addEventListener('close', function () { document.documentElement.classList.remove('has-modal'); });
+
+		// delegated, so it also catches the hero buttons on the slider's cloned slides
+		document.addEventListener('click', function (e) {
+			if (!e.target.closest('[data-contact]')) return;
+			e.preventDefault();
+			open();
+		});
+		$$('[data-contact-close]', modal).forEach(function (btn) {
+			btn.addEventListener('click', function () { modal.close(); });
+		});
+		// a click on the blurred backdrop lands on the dialog itself; ignore drags that start inside the card
+		var downOnBackdrop = false;
+		modal.addEventListener('pointerdown', function (e) { downOnBackdrop = e.target === modal; });
+		modal.addEventListener('click', function (e) {
+			if (e.target === modal && downOnBackdrop) modal.close();
+		});
+
+		form.addEventListener('submit', function (e) {
+			e.preventDefault();
+			if (busy) return;
+			busy = true;
+			error.hidden = true;
+			submit.disabled = true;
+			submit.textContent = 'Sending…';
+
+			fetch(form.action, {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+				body: JSON.stringify(Object.fromEntries(new FormData(form)))
+			})
+				.then(function (response) {
+					return response.json().then(function (json) {
+						if (!response.ok || !json.success) throw new Error(json.message || json.error || response.status);
+					});
+				})
+				.then(function () {
+					form.hidden = true;
+					done.hidden = false;
+					$('h2', done).focus();
+				})
+				.catch(function (err) {
+					console.error('Contact form:', err);
+					error.hidden = false; // the visitor's text stays in the form for another try
+				})
+				.then(function () {
+					busy = false;
+					submit.disabled = false;
+					submit.textContent = label;
+				});
+		});
+	};
+	contactForm();
+
+
 	// Footer year
 	$$('[data-year]').forEach(function (el) { el.textContent = new Date().getFullYear(); });
 

@@ -52,7 +52,7 @@
 					<div class="slide_text">
 						<span class="slide_eyebrow">Hello! I'm Pavel</span>
 						<h1 class="slide_title">Software <span>Pricing</span> Consultant &amp; Advisor</h1>
-						<p><a class="btn btn--primary"
+						<p><a class="btn btn--primary" data-contact
 								href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#105;&#110;&#102;&#111;&#64;&#121;&#111;&#117;&#114;&#112;&#114;&#105;&#99;&#105;&#110;&#103;&#46;&#112;&#114;&#111;?subject=Pricing%20help%20needed!&body=Dear%20Pavel,%0A">Get
 								pricing help now!</a></p>
 					</div>
@@ -67,7 +67,7 @@
 					<div class="slide_text">
 						<span class="slide_eyebrow">Your Pricing Pro</span>
 						<h1 class="slide_title">I'm <span>Pavel</span>, and pricing is what I do best</h1>
-						<p><a class="btn btn--primary"
+						<p><a class="btn btn--primary" data-contact
 								href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#105;&#110;&#102;&#111;&#64;&#121;&#111;&#117;&#114;&#112;&#114;&#105;&#99;&#105;&#110;&#103;&#46;&#112;&#114;&#111;?subject=Pricing%20help%20needed!&body=Dear%20Pavel,%0A">Get
 								pricing help now!</a></p>
 					</div>
@@ -306,13 +306,58 @@
 					together to create a pricing strategy that drives growth and success for your business.
 					Contact me to discuss your challenges.
 				</p>
-				<p><a class="btn btn--white btn--large"
+				<p><a class="btn btn--white btn--large" data-contact
 						href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#105;&#110;&#102;&#111;&#64;&#121;&#111;&#117;&#114;&#112;&#114;&#105;&#99;&#105;&#110;&#103;&#46;&#112;&#114;&#111;?subject=Pricing%20consultation%20question&body=Dear%20Pavel,%0A">Contact
 						me</a></p>
 			</div>
 			<img class="cta_photo" src="images/author.png" alt="">
 		</div>
 	</section>
+
+	<!-- Contact form: a modal dialog opened by the [data-contact] buttons, sent through web3forms -->
+
+	<dialog class="contact-modal" id="contact-modal" tabindex="-1" aria-labelledby="contact-title" data-contact-modal>
+		<div class="contact-modal_card">
+			<button class="contact-modal_close" type="button" aria-label="Close" data-contact-close>
+				<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+			</button>
+			<form class="contact-form" action="https://api.web3forms.com/submit" method="POST" data-contact-form>
+				<input type="hidden" name="access_key" value="305aff0a-ae7c-4290-9ef5-ddfe26e67bcb">
+				<input type="hidden" name="subject" value="Request from YourPricing.Pro">
+				<input type="hidden" name="from_name" value="Website Form">
+				<input type="checkbox" name="botcheck" class="contact-form_trap" tabindex="-1" autocomplete="off">
+
+				<span class="eyebrow">Contact</span>
+				<h2 id="contact-title">Let's talk pricing</h2>
+				<p>Tell me a little about your company and the pricing challenge you're facing.</p>
+
+				<div class="contact-form_field">
+					<label for="contact-name">Name</label>
+					<input type="text" id="contact-name" name="name" autocomplete="name" required>
+				</div>
+				<div class="contact-form_field">
+					<label for="contact-email">Email</label>
+					<input type="email" id="contact-email" name="email" autocomplete="email" required>
+				</div>
+				<div class="contact-form_field">
+					<label for="contact-message">Message</label>
+					<textarea id="contact-message" name="message" rows="8" required></textarea>
+				</div>
+
+				<p class="contact-form_error" role="alert" hidden data-contact-error>
+					Sorry, your message couldn't be sent. Please try again, or email me at
+					<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#105;&#110;&#102;&#111;&#64;&#121;&#111;&#117;&#114;&#112;&#114;&#105;&#99;&#105;&#110;&#103;&#46;&#112;&#114;&#111;">&#105;&#110;&#102;&#111;&#64;&#121;&#111;&#117;&#114;&#112;&#114;&#105;&#99;&#105;&#110;&#103;&#46;&#112;&#114;&#111;</a>.
+				</p>
+				<button class="btn btn--primary btn--large contact-form_submit" type="submit">Send message</button>
+			</form>
+			<div class="contact-done" hidden data-contact-done>
+				<span class="eyebrow">Thank you</span>
+				<h2 tabindex="-1">Message sent!</h2>
+				<p>Thanks for reaching out. I'll get back to you soon.</p>
+				<button class="btn btn--primary btn--large" type="button" data-contact-close>Close</button>
+			</div>
+		</div>
+	</dialog>
 
 	<!-- Footer -->
 
