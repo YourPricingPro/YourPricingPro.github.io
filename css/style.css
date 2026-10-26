@@ -22,7 +22,10 @@
 :root {
 	color-scheme: light dark;
 	--accent: #fd7e14;
-	--on-accent: #fff; /* text and icons on orange */
+	--on-accent: #1f2124; /* text and icons on orange: white on it is only 2.6:1 */
+	/* Orange text on white is only 2.6:1 too, so light mode uses darker oranges for text */
+	--accent-text: #b84f00; /* small text: 5.1:1 on white, 4.7:1 on the grey sections */
+	--accent-large: #e06309; /* headings of 24px and up, which need 3:1: 3.5:1 on white */
 	/* Buttons, the same in both themes: dark text, as white on orange is only 2.6:1.
 	 * Hover and press darken the fill a step each, keeping the text above 4.5:1 */
 	--btn-ink: #1f2124;
@@ -49,7 +52,8 @@
  * on it keeps 4.5:1. Every text pair passes WCAG AA. */
 @media (prefers-color-scheme: dark) {
 	:root {
-		--on-accent: #1f2124; /* white on orange is only 2.6:1 */
+		--accent-text: var(--accent); /* 4.6:1 on the page grey */
+		--accent-large: var(--accent);
 		--text: #dfe2e6;
 		--heading: #f7f8f9;
 		--ink: #f7f8f9;
@@ -203,7 +207,7 @@ button {
 	font-weight: 700;
 	letter-spacing: 3px;
 	text-transform: uppercase;
-	color: var(--accent);
+	color: var(--accent-text);
 }
 
 
@@ -744,7 +748,7 @@ button {
 	font-weight: 600;
 	letter-spacing: 3px;
 	text-transform: uppercase;
-	color: var(--accent);
+	color: var(--accent-text);
 }
 
 .slide_title {
@@ -756,7 +760,13 @@ button {
 }
 
 .slide_title span {
-	color: var(--accent);
+	color: var(--accent-large);
+}
+
+/* Below lg the hero text sits on the photo, not on white: keep the bright orange there */
+@media (max-width: 991.98px) {
+	.slide_eyebrow,
+	.slide_title span { color: var(--accent); }
 }
 
 @media (max-width: 991.98px) {
@@ -1256,6 +1266,7 @@ html.has-modal {
 
 @media (prefers-color-scheme: dark) {
 	.contact-modal::backdrop { background: rgba(0, 0, 0, 0.5); }
+	.contact-modal .eyebrow { color: #ffa75f; } /* the orange is only 3.5:1 on the lighter card grey; this is 4.7:1 */
 }
 
 @media (prefers-reduced-motion: no-preference) {
