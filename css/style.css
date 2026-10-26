@@ -19,16 +19,41 @@
 /* 1. Theme variables ------------------------------------------------------ */
 
 :root {
+	color-scheme: light dark;
 	--accent: #fd7e14;
 	--accent-pressed: #a24a01;
+	--on-accent: #fff; /* text and icons on orange */
 	--text: #7b7b7b;
 	--heading: rgba(0, 0, 0, 0.9);
+	--ink: #000; /* strongest text: hero title, labels, nav links */
 	--bg: #fff;
 	--bg-alt: #f6f6f7;
+	--bg-card: #fff;
 	--bg-footer: #232931;
+	--bg-nav: #fff; /* the menu bar once it sticks to the top */
 	--font: "Poppins", Arial, sans-serif;
 	--shadow-card: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
 	--gutter: 30px;
+}
+
+/* Dark theme, following the device setting. Mid-dark greys rather than near-black, so the
+ * photos on light-grey walls don't glare, with a darker menu bar and footer framing the page.
+ * The orange is the light theme's; the page grey is as light as it can be while orange text
+ * on it keeps 4.5:1. Every text pair passes WCAG AA. */
+@media (prefers-color-scheme: dark) {
+	:root {
+		--accent-pressed: #e06d0c; /* the light theme's dark orange is too dark behind dark text */
+		--on-accent: #1f2124; /* white on orange is only 2.6:1 */
+		--text: #dfe2e6;
+		--heading: #f7f8f9;
+		--ink: #f7f8f9;
+		--bg: #35383d;
+		--bg-alt: #2b2e32; /* a shade darker than the page, like the light theme's grey sections */
+		--bg-card: #45494f;
+		--bg-footer: #1b1d20;
+		--bg-nav: #1b1d20;
+		--shadow-card: 0 0.5rem 1rem rgba(0, 0, 0, 0.3);
+	}
 }
 
 
@@ -207,7 +232,7 @@ button {
 .btn--primary,
 .btn--primary:hover,
 .btn--primary:focus {
-	color: #fff;
+	color: var(--on-accent);
 	background: var(--accent);
 	border-color: var(--accent);
 }
@@ -220,8 +245,8 @@ button {
 .btn--white:hover,
 .btn--white:focus {
 	color: var(--accent);
-	background: #fff;
-	border-color: #fff;
+	background: var(--bg); /* white, or the grey page colour in dark mode */
+	border-color: var(--bg);
 }
 
 .btn--large {
@@ -270,7 +295,7 @@ button {
  */
 
 .site-nav {
-	--nav-fg: #000;
+	--nav-fg: var(--ink);
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -293,6 +318,11 @@ button {
 	}
 }
 
+/* Dark mode: a solid dark bar at every width (on desktop the hero photo starts below it) */
+@media (prefers-color-scheme: dark) {
+	.site-nav { background: var(--bg-nav); }
+}
+
 @media (min-width: 992px) {
 	.site-nav {
 		flex-wrap: nowrap;
@@ -301,11 +331,11 @@ button {
 }
 
 .site-nav.is-sticky {
-	--nav-fg: #000;
+	--nav-fg: var(--ink);
 	position: fixed;
 	margin-top: -130px;
 	padding: 0 15px;
-	background: #fff;
+	background: var(--bg-nav);
 	box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
 }
 
@@ -364,7 +394,7 @@ button {
 }
 
 .site-nav.is-sticky .site-nav_toggle {
-	color: rgba(0, 0, 0, 0.5);
+	color: color-mix(in srgb, var(--ink) 50%, transparent);
 }
 
 @media (min-width: 992px) {
@@ -589,23 +619,23 @@ button {
 	.slide_photo { background-position: 58% center; }
 }
 
-/* White slanted panels along the photo's left edge */
+/* Slanted panels in the page colour along the photo's left edge */
 .slide_shape {
 	position: absolute;
 	left: -9%;
 	width: 260px;
-	height: 50%;
-	background: #fff;
+	height: calc(50% + 2px); /* 1px past the photo edge and 1px overlap in the middle, so no photo shows through the anti-aliased seams */
+	background: var(--bg);
 	border-right: 15px solid rgba(0, 0, 0, 0.1);
 }
 
 .slide_shape--top {
-	top: 0;
+	top: -1px;
 	transform: skewX(20deg);
 }
 
 .slide_shape--bottom {
-	bottom: 0;
+	bottom: -1px;
 	transform: skewX(-20deg);
 }
 
@@ -678,7 +708,7 @@ button {
 	font-size: 55px;
 	font-weight: 800;
 	line-height: 1.2;
-	color: #000;
+	color: var(--ink);
 }
 
 .slide_title span {
@@ -700,7 +730,7 @@ button {
 	font-size: 20px;
 	font-weight: 400;
 	line-height: 1.5;
-	color: rgba(0, 0, 0, 0.8);
+	color: color-mix(in srgb, var(--ink) 80%, transparent);
 }
 
 @media (max-width: 991.98px) {
@@ -708,6 +738,43 @@ button {
 		font-size: 23px;
 		color: rgba(255, 255, 255, 0.7);
 	}
+}
+
+
+/* Dark mode, desktop: light text can't sit on the light wall in the photos, so the photo
+ * moves out from under the title. It starts below the nav (which then sits on the page colour
+ * with light links) and gets narrower, with the title and button on the page colour beside it.
+ * Sizes are measured so the chevron clears both the title and the person in both photos. */
+@media (prefers-color-scheme: dark) and (min-width: 992px) {
+	.slide_photo {
+		width: 60%;
+		height: calc(100% - 82px); /* starts under the 82px menu bar */
+		background-position: 40% center;
+		box-shadow: none; /* it would draw a line along the photo's top edge on the grey */
+	}
+
+	.slide_shape {
+		left: -90px; /* -9% is too little on the narrower photo: the skew would uncover its left edge */
+		width: 195px;
+		border-right-color: color-mix(in srgb, var(--bg) 85%, #000); /* solid: the light wall would show through the translucent band */
+	}
+
+	.slide_text { max-width: 480px; }
+
+	.slide_title { font-size: 44px; }
+}
+
+@media (prefers-color-scheme: dark) and (min-width: 1200px) {
+	.slide_photo {
+		width: calc(50% + 60px); /* left edge follows the centred 1200px content */
+		background-position: 30% 20%; /* on wide screens the photo is cropped top and bottom: keep the space above the head */
+	}
+
+	.slide_shape { width: 250px; }
+
+	.slide_text { max-width: 60%; }
+
+	.slide_title { font-size: 55px; }
 }
 
 
@@ -761,7 +828,7 @@ button {
 
 .stat_icon .icon {
 	font-size: 30px;
-	color: #fff;
+	color: var(--on-accent);
 }
 
 .stat_text {
@@ -776,7 +843,7 @@ button {
 	font-size: 30px;
 	font-weight: 700;
 	line-height: 1;
-	color: rgba(0, 0, 0, 0.8);
+	color: color-mix(in srgb, var(--ink) 80%, transparent);
 }
 
 .stat_label {
@@ -821,6 +888,11 @@ button {
 	}
 }
 
+/* Dark mode: tone down the bright wall and white shirt a little next to the grey page */
+@media (prefers-color-scheme: dark) {
+	.about_photo { filter: brightness(0.9); }
+}
+
 .about_body {
 	padding: 3rem 0 4rem;
 }
@@ -862,7 +934,7 @@ button {
 .info-list_label {
 	width: 130px;
 	font-weight: 600;
-	color: #000;
+	color: var(--ink);
 }
 
 .info-list_value {
@@ -929,7 +1001,7 @@ button {
 .interest_label {
 	padding-left: 5px;
 	font-weight: 600;
-	color: #000;
+	color: var(--ink);
 }
 
 /* Services: grid of cards, 1 / 2 / 4 per row */
@@ -951,7 +1023,7 @@ button {
 	width: 100%;
 	margin-bottom: 60px;
 	padding: 30px;
-	background: #fff;
+	background: var(--bg-card);
 	border-radius: 0.3rem;
 	box-shadow: var(--shadow-card);
 	transition: 0.3s;
@@ -995,11 +1067,11 @@ button {
 }
 
 .service-card:hover h3 {
-	color: #fff;
+	color: var(--on-accent);
 }
 
 .service-card:hover p {
-	color: rgba(255, 255, 255, 0.8);
+	color: color-mix(in srgb, var(--on-accent) 80%, transparent);
 }
 
 /* Floated diagram inside a text block */
@@ -1034,7 +1106,7 @@ button {
 /* Call to action: orange band with text and photo */
 .cta {
 	padding: 0;
-	color: rgba(255, 255, 255, 0.9);
+	color: color-mix(in srgb, var(--on-accent) 90%, transparent);
 	background: var(--accent);
 }
 
@@ -1060,13 +1132,13 @@ button {
 }
 
 .cta :focus-visible {
-	outline-color: #fff; /* the default orange ring would vanish on the orange band */
+	outline-color: var(--on-accent); /* the default orange ring would vanish on the orange band */
 }
 
 .cta h2 {
 	font-size: 34px;
 	font-weight: 600;
-	color: #fff;
+	color: var(--on-accent);
 }
 
 @media (max-width: 767.98px) {
