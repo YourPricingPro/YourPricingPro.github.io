@@ -3,13 +3,14 @@
  *
  * Breakpoints (media queries can't use variables):
  *   sm 576px · md 768px · lg 992px · xl 1200px
- *   "below md" = max-width: 767.98px, "below lg" = max-width: 991.98px, "below xl" = max-width: 1199.98px
+ *   "below sm" = max-width: 575.98px, "below md" = max-width: 767.98px,
+ *   "below lg" = max-width: 991.98px, "below xl" = max-width: 1199.98px
  *
  * Sections:
  *   1. Theme variables
  *   2. Base elements
- *   3. Layout: container, section, section heading
- *   4. Components: buttons, reveal animation
+ *   3. Layout: container, section, section heading, eyebrow
+ *   4. Components: buttons, icons, reveal animation
  *   5. Navigation
  *   6. Hero slider
  *   7. Page sections: stats, about, services, illustration, call to action, footer
@@ -21,27 +22,38 @@
 
 :root {
 	color-scheme: light dark;
+
+	/* Accent (orange) and the colours used on it */
 	--accent: #fd7e14;
 	--on-accent: #fff; /* text and icons on orange */
-	/* Buttons: hover and press darken the fill a step each */
-	--accent-hover: #d9640a;
+	--accent-hover: #d9640a; /* buttons: hover and press darken the fill a step each */
 	--accent-pressed: #a24a01;
-	--btn-ink: #1f2124; /* focus ring on the orange band */
-	--btn-light: var(--bg); /* the button on the orange band: white, with orange text */
+	--focus-on-accent: #1f2124; /* focus ring on the orange band */
+
+	/* The light button on the orange band: white with orange text */
+	--btn-light: var(--bg);
 	--btn-light-hover: #fff3e8;
 	--btn-light-pressed: #ffe3cc;
 	--btn-light-text-active: #a24a01; /* hover and press darken its orange text too */
+
+	/* Text */
 	--text: #7b7b7b;
 	--heading: rgba(0, 0, 0, 0.9);
 	--ink: #000; /* strongest text: hero title, labels, nav links */
+	--danger: #dc3545;
+
+	/* Backgrounds */
 	--bg: #fff;
 	--bg-alt: #f6f6f7;
 	--bg-card: #fff;
 	--bg-footer: #232931;
 	--bg-nav: #fff; /* the menu bar once it sticks to the top */
+
+	/* Type and layout */
 	--font: "Poppins", Arial, sans-serif;
 	--shadow-card: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
 	--gutter: 30px;
+	--hero-height: 750px;
 }
 
 /* Dark theme, following the device setting. Mid-dark greys rather than near-black, so the
@@ -123,13 +135,11 @@ strong {
 a {
 	color: var(--accent);
 	text-decoration: underline;
-	background-color: transparent;
 	transition: 0.3s;
 }
 
 a:hover,
 a:focus {
-	color: var(--accent);
 	text-decoration: none;
 }
 
@@ -142,7 +152,6 @@ a:focus {
 
 img {
 	vertical-align: middle;
-	border-style: none;
 }
 
 button {
@@ -150,11 +159,7 @@ button {
 	font-family: inherit;
 	font-size: inherit;
 	line-height: inherit;
-	text-transform: none;
-	border-radius: 0;
-	overflow: visible;
 	cursor: pointer;
-	-webkit-appearance: button;
 }
 
 
@@ -215,6 +220,7 @@ button {
 
 /* 4. Components ----------------------------------------------------------- */
 
+/* Buttons: .btn plus a colour (.btn--primary, .btn--white) and optionally .btn--large */
 .btn {
 	display: inline-block;
 	padding: 0.375rem 0.75rem;
@@ -233,9 +239,8 @@ button {
 	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, transform 0.15s ease-in-out;
 }
 
-/* Every button: hover lifts it with a darker fill, press sets it back down with the darkest fill */
+/* Hover lifts the button with a darker fill; press sets it back down with the darkest fill */
 .btn:hover {
-	text-decoration: none;
 	box-shadow: 0 8px 18px -6px rgba(0, 0, 0, 0.3);
 	transform: translateY(-1px);
 }
@@ -250,15 +255,20 @@ button {
 	outline-color: var(--ink); /* the orange ring would blend into an orange button */
 }
 
+.btn:disabled {
+	box-shadow: none;
+	transform: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
 	.btn { transition: none; }
+
 	.btn:hover,
 	.btn:active { transform: none; }
 }
 
-/* :focus is listed so the global a:focus orange text can't win on a focused link button */
-.btn--primary,
-.btn--primary:focus {
+/* Orange button */
+.btn--primary {
 	color: var(--on-accent);
 	background: var(--accent);
 	border-color: var(--accent);
@@ -275,9 +285,8 @@ button {
 	border-color: var(--accent-pressed);
 }
 
-/* For the orange band: white, or the grey page colour in dark mode */
-.btn--white,
-.btn--white:focus {
+/* Button for the orange band: white, or the grey page colour in dark mode */
+.btn--white {
 	color: var(--accent);
 	background: var(--btn-light);
 	border-color: var(--btn-light);
@@ -295,16 +304,11 @@ button {
 	border-color: var(--btn-light-pressed);
 }
 
-.btn:disabled {
-	box-shadow: none;
-	transform: none;
-}
-
 .btn--large {
 	padding: 1rem 1.5rem;
 }
 
-/* Inline Tabler outline icon (images/icons/tabler), sized by font-size and coloured by color like an icon font:
+/* Inline Tabler outline icon, sized by font-size and coloured by color like an icon font:
  * <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="..."/></svg> */
 .icon {
 	display: inline-block;
@@ -343,25 +347,19 @@ button {
 
 
 /* 5. Navigation ------------------------------------------------------------
- * Transparent over the hero on desktop, black bar on mobile.
- * main.js adds .is-sticky after 150px of scrolling (fixed, hidden above the
- * viewport), .is-visible after 350px (slides in) and .is-leaving when
- * scrolling back up (slides out).
+ * Transparent over the hero on desktop, a black bar on mobile and a dark bar in dark mode.
+ * main.js adds .is-sticky after 150px of scrolling (fixed, hidden above the viewport),
+ * .is-visible after 350px (slides in) and .is-leaving when scrolling back up (slides out).
  */
 
 .site-nav {
-	--nav-fg: var(--ink);
+	--nav-fg: var(--ink); /* brand and link colour */
 	position: absolute;
 	top: 0;
 	left: 0;
 	right: 0;
 	z-index: 3;
-	display: flex;
-	flex-wrap: wrap;
-	align-items: center;
-	justify-content: space-between;
 	padding: 0.5rem 1rem;
-	background: transparent;
 }
 
 @media (max-width: 991.98px) {
@@ -376,13 +374,6 @@ button {
 /* Dark mode: a solid dark bar at every width (on desktop the hero photo starts below it) */
 @media (prefers-color-scheme: dark) {
 	.site-nav { background: var(--bg-nav); }
-}
-
-@media (min-width: 992px) {
-	.site-nav {
-		flex-wrap: nowrap;
-		justify-content: flex-start;
-	}
 }
 
 .site-nav.is-sticky {
@@ -403,6 +394,7 @@ button {
 	transition: 0.3s ease-out;
 }
 
+/* Brand on the left, menu (or its toggle on mobile) on the right */
 .site-nav_inner {
 	display: flex;
 	flex-wrap: wrap;
@@ -418,9 +410,7 @@ button {
 	.site-nav_inner { flex-wrap: nowrap; }
 }
 
-.site-nav_brand,
-.site-nav_brand:hover,
-.site-nav_brand:focus {
+.site-nav_brand {
 	display: inline-block;
 	margin-right: 1rem;
 	padding: 0.7rem 0;
@@ -436,12 +426,11 @@ button {
 	padding: 1rem 0;
 }
 
+/* Hamburger button, mobile only */
 .site-nav_toggle {
 	padding: 0.25rem 0 0.25rem 0.75rem;
 	font-size: 16px;
 	line-height: 1;
-	letter-spacing: 0.1em;
-	text-transform: uppercase;
 	color: rgba(255, 255, 255, 0.5);
 	background: transparent;
 	border: none;
@@ -461,7 +450,7 @@ button {
 	.site-nav_toggle { display: none; }
 }
 
-/* Collapsible on mobile (main.js toggles .is-open, animating via .is-animating) */
+/* Menu: collapsible on mobile (main.js toggles .is-open, animating via .is-animating) */
 .site-nav_menu {
 	flex-basis: 100%;
 	flex-grow: 1;
@@ -507,9 +496,7 @@ button {
 	.site-nav_list { flex-direction: row; }
 }
 
-.site-nav_link,
-.site-nav_link:hover,
-.site-nav_link:focus {
+.site-nav_link {
 	display: block;
 	padding: 0.7rem 20px;
 	font-size: 14px;
@@ -520,14 +507,11 @@ button {
 }
 
 @media (max-width: 991.98px) {
-	.site-nav_link,
-	.site-nav_link:hover,
-	.site-nav_link:focus { padding: 0 0 1rem; }
-
+	.site-nav_link { padding: 0 0 1rem; }
 	.site-nav.is-sticky .site-nav_link { padding-bottom: 20px; }
 }
 
-/* Underline that grows in on hover */
+/* Orange underline that grows in on hover */
 .site-nav_link span {
 	position: relative;
 	display: block;
@@ -565,9 +549,8 @@ button {
 	position: relative;
 	z-index: 0;
 	width: 100%;
-	height: 750px;
+	height: var(--hero-height);
 	overflow: hidden;
-	-webkit-tap-highlight-color: transparent;
 }
 
 .hero-slider_viewport {
@@ -576,32 +559,32 @@ button {
 	transform: translate3d(0, 0, 0);
 }
 
+/* Row of all slides; main.js sets its width and slides it with transform */
 .hero-slider_track {
 	position: relative;
 	display: flex;
 	touch-action: manipulation;
 }
 
+/* Slides other than the current one are dimmed while they slide past */
 .hero-slider_item {
 	position: relative;
 	flex: none;
-	min-height: 1px;
 	opacity: 0.4;
 	backface-visibility: hidden;
 	transform: translate3d(0, 0, 0);
-	-webkit-tap-highlight-color: transparent;
 }
 
 .hero-slider_item.is-active {
 	opacity: 1;
 }
 
+/* Dots: shown on touch screens only (below 992px) */
 .hero-slider_dots {
 	position: absolute;
 	left: 0;
 	right: 0;
 	bottom: 40px;
-	width: 100%;
 	text-align: center;
 }
 
@@ -619,7 +602,6 @@ button {
 	height: 10px;
 	margin: 5px;
 	padding: 0;
-	color: inherit;
 	background: rgba(255, 255, 255, 0.4);
 	border: none;
 	border-radius: 50%;
@@ -630,6 +612,7 @@ button {
 	background: #fff;
 }
 
+/* Thin ring around each dot */
 .hero-slider_dot::after {
 	content: "";
 	position: absolute;
@@ -649,7 +632,7 @@ button {
 	flex-wrap: wrap;
 	align-items: flex-end;
 	justify-content: flex-end;
-	height: 750px;
+	height: var(--hero-height);
 }
 
 @media (max-width: 991.98px) {
@@ -660,7 +643,7 @@ button {
 	position: relative;
 	z-index: -1;
 	width: 75%;
-	height: 750px;
+	height: var(--hero-height);
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;
@@ -703,6 +686,7 @@ button {
 	.slide_shape { display: none; }
 }
 
+/* Text layer over the photo */
 .slide_content {
 	position: absolute;
 	top: 0;
@@ -742,6 +726,7 @@ button {
 	width: 100%;
 }
 
+/* Desktop: vertically centred in the left part of the slide */
 @media (min-width: 992px) {
 	.slide_text {
 		position: absolute;
@@ -763,6 +748,7 @@ button {
 	color: var(--accent);
 }
 
+/* The title's <span> is the orange highlighted word */
 .slide_title {
 	margin: 1rem 0 1.5rem;
 	font-size: 55px;
@@ -775,6 +761,7 @@ button {
 	color: var(--accent);
 }
 
+/* Below lg the text sits on the photo, so it turns white */
 @media (max-width: 991.98px) {
 	.slide_title {
 		font-size: 50px;
@@ -788,7 +775,6 @@ button {
 
 .slide_text p {
 	font-size: 20px;
-	font-weight: 400;
 	line-height: 1.5;
 	color: color-mix(in srgb, var(--ink) 80%, transparent);
 }
@@ -799,7 +785,6 @@ button {
 		color: rgba(255, 255, 255, 0.7);
 	}
 }
-
 
 /* Dark mode, desktop: light text can't sit on the light wall in the photos, so the photo
  * moves out from under the title. It starts below the nav (which then sits on the page colour
@@ -840,7 +825,7 @@ button {
 
 /* 7. Page sections -------------------------------------------------------- */
 
-/* Stats: animated counters under the hero */
+/* Stats: animated counters under the hero, 4 in a row from md */
 .stats {
 	position: relative;
 	z-index: 0;
@@ -862,6 +847,7 @@ button {
 	.stats_grid { padding-left: 15%; }
 }
 
+/* One stat: round icon, with the number and label beside it */
 .stat {
 	display: flex;
 }
@@ -914,7 +900,7 @@ button {
 	color: var(--accent);
 }
 
-/* About: photo on the left, intro + details on the right */
+/* About: photo on the left, intro + details on the right; one column on phones */
 .about {
 	position: relative;
 }
@@ -1004,7 +990,7 @@ button {
 	color: var(--accent);
 }
 
-/* Interests row: round icon + label */
+/* Interests: round icon + label; one row from xl, 2 x 2 below */
 .interests {
 	width: 100%;
 	margin-top: 30px;
@@ -1081,8 +1067,8 @@ button {
 	.services { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 
+/* One card, with its round icon overlapping the top edge; turns orange on hover */
 .service-card {
-	width: 100%;
 	margin-bottom: 60px;
 	padding: 30px;
 	background: var(--bg-card);
@@ -1100,7 +1086,6 @@ button {
 	height: 80px;
 	margin-top: -60px;
 	margin-bottom: 15px;
-	line-height: 1.3;
 	background: var(--accent);
 	border-radius: 50%;
 	box-shadow: var(--shadow-card);
@@ -1135,7 +1120,7 @@ button {
 	color: color-mix(in srgb, var(--on-accent) 80%, transparent);
 }
 
-/* Floated diagram inside a text block */
+/* Diagram floated beside the text of a .section-heading--with-figure */
 .illustration {
 	display: block;
 	float: right;
@@ -1154,21 +1139,34 @@ button {
 		order: 1;
 	}
 
-	#why-section .section-heading {
+	.section-heading--with-figure {
 		display: flex;
 		flex-direction: column;
 	}
 
-	#why-section .section-heading > p:last-child {
+	.section-heading--with-figure > p:last-child {
 		order: 2;
 	}
 }
 
 /* Call to action: orange band with text and photo */
 .cta {
-	padding: 0;
 	color: color-mix(in srgb, var(--on-accent) 90%, transparent);
 	background: var(--accent);
+}
+
+.cta :focus-visible {
+	outline-color: var(--focus-on-accent); /* the default orange ring would vanish on the orange band; dark keeps 6.3:1 */
+}
+
+.cta h2 {
+	font-size: 34px;
+	font-weight: 600;
+	color: var(--on-accent);
+}
+
+@media (max-width: 767.98px) {
+	.cta h2 { font-size: 28px; }
 }
 
 /* Text 8/12 + photo 4/12 with a gutter between them; on phones the photo goes under the text */
@@ -1192,20 +1190,7 @@ button {
 	margin-bottom: 0;
 }
 
-.cta :focus-visible {
-	outline-color: var(--btn-ink); /* the default orange ring would vanish on the orange band; dark keeps 6.3:1 */
-}
-
-.cta h2 {
-	font-size: 34px;
-	font-weight: 600;
-	color: var(--on-accent);
-}
-
-@media (max-width: 767.98px) {
-	.cta h2 { font-size: 28px; }
-}
-
+/* Desktop: the photo rises above the band */
 .cta_photo {
 	align-self: end;
 	max-width: 100%;
@@ -1232,7 +1217,6 @@ button {
 	position: relative;
 	z-index: 0;
 	padding: 1em 0 0;
-	font-size: 16px;
 	text-align: center;
 	background: var(--bg-footer);
 }
@@ -1265,6 +1249,11 @@ html.has-modal {
 	overscroll-behavior: contain;
 }
 
+.contact-modal:focus {
+	outline: none; /* main.js focuses the dialog itself on open */
+}
+
+/* Dimmed, blurred page behind the dialog */
 .contact-modal::backdrop {
 	background: rgba(0, 0, 0, 0.35);
 	-webkit-backdrop-filter: blur(4px);
@@ -1275,6 +1264,7 @@ html.has-modal {
 	.contact-modal::backdrop { background: rgba(0, 0, 0, 0.5); }
 }
 
+/* Opening animation: the card rises in as the backdrop fades in */
 @media (prefers-reduced-motion: no-preference) {
 	.contact-modal[open] { animation: modal-in 0.3s ease-out; }
 	.contact-modal[open]::backdrop { animation: fade-in 0.3s ease-out; }
@@ -1300,6 +1290,7 @@ html.has-modal {
 	.contact-modal_card { padding: 24px 20px; }
 }
 
+/* Round × button in the top right corner */
 .contact-modal_close {
 	position: absolute;
 	top: 12px;
@@ -1328,17 +1319,9 @@ html.has-modal {
 	outline-color: color-mix(in srgb, var(--ink) 45%, transparent);
 }
 
-.contact-modal:focus {
-	outline: none; /* main.js focuses the dialog itself on open */
-}
-
-.contact-modal_close svg {
-	width: 20px;
-	height: 20px;
-	fill: none;
-	stroke: currentColor;
+.contact-modal_close .icon {
+	font-size: 20px;
 	stroke-width: 2;
-	stroke-linecap: round;
 }
 
 .contact-modal h2 {
@@ -1356,6 +1339,7 @@ html.has-modal {
 	outline: none; /* focused by main.js only to announce the thank-you message */
 }
 
+/* Thank-you panel shown after the message is sent */
 .contact-done p {
 	margin-bottom: 1.5rem;
 }
@@ -1364,6 +1348,7 @@ html.has-modal {
 	display: none; /* web3forms honeypot: only bots tick it */
 }
 
+/* Label above a full-width input */
 .contact-form_field {
 	margin-bottom: 1.25rem;
 }
@@ -1393,7 +1378,8 @@ html.has-modal {
 }
 
 /* Shrinks on short screens (phones, tablets in landscape) so the whole form fits without scrolling;
- * 37rem is roughly everything else in the modal */
+ * 37rem is roughly everything else in the modal. The first height is the fallback for browsers
+ * without dvh units. */
 .contact-form_field textarea {
 	height: 13.5rem;
 	height: clamp(7rem, 100dvh - 37rem, 13.5rem);
@@ -1411,8 +1397,8 @@ html.has-modal {
 	padding: 0.75rem 1rem;
 	font-size: 14px;
 	color: var(--ink);
-	background: color-mix(in srgb, #dc3545 12%, transparent);
-	border-left: 3px solid #dc3545;
+	background: color-mix(in srgb, var(--danger) 12%, transparent);
+	border-left: 3px solid var(--danger);
 	border-radius: 5px;
 }
 
@@ -1425,6 +1411,7 @@ html.has-modal {
 	cursor: progress;
 }
 
+/* Phones: full-width buttons and tighter fields */
 @media (max-width: 575.98px) {
 	.contact-modal .btn { width: 100%; }
 	.contact-form_field { margin-bottom: 1rem; }
