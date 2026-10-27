@@ -14,6 +14,8 @@ llms.txt, index.html.md, robots.txt, sitemap.xml, CNAME
 
 GitHub Pages serves the `master` branch root. Work on `dev`, then open a PR `dev → master`; merging it deploys the site.
 
+Browsers and Cloudflare cache `style.css` and `main.js` for up to 4 hours. When a release changes either file, bump the `?v=` date on its link in `index.html` (e.g. `css/style.css?v=2026-10-27`), so visitors fetch the new file along with the new page.
+
 To preview locally, open `index.html` in a browser, or serve the folder (`python3 -m http.server`) and open http://localhost:8000.
 
 ## Styling conventions
