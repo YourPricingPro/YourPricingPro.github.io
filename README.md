@@ -6,7 +6,8 @@ One-page static site. No frameworks, no build step: edit the files and push.
 index.html        the page
 css/style.css     all styles (theme variables at the top)
 js/main.js        all behaviour (no dependencies)
-images/           photos, service icons, favicon, diagram
+images/           photos, favicon, diagram
+images/icons/tabler/  the Tabler outline icon set (MIT), the source for every icon on the page
 llms.txt, index.html.md, robots.txt, sitemap.xml, CNAME
 ```
 
@@ -14,7 +15,7 @@ llms.txt, index.html.md, robots.txt, sitemap.xml, CNAME
 
 GitHub Pages serves the `master` branch root. Work on `dev`, then open a PR `dev → master`; merging it deploys the site.
 
-Browsers and Cloudflare cache `style.css` and `main.js` for up to 4 hours. When a release changes either file, bump the `?v=` date on its link in `index.html` (e.g. `css/style.css?v=2026-10-27`), so visitors fetch the new file along with the new page.
+Browsers and Cloudflare cache `style.css` and `main.js` for up to 4 hours. When a release changes either file, bump the `?v=` date on its link in `index.html` (e.g. `css/style.css?v=2026-10-27`), so visitors fetch the new file along with the new page. For a second release on the same day, add a letter (`?v=2026-10-27b`).
 
 To preview locally, open `index.html` in a browser, or serve the folder (`python3 -m http.server`) and open http://localhost:8000.
 
@@ -52,7 +53,7 @@ Add another card inside `.services` (the grid places 1 / 2 / 4 per row automatic
 
 ```html
 <div class="service-card">
-	<div class="service-card_icon"><img src="images/icons/strategy.png" alt="…"></div>
+	<div class="service-card_icon"><svg class="icon" …></svg></div>
 	<h3>Title</h3>
 	<p>Description.</p>
 </div>
@@ -82,7 +83,15 @@ Copy a `.slide` inside `.hero-slider`. The slider loops, autoplays every 5s, pau
 
 ### Icons
 
-Icons are inline SVG with class `icon`; they take their size from `font-size` and colour from `color`, like an icon font. Paste any SVG icon (e.g. from fontawesome.com) as `<svg class="icon" viewBox="…" aria-hidden="true"><path d="…"/></svg>`.
+Every icon comes from [Tabler Icons](https://tabler.io/icons) (outline style, v3.31, MIT licence), so they all share one look. The whole set is in `images/icons/tabler/`, with its `LICENSE`; browse and search it at tabler.io/icons, then take the file of the same name from that folder.
+
+Icons are inline SVG with class `icon`; they take their size from `font-size` and colour from `color`, like an icon font. The `.icon` rule draws them as 1.5px lines with rounded ends, so copy only the `d` values of the file's `<path>` elements (skip the first, `M0 0h24v24H0z`, an invisible bounding box) into one path:
+
+```html
+<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 8l-4 4l4 4 M17 8l4 4l-4 4 M14 4l-4 16" /></svg>
+```
+
+Don't mix in icons from other sets (Font Awesome, Flaticon, …): that's how the page ended up with three different styles before.
 
 ## Behaviour (js/main.js)
 
