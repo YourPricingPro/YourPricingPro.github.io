@@ -1287,7 +1287,7 @@ html.has-modal {
 }
 
 @media (max-width: 575.98px) {
-	.contact-modal_card { padding: 30px 20px; }
+	.contact-modal_card { padding: 24px 20px; }
 }
 
 .contact-modal_close {
@@ -1382,8 +1382,11 @@ html.has-modal {
 	transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
+/* Shrinks on short screens (phones, tablets in landscape) so the whole form fits without scrolling;
+ * 37rem is roughly everything else in the modal */
 .contact-form_field textarea {
-	min-height: 12rem;
+	height: 13.5rem;
+	height: clamp(7rem, 100dvh - 37rem, 13.5rem);
 	resize: vertical;
 }
 
@@ -1414,4 +1417,5 @@ html.has-modal {
 
 @media (max-width: 575.98px) {
 	.contact-modal .btn { width: 100%; }
+	.contact-form_field { margin-bottom: 1rem; }
 }
