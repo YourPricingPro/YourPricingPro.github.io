@@ -6,9 +6,11 @@ One-page static site. No frameworks, no build step: edit the files and push.
 index.html        the page
 css/style.css     all styles (theme variables at the top)
 js/main.js        all behaviour (no dependencies)
-images/           photos, favicon, diagram
-images/icons/tabler/  the Tabler outline icon set (MIT), the source for every icon on the page
-llms.txt, index.html.md, robots.txt, sitemap.xml, CNAME
+images/           photos, favicon, diagram, Tabler icon licence
+llms.txt, index.html.md   plain-text and Markdown versions of the page for LLMs
+robots.txt, sitemap.xml, CNAME
+.editorconfig, .gitattributes   formatting rules: tabs, LF line endings, final newline
+src/              local only (git-ignored): design sources, original photos, the full Tabler icon set
 ```
 
 ## Publishing
@@ -83,7 +85,7 @@ Copy a `.slide` inside `.hero-slider`. The slider loops, autoplays every 5s, pau
 
 ### Icons
 
-Every icon comes from [Tabler Icons](https://tabler.io/icons) (outline style, v3.31, MIT licence), so they all share one look. The whole set is in `images/icons/tabler/`, with its `LICENSE`; browse and search it at tabler.io/icons, then take the file of the same name from that folder.
+Every icon comes from [Tabler Icons](https://tabler.io/icons) (outline style, v3.31, MIT licence), so they all share one look. Browse and search the set at tabler.io/icons and download the outline SVG (a local copy of the whole set is in `src/icons/tabler/`). The licence is in `images/icons/tabler-LICENSE`.
 
 Icons are inline SVG with class `icon`; they take their size from `font-size` and colour from `color`, like an icon font. The `.icon` rule draws them as 1.5px lines with rounded ends, so copy only the `d` values of the file's `<path>` elements (skip the first, `M0 0h24v24H0z`, an invisible bounding box) into one path:
 
@@ -102,4 +104,5 @@ Don't mix in icons from other sets (Font Awesome, Flaticon, …): that's how the
 | `data-nav-toggle="#id"` | Mobile menu button; animates the target open/closed and closes it when one of its links is followed |
 | `.reveal` | Fades the element up when it scrolls into view (staggered by 50ms) |
 | `data-counters` / `data-count` | Counts numbers up over 7s when the section scrolls into view |
+| `data-contact` | Opens the contact form in a modal dialog instead of following the `mailto:` link (which stays as the fallback without JavaScript); the form posts to web3forms |
 | `data-year` | Filled with the current year |
