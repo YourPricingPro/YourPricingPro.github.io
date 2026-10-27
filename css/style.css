@@ -304,14 +304,18 @@ button {
 	padding: 1rem 1.5rem;
 }
 
-/* Inline SVG icon, sized by font-size and coloured by color like an icon font:
- * <svg class="icon" viewBox="..." aria-hidden="true"><path d="..."/></svg> */
+/* Inline Tabler outline icon (images/icons/tabler), sized by font-size and coloured by color like an icon font:
+ * <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="..."/></svg> */
 .icon {
 	display: inline-block;
-	width: auto;
+	width: 1em;
 	height: 1em;
-	vertical-align: -0.143em;
-	fill: currentColor;
+	vertical-align: -0.125em;
+	fill: none;
+	stroke: currentColor;
+	stroke-width: 1.5;
+	stroke-linecap: round;
+	stroke-linejoin: round;
 }
 
 /* Fades an element up when it scrolls into view (main.js adds .is-revealed) */
@@ -442,6 +446,11 @@ button {
 	background: transparent;
 	border: none;
 	border-radius: 0.25rem;
+}
+
+.site-nav_toggle .icon {
+	font-size: 24px;
+	stroke-width: 2;
 }
 
 .site-nav.is-sticky .site-nav_toggle {
@@ -880,6 +889,7 @@ button {
 .stat_icon .icon {
 	font-size: 30px;
 	color: var(--on-accent);
+	stroke-width: 1.75; /* small icons need a heavier line to look as bold as the 40px ones */
 }
 
 .stat_text {
@@ -1047,6 +1057,7 @@ button {
 .interest_icon .icon {
 	font-size: 18px;
 	color: #000;
+	stroke-width: 2;
 }
 
 .interest_label {
@@ -1096,10 +1107,9 @@ button {
 	transition: 0.3s;
 }
 
-.service-card_icon img {
-	width: 40px;
-	height: 40px;
-	object-fit: contain;
+.service-card_icon .icon {
+	font-size: 40px;
+	color: #000;
 }
 
 .service-card h3 {
