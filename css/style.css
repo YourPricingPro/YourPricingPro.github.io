@@ -94,10 +94,6 @@ html {
 	text-size-adjust: 100%;
 	-webkit-tap-highlight-color: transparent;
 	scroll-padding-top: 75px; /* height of the sticky navbar, so menu links don't hide section tops under it */
-	/* html and body take the footer colour: iOS Safari paints it past the page ends and under its
-	 * floating toolbar (it reads body's colour, so html alone isn't enough), and the footer seems
-	 * to run to the screen edge. <main> paints the page itself */
-	background: var(--bg-footer);
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -111,11 +107,6 @@ body {
 	font-weight: 400;
 	line-height: 1.8;
 	color: var(--text);
-	background: var(--bg-footer);
-}
-
-main {
-	display: block;
 	background: var(--bg);
 }
 
@@ -177,8 +168,7 @@ button {
 .container {
 	width: 100%;
 	margin: 0 auto;
-	/* viewport-fit=cover lets the page run under a landscape iPhone's notch: keep text clear of it */
-	padding: 0 max(15px, env(safe-area-inset-right)) 0 max(15px, env(safe-area-inset-left));
+	padding: 0 15px;
 }
 
 @media (min-width: 576px) { .container { max-width: 540px; } }
@@ -1227,7 +1217,7 @@ button {
 	display: flow-root;
 	position: relative;
 	z-index: 0;
-	padding: 1em 0 env(safe-area-inset-bottom);
+	padding: 1em 0 0;
 	text-align: center;
 	background: var(--bg-footer);
 }
