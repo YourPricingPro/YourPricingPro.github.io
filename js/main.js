@@ -275,8 +275,10 @@
 		};
 
 		window.addEventListener('scroll', onScroll, { passive: true });
-		// Re-measure after crossing a breakpoint (the bar is in the flow on mobile only)
-		window.addEventListener('resize', () => {
+		// Re-measure after crossing the breakpoint (the bar is in the flow on mobile only). Not on
+		// every resize: iOS Safari fires one whenever its toolbars grow or shrink during a scroll,
+		// and releasing the bar for a moment there flashed it black
+		matchMedia('(max-width: 991.98px)').addEventListener('change', () => {
 			if (!bar.classList.contains('is-sticky')) return;
 			stick(false);
 			onScroll();

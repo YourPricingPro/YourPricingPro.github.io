@@ -94,6 +94,9 @@ html {
 	text-size-adjust: 100%;
 	-webkit-tap-highlight-color: transparent;
 	scroll-padding-top: 75px; /* height of the sticky navbar, so menu links don't hide section tops under it */
+	/* The canvas takes the footer colour: Safari shows it past the page ends and under its
+	 * floating toolbar, so the footer seems to run to the screen edge. body paints the page itself */
+	background: var(--bg-footer);
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -168,7 +171,8 @@ button {
 .container {
 	width: 100%;
 	margin: 0 auto;
-	padding: 0 15px;
+	/* viewport-fit=cover lets the page run under a landscape iPhone's notch: keep text clear of it */
+	padding: 0 max(15px, env(safe-area-inset-right)) 0 max(15px, env(safe-area-inset-left));
 }
 
 @media (min-width: 576px) { .container { max-width: 540px; } }
@@ -385,13 +389,14 @@ button {
 	box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
 }
 
+/* Only the slide animates: colours switch at once, so the bar never fades from black to white */
 .site-nav.is-sticky.is-visible {
 	margin-top: 0;
-	transition: 0.3s ease-out;
+	transition: margin-top 0.3s ease-out;
 }
 
 .site-nav.is-sticky.is-leaving {
-	transition: 0.3s ease-out;
+	transition: margin-top 0.3s ease-out;
 }
 
 /* Brand on the left, menu (or its toggle on mobile) on the right */
@@ -1216,7 +1221,7 @@ button {
 	display: flow-root;
 	position: relative;
 	z-index: 0;
-	padding: 1em 0 0;
+	padding: 1em 0 env(safe-area-inset-bottom);
 	text-align: center;
 	background: var(--bg-footer);
 }
