@@ -94,8 +94,9 @@ html {
 	text-size-adjust: 100%;
 	-webkit-tap-highlight-color: transparent;
 	scroll-padding-top: 75px; /* height of the sticky navbar, so menu links don't hide section tops under it */
-	/* The canvas takes the footer colour: Safari shows it past the page ends and under its
-	 * floating toolbar, so the footer seems to run to the screen edge. body paints the page itself */
+	/* html and body take the footer colour: iOS Safari paints it past the page ends and under its
+	 * floating toolbar (it reads body's colour, so html alone isn't enough), and the footer seems
+	 * to run to the screen edge. <main> paints the page itself */
 	background: var(--bg-footer);
 }
 
@@ -110,6 +111,11 @@ body {
 	font-weight: 400;
 	line-height: 1.8;
 	color: var(--text);
+	background: var(--bg-footer);
+}
+
+main {
+	display: block;
 	background: var(--bg);
 }
 
