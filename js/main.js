@@ -86,7 +86,7 @@
 		// Shift the track to px over speed ms (0 = at once)
 		const setOffset = (px, speed) => {
 			track.style.transition = speed ? speed / 1000 + 's' : '0s';
-			track.style.transform = `translate3d(${px}px, 0px, 0px)`;
+			track.style.transform = `translateX(${px}px)`;
 		};
 
 		// Show items[index] and mark it and its dot as active
@@ -265,7 +265,7 @@
 		const SHOW = 350;
 		const bar = $('[data-nav]');
 		if (!bar) return;
-		const mobile = matchMedia('(max-width: 991.98px)'); // style.css keeps the bar in the page flow below lg
+		const mobile = matchMedia('(width < 992px)'); // style.css keeps the bar in the page flow below lg
 
 		// Fix or release the bar. On mobile the bar is part of the page flow: keep its space while
 		// it is fixed, so the content doesn't jump up (and anchor links land below the bar)
