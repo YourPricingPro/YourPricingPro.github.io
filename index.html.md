@@ -59,7 +59,7 @@ Ensuring your pricing organization, tools, and processes enable efficient, well-
 
 ### CPQ implementation
 
-Defining comprehensive pricing requirements for a new Configure, Price, Quote (CPQ) tool and price-list implementation.
+Defining comprehensive pricing requirements for a new CPQ (quoting) tool and price-list implementation.
 
 ## Why Work With Me
 
@@ -80,9 +80,9 @@ The strategic pricing cycle: **Price → Measure → Iterate**.
 
 And a dozen small startups.
 
-## Ready to Level Up Your Pricing?
+## Ready to Rock & Roll?
 
-Are you a growing tech company seeking expert pricing advice? You're in the right place. Let's work together to create a pricing strategy that drives growth and success for your business. Contact me to discuss your challenges.
+Are you a growing tech company looking to level up your pricing? You're in the right place. Let's build a pricing strategy that helps your business grow. I'm only two clicks away (yes, I counted)!
 
 [Contact me](mailto:info@yourpricing.pro) — by email, or through the contact form on the [website](https://yourpricing.pro/#contact-section).
 

@@ -14,7 +14,7 @@
  *   4. Components: buttons, icons, reveal animation
  *   5. Navigation
  *   6. Hero slider
- *   7. Page sections: stats, about, services, illustration, clients, call to action, footer
+ *   7. Page sections: stats, about, services, illustration, clients, call to action, 404, footer
  *   8. Contact modal
  */
 
@@ -1140,7 +1140,7 @@ button {
 	color: var(--accent);
 }
 
-/* Interests: round icon + label; one row from xl, 2 x 2 below */
+/* Interests: round icon + label; one row from lg, 2 x 2 below */
 .interests {
 	width: 100%;
 	margin-top: 30px;
@@ -1299,7 +1299,7 @@ button {
 	}
 }
 
-/* Clients: a cloud of logos. The spots in the cloud belong to the 1st…5th list item, so main.js can
+/* Clients: a cloud of logos. The spots in the cloud belong to the 1st…4th list item, so main.js can
  * shuffle the logos between them on every load ([data-shuffle]). Each .client--name only sets its
  * width (--w, picked so the logos look equally heavy rather than equally wide) and float timing.
  * A spot's nudge out of the grid (--x, --y) uses `translate`, which stacks with the reveal
