@@ -30,7 +30,8 @@
 	 * Loops through the slides, autoplays, pauses on hover and can be swiped on touch screens.
 	 * The track holds three copies of the slides (clones, originals, clones). When a move lands
 	 * on a clone, the track jumps without animation to the matching original, so the loop is
-	 * seamless in both directions.
+	 * seamless in both directions. The clones are hidden from screen readers and the Tab key, and
+	 * their titles are <p>s (they look the same), so the page keeps a single <h1>.
 	 */
 
 	const slider = (root) => {
@@ -53,8 +54,19 @@
 
 		const wrap = (slide, isClone) => {
 			const item = document.createElement('div');
-			item.className = 'hero-slider_item' + (isClone ? ' is-clone' : '');
-			item.appendChild(isClone ? slide.cloneNode(true) : slide);
+			item.className = 'hero-slider_item';
+			if (isClone) {
+				slide = slide.cloneNode(true);
+				item.setAttribute('aria-hidden', 'true');
+				$$('a, button', slide).forEach((el) => { el.tabIndex = -1; });
+				$$('h1', slide).forEach((h1) => {
+					const p = document.createElement('p');
+					p.className = h1.className;
+					p.append(...h1.childNodes);
+					h1.replaceWith(p);
+				});
+			}
+			item.appendChild(slide);
 			return item;
 		};
 		slides.forEach((slide) => track.appendChild(wrap(slide, true)));
@@ -189,13 +201,13 @@
 
 
 	/* 3. Mobile menu ------------------------------------------------------
-	 * The toggle button animates the menu's height open or closed. During the animation the
-	 * menu has .is-animating and an inline height; afterwards .is-open keeps it open.
+	 * The toggle button animates the menu (named by its aria-controls) open or closed. During the
+	 * animation the menu has .is-animating and an inline height; afterwards .is-open keeps it open.
 	 */
 
 	const menu = () => {
 		const toggle = $('[data-nav-toggle]');
-		const nav = toggle && $(toggle.getAttribute('data-nav-toggle'));
+		const nav = toggle && document.getElementById(toggle.getAttribute('aria-controls'));
 		if (!nav) return;
 		let busy = false; // ignore clicks while the menu is animating
 
@@ -253,12 +265,12 @@
 		const SHOW = 350;
 		const bar = $('[data-nav]');
 		if (!bar) return;
+		const mobile = matchMedia('(max-width: 991.98px)'); // style.css keeps the bar in the page flow below lg
 
 		// Fix or release the bar. On mobile the bar is part of the page flow: keep its space while
 		// it is fixed, so the content doesn't jump up (and anchor links land below the bar)
 		const stick = (on) => {
-			const inFlow = getComputedStyle(bar).position === 'relative';
-			document.body.style.paddingTop = on && inFlow ? bar.offsetHeight + 'px' : '';
+			document.body.style.paddingTop = on && mobile.matches ? bar.offsetHeight + 'px' : '';
 			bar.classList.toggle('is-sticky', on);
 			if (!on) bar.classList.remove('is-leaving');
 		};
@@ -279,7 +291,7 @@
 		// Re-measure after crossing the breakpoint (the bar is in the flow on mobile only). Not on
 		// every resize: iOS Safari fires one whenever its toolbars grow or shrink during a scroll,
 		// and releasing the bar for a moment there flashed it black
-		matchMedia('(max-width: 991.98px)').addEventListener('change', () => {
+		mobile.addEventListener('change', () => {
 			if (!bar.classList.contains('is-sticky')) return;
 			stick(false);
 			onScroll();
@@ -370,6 +382,7 @@
 		const BATCH = 100; // ms to collect the elements that come into view together
 		const STAGGER = 50;
 		let queue = [];
+		// Every arrival schedules a flush BATCH ms later; a flush reveals everything queued so far
 		whenVisible($$('.reveal'), (el) => {
 			queue.push(el);
 			setTimeout(() => {
@@ -409,9 +422,7 @@
 			error.hidden = true;
 			modal.showModal();
 			modal.focus(); // showModal() would focus the close button and show its focus ring straight away
-			document.documentElement.classList.add('has-modal');
 		};
-		modal.addEventListener('close', () => document.documentElement.classList.remove('has-modal'));
 
 		// Delegated, so it also catches the hero buttons on the slider's cloned slides
 		document.addEventListener('click', (e) => {

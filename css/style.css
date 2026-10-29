@@ -1502,11 +1502,11 @@ button {
 /* 8. Contact modal ---------------------------------------------------------
  * A native <dialog> that main.js opens with showModal(), so it sits above the
  * whole page (sticky nav included), keeps focus inside and closes on Esc.
- * main.js sets .has-modal on <html> while it is open.
  */
 
-html.has-modal {
-	overflow: hidden; /* the page behind doesn't scroll */
+/* The page behind doesn't scroll while the dialog is open */
+html:has(.contact-modal[open]) {
+	overflow: hidden;
 }
 
 .contact-modal {

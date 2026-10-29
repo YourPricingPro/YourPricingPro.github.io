@@ -125,7 +125,7 @@ Don't mix in icons from other sets (Font Awesome, Flaticon, …): that's how the
 |---|---|
 | `data-slider` | Hero slider |
 | `data-nav` | Navbar becomes fixed after 150px of scrolling, slides in after 350px, slides out when scrolling back up |
-| `data-nav-toggle="#id"` | Mobile menu button; animates the target open/closed and closes it when one of its links is followed |
+| `data-nav-toggle` | Mobile menu button; animates the menu named by its `aria-controls` open/closed and closes it when one of its links is followed |
 | `.reveal` | Fades the element up when it scrolls into view (staggered by 50ms) |
 | `data-shuffle` | Puts the element's children in a random order on every page load (the client logos) |
 | `data-counters` / `data-count` | Counts numbers up over 7s when the section scrolls into view |
