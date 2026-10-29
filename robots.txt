@@ -3,5 +3,6 @@ Disallow: /images/about-1.jpg
 Disallow: /images/author.png
 Disallow: /images/bg_1.jpg
 Disallow: /images/bg_2.jpg
+Disallow: /images/clients/
 
 Sitemap: https://yourpricing.pro/sitemap.xml
