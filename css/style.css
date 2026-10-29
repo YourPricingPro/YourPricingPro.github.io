@@ -787,6 +787,18 @@ button {
 	}
 }
 
+/* Light mode, wide screens: the photo fills the slide height up to ~1310px wide; past that
+ * it's cropped top and bottom and the head runs under the menu bar. So keep the space above
+ * the head, and from 1200px the photo stops widening with the page: its left edge (and the
+ * chevron) follows the centred content, which keeps the crop small. */
+@media (prefers-color-scheme: light) and (min-width: 992px) {
+	.slide_photo { background-position: center 10%; }
+}
+
+@media (prefers-color-scheme: light) and (min-width: 1200px) {
+	.slide_photo { width: calc(50% + 300px); } /* = 75% at 1200px, so it doesn't jump */
+}
+
 /* Dark mode, desktop: light text can't sit on the light wall in the photos, so the photo
  * moves out from under the title. It starts below the nav (which then sits on the page colour
  * with light links) and gets narrower, with the title and button on the page colour beside it.
