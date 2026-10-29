@@ -13,7 +13,7 @@
  *   4. Components: buttons, icons, reveal animation
  *   5. Navigation
  *   6. Hero slider
- *   7. Page sections: stats, about, services, illustration, call to action, footer
+ *   7. Page sections: stats, about, services, illustration, clients, call to action, footer
  *   8. Contact modal
  */
 
@@ -1162,6 +1162,111 @@ button {
 	}
 }
 
+/* Clients: a cloud of logos. The spots in the cloud belong to the 1st…5th list item, so main.js can
+ * shuffle the logos between them on every load ([data-shuffle]). Each .client--name only sets its
+ * width (--w, picked so the logos look equally heavy rather than equally wide) and float timing.
+ * A spot's nudge out of the grid (--x, --y) uses `translate`, which stacks with the reveal
+ * animation's `transform` instead of being reset by it. */
+.clients {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	align-items: center;
+	gap: 3rem var(--gutter);
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.client {
+	justify-self: center;
+	translate: var(--x, 0) var(--y, 0);
+}
+
+.client picture {
+	display: block;
+}
+
+/* max-width: a wide logo landing in a narrow spot shrinks to fit it */
+.client img {
+	display: block;
+	width: var(--w);
+	max-width: 100%;
+	height: auto;
+}
+
+/* Phones: 2 + 2, each logo nudged a different way, sideways only inwards so a wide logo never
+ * sticks out of the column (UKG stays under 40px tall: its brand guide's small logo) */
+.client--eightfold { --w: 148px; }
+.client--kyriba { --w: 128px; }
+.client--ukg { --w: 88px; }
+.client--mistral { --w: 160px; }
+
+.client:nth-child(1) { --y: -0.75rem; }
+.client:nth-child(2) { --y: 1rem; }
+.client:nth-child(3) { --x: 0.75rem; --y: 0.25rem; }
+.client:nth-child(4) { --x: -0.5rem; --y: 1.75rem; }
+
+/* From md: four spots on a 12-column grid that line up neither in rows nor in columns: low on
+ * the left, high in the middle, low left of centre, and the right-hand one rising halfway into the
+ * first row. Scattered, but evenly spread, with no clumps or holes */
+@media (min-width: 768px) {
+	.clients {
+		grid-template-columns: repeat(12, 1fr);
+		row-gap: 4.5rem;
+		padding-top: 1rem;
+	}
+
+	.client--eightfold { --w: 222px; }
+	.client--kyriba { --w: 182px; }
+	.client--ukg { --w: 140px; }
+	.client--mistral { --w: 244px; }
+
+	.client:nth-child(1) { --x: 0; --y: 2.25rem; grid-area: 1 / 1 / 2 / 6; }
+	.client:nth-child(2) { --x: 0; --y: -1.25rem; grid-area: 1 / 6 / 2 / 11; }
+	.client:nth-child(3) { --x: 0; --y: 1.25rem; grid-area: 2 / 4 / 3 / 9; }
+	.client:nth-child(4) { --x: 0; --y: -1.75rem; grid-area: 2 / 9 / 3 / 13; }
+}
+
+/* From lg there's room to nudge sideways too; on tablets a wide logo in a right-hand spot would
+ * stick out past the container */
+@media (min-width: 992px) {
+	.client:nth-child(1) { --x: 0.75rem; }
+	.client:nth-child(2) { --x: 2rem; }
+	.client:nth-child(3) { --x: -1.5rem; }
+}
+
+/* Each logo drifts slowly: up and down on the image, side to side on its <picture>. The two
+ * cycles have different lengths, so the path never repeats exactly, and every logo has its own. */
+@media (prefers-reduced-motion: no-preference) {
+	.client img {
+		animation: float-y var(--float-y, 7s) ease-in-out var(--float-delay, 0s) infinite alternate;
+	}
+
+	.client picture {
+		animation: float-x var(--float-x, 13s) ease-in-out var(--float-delay, 0s) infinite alternate;
+	}
+
+	.client--eightfold { --float-y: 6.5s; --float-x: 12s; --float-delay: -2s; }
+	.client--kyriba { --float-y: 8s; --float-x: 14.5s; --float-delay: -5s; }
+	.client--ukg { --float-y: 7s; --float-x: 11s; --float-delay: -1s; }
+	.client--mistral { --float-y: 9s; --float-x: 13s; --float-delay: -6s; }
+}
+
+@keyframes float-y {
+	from { transform: translateY(-7px); }
+	to { transform: translateY(7px); }
+}
+
+@keyframes float-x {
+	from { transform: translateX(-4px); }
+	to { transform: translateX(4px); }
+}
+
+.clients_more {
+	margin: 4.5rem 0 0;
+	font-size: 15px;
+}
+
 /* Call to action: orange band with text and photo */
 .cta {
 	color: color-mix(in srgb, var(--on-accent) 90%, transparent);
@@ -1203,8 +1308,10 @@ button {
 	margin-bottom: 0;
 }
 
-/* Desktop: the photo rises above the band */
+/* Desktop: the photo rises above the band. position: relative lifts it over the section above,
+ * which is positioned too (.section) and would otherwise paint its grey background over the head. */
 .cta_photo {
+	position: relative;
 	align-self: end;
 	max-width: 100%;
 	height: auto;

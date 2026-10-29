@@ -8,9 +8,10 @@
  *   4. Sticky navbar      [data-nav]
  *   5. Scroll trigger     whenVisible(), used by the counters and reveal
  *   6. Counters           [data-counters], [data-count]
- *   7. Reveal             .reveal
- *   8. Contact form       [data-contact], [data-contact-modal]
- *   9. Footer year        [data-year]
+ *   7. Shuffle            [data-shuffle]
+ *   8. Reveal             .reveal
+ *   9. Contact form       [data-contact], [data-contact-modal]
+ *  10. Footer year        [data-year]
  */
 
 (() => {
@@ -340,7 +341,27 @@
 	counters();
 
 
-	/* 7. Reveal -----------------------------------------------------------
+	/* 7. Shuffle ----------------------------------------------------------
+	 * Puts the children of each [data-shuffle] element in a random order on every page load
+	 * (the client logos: style.css places them by position, so each lands in a different spot).
+	 * Runs before reveal, so they also fade in in their new order.
+	 */
+
+	const shuffle = () => {
+		$$('[data-shuffle]').forEach((list) => {
+			const items = [...list.children];
+			// Fisher–Yates: every order is equally likely
+			for (let i = items.length - 1; i > 0; i--) {
+				const j = Math.floor(Math.random() * (i + 1));
+				[items[i], items[j]] = [items[j], items[i]];
+			}
+			list.append(...items);
+		});
+	};
+	shuffle();
+
+
+	/* 8. Reveal -----------------------------------------------------------
 	 * .reveal elements fade up as they scroll into view (style.css animates .is-revealed).
 	 * Elements that come into view together are revealed one after another, STAGGER ms apart.
 	 */
@@ -362,7 +383,7 @@
 	reveal();
 
 
-	/* 8. Contact form -----------------------------------------------------
+	/* 9. Contact form -----------------------------------------------------
 	 * The [data-contact] buttons open the form in a modal dialog (their mailto: links stay as
 	 * the fallback without JavaScript). It posts to web3forms as JSON, so the visitor stays on
 	 * the page, and shows a thank-you panel or an error message.
@@ -443,7 +464,7 @@
 	contactForm();
 
 
-	/* 9. Footer year ------------------------------------------------------ */
+	/* 10. Footer year ----------------------------------------------------- */
 
 	$$('[data-year]').forEach((el) => { el.textContent = new Date().getFullYear(); });
 

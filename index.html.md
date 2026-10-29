@@ -71,6 +71,15 @@ And I don't walk away once the initial work is done. I support my clients contin
 
 The strategic pricing cycle: **Price → Measure → Iterate**.
 
+## Clients I Helped
+
+- Eightfold AI
+- Kyriba
+- UKG
+- Mistral AI
+
+And a dozen of small startups.
+
 ## Ready to Level Up Your Pricing?
 
 Are you a growing tech company seeking expert pricing advice? You're in the right place. Let's work together to create a pricing strategy that drives growth and success for your business. Contact me to discuss your challenges.

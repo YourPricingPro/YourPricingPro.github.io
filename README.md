@@ -6,11 +6,11 @@ One-page static site. No frameworks, no build step: edit the files and push.
 index.html        the page
 css/style.css     all styles (theme variables at the top)
 js/main.js        all behaviour (no dependencies)
-images/           photos, favicon, diagram, Tabler icon licence
+images/           photos, favicon, diagram, client logos, Tabler icon licence
 llms.txt, index.html.md   plain-text and Markdown versions of the page for LLMs
 robots.txt, sitemap.xml, CNAME
 .editorconfig, .gitattributes   formatting rules: tabs, LF line endings, final newline
-src/              local only (git-ignored): design sources, original photos, the full Tabler icon set
+src/              local only (git-ignored): design sources, original photos, the full Tabler icon set, original client logos
 ```
 
 ## Publishing
@@ -75,6 +75,21 @@ Add inside `.stats_grid`. The number counts up from 0 to `data-count`:
 </div>
 ```
 
+### Client logo
+
+Add an `<li>` inside `.clients`. Logos are the companies' official files (sources and brand rules in `src/clients/SOURCES.md`), cropped to the artwork in `images/clients/`, with a separate file for dark backgrounds:
+
+```html
+<li class="client client--acme reveal">
+	<picture>
+		<source media="(prefers-color-scheme: dark)" srcset="images/clients/acme-dark.svg">
+		<img src="images/clients/acme.svg" alt="Acme" width="120" height="40" loading="lazy" decoding="async">
+	</picture>
+</li>
+```
+
+Then give `.client--acme` in `style.css` a width (`--w`, for phones and from md, chosen so it looks as heavy as the others rather than as wide) and its float timing (`--float-y`, `--float-x`, `--float-delay`). The spots in the cloud belong to positions, not logos: `.client:nth-child(n)` sets each spot's place on the 12-column grid from md (`grid-area`) and its nudge (`--x`, `--y`), so another logo also needs another spot. `data-shuffle` on the list puts the logos in a random order on every load, and each one drifts gently unless the visitor has turned on "reduce motion".
+
 ### Hero slide
 
 Copy a `.slide` inside `.hero-slider`. The slider loops, autoplays every 5s, pauses on hover, can be swiped on touch screens, and creates one dot per slide.
@@ -103,6 +118,7 @@ Don't mix in icons from other sets (Font Awesome, Flaticon, …): that's how the
 | `data-nav` | Navbar becomes fixed after 150px of scrolling, slides in after 350px, slides out when scrolling back up |
 | `data-nav-toggle="#id"` | Mobile menu button; animates the target open/closed and closes it when one of its links is followed |
 | `.reveal` | Fades the element up when it scrolls into view (staggered by 50ms) |
+| `data-shuffle` | Puts the element's children in a random order on every page load (the client logos) |
 | `data-counters` / `data-count` | Counts numbers up over 7s when the section scrolls into view |
 | `data-contact` | Opens the contact form in a modal dialog instead of following the `mailto:` link (which stays as the fallback without JavaScript); the form posts to web3forms |
 | `data-year` | Filled with the current year |
