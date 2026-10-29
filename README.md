@@ -4,11 +4,13 @@ One-page static site. No frameworks, no build step: edit the files and push.
 
 ```
 index.html        the page
-css/style.css     all styles (theme variables at the top)
+404.html          "page not found", served by GitHub Pages for any missing URL (absolute paths only)
+css/style.css     all styles (fonts and theme variables at the top)
 js/main.js        all behaviour (no dependencies)
-images/           photos, favicon, diagram, client logos, Tabler icon licence
+fonts/            Poppins, self-hosted (woff2, Latin and Latin Extended subsets) and its licence
+images/           photos, favicons, link-preview image (og.jpg), diagram, client logos, Tabler icon licence
 llms.txt, index.html.md   plain-text and Markdown versions of the page for LLMs
-robots.txt, sitemap.xml, CNAME
+robots.txt, sitemap.xml, site.webmanifest, CNAME
 .editorconfig, .gitattributes   formatting rules: tabs, LF line endings, final newline
 src/              local only (git-ignored): design sources, original photos, the full Tabler icon set, original client logos
 ```
@@ -18,6 +20,13 @@ src/              local only (git-ignored): design sources, original photos, the
 GitHub Pages serves the `master` branch root. Work on `dev`, then open a PR `dev → master`; merging it deploys the site.
 
 Browsers and Cloudflare cache `style.css` and `main.js` for up to 4 hours. When a release changes either file, bump the `?v=` date on its link in `index.html` (e.g. `css/style.css?v=2026-10-27`), so visitors fetch the new file along with the new page. For a second release on the same day, add a letter (`?v=2026-10-27b`).
+
+When a release changes the page's content, set `<lastmod>` in `sitemap.xml` to the release date. Google and Bing only trust `lastmod` if it changes when the content does.
+
+### Cloudflare settings (dashboard, not in this repo)
+
+- **Cache rule** (Caching → Cache Rules): when the query string contains `v=`, or the URI path starts with `/fonts/`, set Edge TTL and Browser TTL to 1 year. Versioned CSS/JS and the fonts never change under the same URL. When the URI path starts with `/images/`, use 30 days; image names aren't versioned, so give a changed image a new file name.
+- **Response header rule** (Rules → Transform Rules → Modify Response Header): when the URI path equals `/index.html.md`, set `Link` to `<https://yourpricing.pro/>; rel="canonical"`, so search engines treat the Markdown copy as a duplicate of the page instead of indexing it on its own (LLM crawlers can still read it).
 
 To preview locally, open `index.html` in a browser, or serve the folder (`python3 -m http.server`) and open http://localhost:8000.
 
@@ -63,13 +72,13 @@ Add another card inside `.services` (the grid places 1 / 2 / 4 per row automatic
 
 ### Stat (counter)
 
-Add inside `.stats_grid`. The number counts up from 0 to `data-count`:
+Add inside `.stats_grid`. The number counts up from 0 to `data-count`. The final value also sits in a `.visually-hidden` span, so screen readers and search engines get the real number rather than the 0 the animation starts from:
 
 ```html
 <div class="stat reveal">
 	<div class="stat_icon"><svg class="icon" …></svg></div>
 	<div class="stat_text">
-		<strong class="stat_number" data-count="42">0</strong>
+		<strong class="stat_number"><span data-count="42" aria-hidden="true">0</span><span class="visually-hidden">42</span></strong>
 		<span class="stat_label">Label</span>
 	</div>
 </div>
@@ -92,7 +101,7 @@ Then give `.client--acme` in `style.css` a width (`--w`, for phones and from md,
 
 ### Hero slide
 
-Copy a `.slide` inside `.hero-slider`. The slider loops, autoplays every 5s, pauses on hover, can be swiped on touch screens, and creates one dot per slide.
+Copy the second `.slide` inside `.hero-slider` (its title is a `<p class="slide_title">`: the first slide holds the page's only `<h1>`). The slider loops, autoplays every 5s, pauses on hover, can be swiped on touch screens, and creates one dot per slide.
 
 ### Buttons
 
@@ -122,3 +131,11 @@ Don't mix in icons from other sets (Font Awesome, Flaticon, …): that's how the
 | `data-counters` / `data-count` | Counts numbers up over 7s when the section scrolls into view |
 | `data-contact` | Opens the contact form in a modal dialog instead of following the `mailto:` link (which stays as the fallback without JavaScript); the form posts to web3forms |
 | `data-year` | Filled with the current year |
+
+## Search engines and link previews
+
+- **Keep the copies in sync.** The services, facts and contact details appear in four places: the page itself, the JSON-LD block in `<head>` (structured data for Google and Bing: who Pavel is, the business, the services), `index.html.md` and `llms.txt`. Change one, change all.
+- **One `<h1>` per page.** The first hero slide's title is the `<h1>`; other slides use `<p class="slide_title">`, which looks the same.
+- **Link previews** use the Open Graph tags in `<head>` and `images/og.jpg` (1200×630, cropped from `bg_1.jpg`). After changing either, re-check a link with the [LinkedIn Post Inspector](https://www.linkedin.com/post-inspector/), which also refreshes LinkedIn's cache.
+- **Favicons** live in `images/favicon/`. `favicon.svg` is the one modern browsers use: transparent in light mode, on a white rounded square in dark mode. `favicon.ico` (16/32/48), `apple-touch-icon.png` (180) and `icon-192/512.png` (for `site.webmanifest` and the JSON-LD logo) are black on white, rendered from the same artwork.
+- **robots.txt** keeps the hero photos, the CTA photo and the client logos out of image search. `about-1.jpg` and `og.jpg` stay crawlable: the About photo is an `<img>` (search engines skip CSS backgrounds) and is the `image` in the JSON-LD.

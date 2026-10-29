@@ -78,7 +78,7 @@ The strategic pricing cycle: **Price → Measure → Iterate**.
 - UKG
 - Mistral AI
 
-And a dozen of small startups.
+And a dozen small startups.
 
 ## Ready to Level Up Your Pricing?
 

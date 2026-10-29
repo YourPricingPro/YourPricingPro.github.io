@@ -7,14 +7,128 @@
 	<title>Pavel Storozhuk — Your Pricing Pro</title>
 	<meta name="description" content="Freelance software pricing consultant with 14+ years of experience at leading software companies. Pricing strategy, packaging, and price realization for SaaS and tech companies.">
 	<link rel="canonical" href="https://yourpricing.pro/">
-	<link rel="icon" type="image/x-icon" href="images/favicon/favicon.ico">
+	<link rel="icon" href="images/favicon/favicon.ico" sizes="16x16 32x32 48x48">
+	<link rel="icon" href="images/favicon/favicon.svg" type="image/svg+xml">
+	<link rel="apple-touch-icon" href="images/favicon/apple-touch-icon.png">
+	<link rel="manifest" href="site.webmanifest">
 	<meta name="color-scheme" content="light dark">
 	<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
 	<meta name="theme-color" content="#1b1d20" media="(prefers-color-scheme: dark)">
 	<!-- The site has its own dark theme; this stops the Dark Reader extension darkening it a second time -->
 	<meta name="darkreader-lock">
-	<link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900" rel="stylesheet">
-	<link rel="stylesheet" href="css/style.css?v=2026-10-29e">
+
+	<!-- Link previews (LinkedIn, Slack, Teams, …) -->
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="Your Pricing Pro">
+	<meta property="og:locale" content="en_US">
+	<meta property="og:url" content="https://yourpricing.pro/">
+	<meta property="og:title" content="Pavel Storozhuk — Software Pricing Consultant &amp; Advisor">
+	<meta property="og:description" content="Freelance software pricing consultant with 14+ years of experience at leading software companies. Pricing strategy, packaging, and price realization for SaaS and tech companies.">
+	<meta property="og:image" content="https://yourpricing.pro/images/og.jpg">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:image:alt" content="Pavel Storozhuk, software pricing consultant">
+	<meta name="twitter:card" content="summary_large_image">
+
+	<!-- Structured data for search engines: who Pavel is and what the business offers -->
+	<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@graph": [
+			{
+				"@type": "Person",
+				"@id": "https://yourpricing.pro/#pavel",
+				"name": "Pavel Storozhuk",
+				"jobTitle": "Software Pricing Consultant & Advisor",
+				"description": "Freelance software pricing consultant with more than 14 years of experience in tech pricing at leading international software companies.",
+				"url": "https://yourpricing.pro/",
+				"image": "https://yourpricing.pro/images/about-1.jpg",
+				"email": "info@yourpricing.pro",
+				"address": {
+					"@type": "PostalAddress",
+					"addressLocality": "Frankfurt am Main",
+					"addressRegion": "Hesse",
+					"addressCountry": "DE"
+				},
+				"sameAs": ["https://www.linkedin.com/in/pavstor/"],
+				"knowsLanguage": ["en", "ru", "de", "cs"],
+				"knowsAbout": [
+					"Pricing strategy",
+					"SaaS pricing",
+					"Software licensing",
+					"Packaging and bundling",
+					"Price realization",
+					"Discount management",
+					"Competitive pricing benchmarking",
+					"CPQ (Configure, Price, Quote)"
+				],
+				"worksFor": { "@id": "https://yourpricing.pro/#business" }
+			},
+			{
+				"@type": "ProfessionalService",
+				"@id": "https://yourpricing.pro/#business",
+				"name": "Your Pricing Pro",
+				"description": "Independent software pricing consulting for growing SaaS and technology companies: pricing strategy, packaging, and price realization.",
+				"url": "https://yourpricing.pro/",
+				"logo": "https://yourpricing.pro/images/favicon/icon-512.png",
+				"image": "https://yourpricing.pro/images/og.jpg",
+				"email": "info@yourpricing.pro",
+				"foundingDate": "2023",
+				"founder": { "@id": "https://yourpricing.pro/#pavel" },
+				"address": {
+					"@type": "PostalAddress",
+					"addressLocality": "Frankfurt am Main",
+					"addressRegion": "Hesse",
+					"addressCountry": "DE"
+				},
+				"areaServed": [
+					{ "@type": "Country", "name": "United States" },
+					{ "@type": "Place", "name": "European Union" }
+				],
+				"knowsLanguage": ["en", "ru", "de", "cs"],
+				"sameAs": ["https://www.linkedin.com/in/pavstor/"],
+				"hasOfferCatalog": {
+					"@type": "OfferCatalog",
+					"name": "Software pricing consulting services",
+					"itemListElement": [
+						{ "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Pricing strategy", "description": "Designing a new pricing strategy, including packaging, price structure, and discounting." } },
+						{ "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Price realization", "description": "Making discounting more strategic and building pricing discipline across go-to-market (GTM) channels." } },
+						{ "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Price level calibration", "description": "Optimizing product price points to maximize revenue, product adoption, or customer retention." } },
+						{ "@type": "Offer", "itemOffered": { "@type": "Service", "name": "New launches", "description": "Developing a comprehensive, data-driven pricing strategy for new offerings or business models." } },
+						{ "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Pricing diagnostics", "description": "Analyzing your current pricing strategy and price realization to identify and size pricing opportunities." } },
+						{ "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Competitive benchmarking", "description": "Tracking your competitive pricing position and staying ahead of the market." } },
+						{ "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Pricing process", "description": "Ensuring your pricing organization, tools, and processes enable efficient, well-informed decision-making." } },
+						{ "@type": "Offer", "itemOffered": { "@type": "Service", "name": "CPQ implementation", "description": "Defining comprehensive pricing requirements for a new CPQ (quoting) tool and price-list implementation." } }
+					]
+				}
+			},
+			{
+				"@type": "WebSite",
+				"@id": "https://yourpricing.pro/#website",
+				"url": "https://yourpricing.pro/",
+				"name": "Your Pricing Pro",
+				"inLanguage": "en",
+				"publisher": { "@id": "https://yourpricing.pro/#business" }
+			},
+			{
+				"@type": "WebPage",
+				"@id": "https://yourpricing.pro/#webpage",
+				"url": "https://yourpricing.pro/",
+				"name": "Pavel Storozhuk — Your Pricing Pro",
+				"inLanguage": "en",
+				"isPartOf": { "@id": "https://yourpricing.pro/#website" },
+				"about": { "@id": "https://yourpricing.pro/#pavel" },
+				"mainEntity": { "@id": "https://yourpricing.pro/#pavel" },
+				"primaryImageOfPage": "https://yourpricing.pro/images/about-1.jpg"
+			}
+		]
+	}
+	</script>
+
+	<!-- Self-hosted fonts (css/style.css); preload the two weights the hero needs first -->
+	<link rel="preload" href="fonts/poppins-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="preload" href="fonts/poppins-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" href="css/style.css?v=2026-10-29f">
 	<!-- Icons: Tabler Icons 3.31 by Paweł Kuna (MIT, see images/icons/tabler-LICENSE), inlined as SVG -->
 </head>
 
@@ -64,7 +178,7 @@
 					<div class="slide_content">
 						<div class="slide_text">
 							<span class="slide_eyebrow">Your Pricing Pro</span>
-							<h1 class="slide_title">I'm <span>Pavel</span>, and pricing is what I do best</h1>
+							<p class="slide_title">I'm <span>Pavel</span>, and pricing is what I do best</p>
 							<p><a class="btn btn--primary" data-contact href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#105;&#110;&#102;&#111;&#64;&#121;&#111;&#117;&#114;&#112;&#114;&#105;&#99;&#105;&#110;&#103;&#46;&#112;&#114;&#111;?subject=Pricing%20help%20needed!&body=Dear%20Pavel,%0A">Get pricing help now!</a></p>
 						</div>
 					</div>
@@ -79,28 +193,28 @@
 					<div class="stat reveal">
 						<div class="stat_icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z M8 7v-2a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v2 M12 12l0 .01 M3 13a20 20 0 0 0 18 0" /></svg></div>
 						<div class="stat_text">
-							<strong class="stat_number" data-count="32">0</strong>
+							<strong class="stat_number"><span data-count="32" aria-hidden="true">0</span><span class="visually-hidden">32</span></strong>
 							<span class="stat_label">Projects Completed</span>
 						</div>
 					</div>
 					<div class="stat reveal">
 						<div class="stat_icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0 M9 9l.01 0 M15 9l.01 0 M8 13a4 4 0 1 0 8 0h-8" /></svg></div>
 						<div class="stat_text">
-							<strong class="stat_number" data-count="18">0</strong>
+							<strong class="stat_number"><span data-count="18" aria-hidden="true">0</span><span class="visually-hidden">18</span></strong>
 							<span class="stat_label">Happy Clients</span>
 						</div>
 					</div>
 					<div class="stat reveal">
 						<div class="stat_icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z M16 3v4 M8 3v4 M4 11h16 M11 15h1 M12 15v3" /></svg></div>
 						<div class="stat_text">
-							<strong class="stat_number" data-count="14">0</strong>
+							<strong class="stat_number"><span data-count="14" aria-hidden="true">0</span><span class="visually-hidden">14</span></strong>
 							<span class="stat_label">Years of Experience</span>
 						</div>
 					</div>
 					<div class="stat reveal">
 						<div class="stat_icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 14c.83 .642 2.077 1.017 3.5 1c1.423 .017 2.67 -.358 3.5 -1c.83 -.642 2.077 -1.017 3.5 -1c1.423 -.017 2.67 .358 3.5 1 M8 3a2.4 2.4 0 0 0 -1 2a2.4 2.4 0 0 0 1 2 M12 3a2.4 2.4 0 0 0 -1 2a2.4 2.4 0 0 0 1 2 M3 10h14v5a6 6 0 0 1 -6 6h-2a6 6 0 0 1 -6 -6v-5z M16.746 16.726a3 3 0 1 0 .252 -5.555" /></svg></div>
 						<div class="stat_text">
-							<strong class="stat_number" data-count="19478">0</strong>
+							<strong class="stat_number"><span data-count="19478" aria-hidden="true">0</span><span class="visually-hidden">19,478</span></strong>
 							<span class="stat_label">Cups of Coffee</span>
 						</div>
 					</div>
@@ -112,7 +226,9 @@
 		<section class="about" id="about-section">
 			<div class="container">
 				<div class="about_grid">
-					<div class="about_photo" style="background-image: url(images/about-1.jpg);"></div>
+					<div class="about_photo">
+						<img src="images/about-1.jpg" alt="Pavel Storozhuk, software pricing consultant" width="1078" height="1414" decoding="async">
+					</div>
 					<div class="about_body">
 						<div class="section-heading reveal">
 							<span class="eyebrow">Me</span>
@@ -226,7 +342,7 @@
 						bringing in the big consulting firms would blow a hole in your budget — and likely your timeline, too.
 						Sounds familiar?
 					</p>
-					<img class="illustration" src="images/pricing-cycle.svg" alt="Strategic Pricing Cycle">
+					<img class="illustration" src="images/pricing-cycle.svg" alt="Strategic pricing cycle: price, measure, iterate">
 					<p>
 						That's where I come in. With straightforward quantitative and qualitative methods and real-world
 						experience, I help clients understand their pricing challenges, and I offer <strong>practical</strong>,
@@ -283,7 +399,7 @@
 					</li>
 				</ul>
 
-				<p class="clients_more reveal">And a dozen of small startups...</p>
+				<p class="clients_more reveal">And a dozen small startups…</p>
 			</div>
 		</section>
 
@@ -298,7 +414,7 @@
 					</p>
 					<p><a class="btn btn--white btn--large" data-contact href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#105;&#110;&#102;&#111;&#64;&#121;&#111;&#117;&#114;&#112;&#114;&#105;&#99;&#105;&#110;&#103;&#46;&#112;&#114;&#111;?subject=Pricing%20consultation%20question&body=Dear%20Pavel,%0A">Contact me</a></p>
 				</div>
-				<img class="cta_photo" src="images/author.png" alt="">
+				<img class="cta_photo" src="images/author.png" alt="Pavel Storozhuk">
 			</div>
 		</section>
 	</main>
