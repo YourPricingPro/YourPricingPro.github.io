@@ -7,8 +7,9 @@ index.html        the page
 404.html          "page not found", served by GitHub Pages for any missing URL (absolute paths only)
 css/style.css     all styles (fonts and theme variables at the top)
 js/main.js        all behaviour (no dependencies)
-fonts/            Poppins, self-hosted (woff2, Latin and Latin Extended subsets) and its licence
-images/           photos, favicons, link-preview image (og.jpg), diagram, client logos, Tabler icon licence
+fonts/            Poppins, self-hosted (woff2, Latin and Latin Extended subsets)
+images/           photos, favicons, link-preview image (og.jpg), diagram, client logos
+licenses/         licences of the Poppins font and the Tabler icons
 llms.txt, index.html.md   plain-text and Markdown versions of the page for LLMs
 robots.txt, sitemap.xml, site.webmanifest, CNAME
 .editorconfig, .gitattributes   formatting rules: tabs, LF line endings, final newline
@@ -109,7 +110,7 @@ Copy the second `.slide` inside `.hero-slider` (its title is a `<p class="slide_
 
 ### Icons
 
-Every icon comes from [Tabler Icons](https://tabler.io/icons) (outline style, v3.31, MIT licence), so they all share one look. Browse and search the set at tabler.io/icons and download the outline SVG (a local copy of the whole set is in `src/icons/tabler/`). The licence is in `images/icons/tabler-LICENSE`.
+Every icon comes from [Tabler Icons](https://tabler.io/icons) (outline style, v3.31, MIT licence), so they all share one look. Browse and search the set at tabler.io/icons and download the outline SVG (a local copy of the whole set is in `src/icons/tabler/`). The licence is in `licenses/tabler-icons.txt`.
 
 Icons are inline SVG with class `icon`; they take their size from `font-size` and colour from `color`, like an icon font. The `.icon` rule draws them as 1.5px lines with rounded ends, so copy only the `d` values of the file's `<path>` elements (skip the first, `M0 0h24v24H0z`, an invisible bounding box) into one path:
 
@@ -136,6 +137,6 @@ Don't mix in icons from other sets (Font Awesome, Flaticon, …): that's how the
 
 - **Keep the copies in sync.** The services, facts and contact details appear in four places: the page itself, the JSON-LD block in `<head>` (structured data for Google and Bing: who Pavel is, the business, the services), `index.html.md` and `llms.txt`. Change one, change all. Likewise the menu and footer, which `404.html` repeats (with absolute links).
 - **One `<h1>` per page.** The first hero slide's title is the `<h1>`; other slides use `<p class="slide_title">`, which looks the same.
-- **Link previews** use the Open Graph tags in `<head>` and `images/og.jpg` (1200×630, cropped from `bg_1.jpg`). After changing either, re-check a link with the [LinkedIn Post Inspector](https://linkedin.com/post-inspector/), which also refreshes LinkedIn's cache.
+- **Link previews** use the Open Graph tags in `<head>` and `images/og.jpg` (1200×630, cropped from `hero-1.jpg`). After changing either, re-check a link with the [LinkedIn Post Inspector](https://linkedin.com/post-inspector/), which also refreshes LinkedIn's cache.
 - **Favicons** live in `images/favicon/`. `favicon.svg` is the one modern browsers use: transparent in light mode, on a white rounded square in dark mode. `favicon.ico` (16/32/48), `apple-touch-icon.png` (180) and `icon-192/512.png` (for `site.webmanifest` and the JSON-LD logo) are black on white, rendered from the same artwork.
-- **robots.txt** keeps the hero photos, the CTA photo and the client logos out of image search. `about-1.jpg` and `og.jpg` stay crawlable: the About photo is an `<img>` (search engines skip CSS backgrounds) and is the `image` in the JSON-LD.
+- **robots.txt** keeps the hero photos, the CTA photo and the client logos out of image search. `about.jpg` and `og.jpg` stay crawlable: the About photo is an `<img>` (search engines skip CSS backgrounds) and is the `image` in the JSON-LD.
