@@ -46,7 +46,7 @@ To preview locally, open `index.html` in a browser, or serve the folder (`python
 ```html
 <section class="section" id="my-section">            <!-- add section--alt for the grey background -->
 	<div class="container">
-		<div class="section-heading reveal">
+		<div class="section-text reveal">
 			<span class="eyebrow">Label</span>
 			<h2>Section title</h2>
 			<p>Intro text…</p>
@@ -63,25 +63,25 @@ Link it from the menu by adding an `<li>` to `.site-nav_list` with `href="#my-se
 Add another card inside `.services` (the grid places 1 / 2 / 4 per row automatically):
 
 ```html
-<div class="service-card">
+<li class="service-card">
 	<div class="service-card_icon"><svg class="icon" …></svg></div>
 	<h3>Title</h3>
 	<p>Description.</p>
-</div>
+</li>
 ```
 
 ### Stat (counter)
 
-Add inside `.stats_grid`. The number counts up from 0 to `data-count`. The final value also sits in a `.visually-hidden` span, so screen readers and search engines get the real number rather than the 0 the animation starts from:
+Add inside the `.stats_grid` list. The number counts up from 0 to `data-count`. The final value also sits in a `.visually-hidden` span, so screen readers and search engines get the real number rather than the 0 the animation starts from:
 
 ```html
-<div class="stat reveal">
+<li class="stat reveal">
 	<div class="stat_icon"><svg class="icon" …></svg></div>
 	<div class="stat_text">
 		<strong class="stat_number"><span data-count="42" aria-hidden="true">0</span><span class="visually-hidden">42</span></strong>
 		<span class="stat_label">Label</span>
 	</div>
-</div>
+</li>
 ```
 
 ### Client logo
