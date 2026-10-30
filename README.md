@@ -13,6 +13,7 @@ licenses/         licences of the Poppins font and the Tabler icons
 llms.txt, index.html.md   plain-text and Markdown versions of the page for LLMs
 robots.txt, sitemap.xml, site.webmanifest, CNAME
 .editorconfig, .gitattributes   formatting rules: tabs, LF line endings, final newline
+CLAUDE.md         instructions for AI coding agents (builds on this README)
 src/              local only (git-ignored): design sources, original photos, the full Tabler icon set, original client logos
 ```
 
@@ -33,12 +34,23 @@ To preview locally, open `index.html` in a browser, or serve the folder (`python
 
 ## Styling conventions
 
-- **Theme values** (colours, font, card shadow, gutter) are CSS variables in `:root` at the top of `style.css`. Change the accent colour there, for example.
+- **Theme values** (colours, font, card shadow, gutter) are CSS variables in `:root` at the top of `style.css`. Change the accent colour there, for example. A colour used in more than one place gets a variable too, even when it is the same in both themes (`--icon-on-accent`).
 - **Dark mode** follows the visitor's device setting (`prefers-color-scheme`); there is no switch on the page. The dark values override the same variables in the `@media (prefers-color-scheme: dark)` block right below `:root`, so components only use the variables (`--ink`, `--on-accent`, `--bg-card`, …) instead of hard-coded `#000`/`#fff`. The few fixed colours are the same in both themes on purpose: white text and dots on the hero photos, the black menu bar on phones, the white icon circle on a hovered service card and the light footer text. A few image-specific tweaks sit next to their components: on desktop the hero photo is narrower and starts below the nav, so the light title sits on the grey page instead of the light wall in the photo, and the About photo is dimmed slightly. `images/pricing-cycle.svg` carries its own dark colours in a `<style>` block. Every dark text colour pair passes WCAG AA (4.5:1). A `darkreader-lock` meta tag stops the Dark Reader extension darkening the page a second time.
 - **Class names** describe what a thing is: `block`, `block_part`, `block--variant` (e.g. `service-card`, `service-card_icon`, `btn--primary`).
 - **State classes** set by JavaScript start with `is-` (`is-sticky`, `is-visible`, `is-leaving`, `is-open`, `is-animating`, `is-active`, `is-revealed`).
 - **JavaScript hooks** are `data-` attributes, so restyling never breaks behaviour.
-- **Breakpoints**: sm 576px, md 768px, lg 992px, xl 1200px (listed at the top of `style.css`).
+- **Breakpoints**: sm 576px, md 768px, lg 992px, xl 1200px (listed at the top of `style.css`). Media queries use the range syntax: `(width >= 768px)` from md, `(width < 768px)` below md. `main.js` uses the same syntax in `matchMedia()`.
+- **Units**: spacing and sizes are in `px`. Don't switch to `rem`: it would change how the page responds to a visitor's browser font-size setting. Only `.icon` uses `em`, so icons size with their text.
+- **Browser support**: current Chrome, Edge, Safari and Firefox. The floor is set by `color-mix()` (Chrome 111, Firefox 113), range media queries (Safari 16.4) and `:has()` (Firefox 121; it locks the page scroll behind the open contact dialog). Don't use CSS nesting yet: it would raise Safari to 17.2.
+- **Rules that look unused but aren't**: some `position`/`z-index`/`overflow` rules (`.stats`, `.about`, `.service-card_icon`, `.site-footer`) and the slider's `translate3d(0, 0, 0)`/`backface-visibility` change how the browser paints and anti-aliases those blocks, even though they don't move anything. Removing them, or swapping the slider's for `will-change`, shifts pixels. Each has a comment saying so; leave them.
+- **Comments**: both `style.css` and `main.js` open with a numbered table of contents; keep it in step with the sections. Each rule or function gets a short comment when its purpose isn't obvious from its name.
+
+## Markup conventions
+
+- **Semantic elements**: repeated items are lists (`<ul>`/`<li>`: services, stats, interests, client logos), name/value pairs are a `<dl>` (the About details), the contact form is a `<dialog>`.
+- **Images**: every `<img>` has `width` and `height` (the file's pixel size, so the browser reserves the space) and `decoding="async"`. Only the client logos have `loading="lazy"`: a jump to Contact must not show the CTA photo or the diagram late.
+- **Links**: no `www.` in any URL (`https://linkedin.com/in/pavstor/`). Email links are plain `mailto:info@yourpricing.pro` with a prefilled subject.
+- **IDs** are only for menu anchors (`…-section`, which are also shared links, so don't rename them), form labels and `aria-controls`/`aria-labelledby` targets. Styling uses classes, behaviour uses `data-` attributes.
 
 ## Building blocks
 
@@ -102,7 +114,7 @@ Then give `.client--acme` in `style.css` a width (`--w`, for phones and from md,
 
 ### Hero slide
 
-Copy the second `.slide` inside `.hero-slider` (its title is a `<p class="slide_title">`: the first slide holds the page's only `<h1>`). The slider loops, autoplays every 5s, pauses on hover, can be swiped on touch screens, and creates one dot per slide.
+Copy the second `.slide` inside `.hero-slider` (its title is a `<p class="slide_title">`: the first slide holds the page's only `<h1>`). The slider loops, autoplays every 5s, pauses on hover, can be swiped on touch screens, and creates one dot per slide. For the seamless loop `main.js` adds copies of the slides on both sides; it hides them from screen readers and the Tab key and turns their `<h1>` into a `<p>`, so edit only the slides in `index.html`.
 
 ### Buttons
 
@@ -119,6 +131,25 @@ Icons are inline SVG with class `icon`; they take their size from `font-size` an
 ```
 
 Don't mix in icons from other sets (Font Awesome, Flaticon, …): that's how the page ended up with three different styles before.
+
+## Images
+
+- **Names** say where the image appears: `hero-1.jpg`, `hero-2.jpg`, `about.jpg`, `cta.png`, `og.jpg`, `clients/<company>.svg` and `clients/<company>-dark.svg`. Cloudflare caches images for 30 days by name, so a changed image gets a new name (e.g. `about-2.jpg`), and every reference to it is updated (`index.html`, the JSON-LD, `robots.txt`, this README).
+- **Optimise losslessly** before committing, keeping the format and the sRGB colour profile:
+  - PNG: `oxipng -o max --strip safe file.png`
+  - JPEG: `jpegtran -copy icc -optimize -progressive -outfile out.jpg in.jpg`
+  - SVG: svgo with `floatPrecision: 10` and `convertColors`, `inlineStyles`, `minifyStyles`, `mergePaths`, `convertPathData`, `convertTransform` and `convertShapeToPath` turned off. Rounding path data shifts anti-aliasing, and `pricing-cycle.svg`'s dark style matches its exact `fill` values.
+
+  Keep a result only if it is smaller and renders identically.
+- **Originals** (full-size photos, design files, logo sources) stay in the git-ignored `src/`, not in the repo.
+
+## Checking a change
+
+There is no test suite. The site should look and behave the same unless a change is meant to alter it, so check in a browser:
+
+- Widths on both sides of each breakpoint (e.g. 375, 767/768, 991/992, 1199/1200 and 1440px), in light and dark mode, and once with "reduce motion" on.
+- The slider (autoplay, dots, swipe), the sticky navbar, the mobile menu, the counters, the reveal animations and the contact dialog (open, Esc, send).
+- `404.html`, and that the console shows no errors and no request returns 404.
 
 ## Behaviour (js/main.js)
 
