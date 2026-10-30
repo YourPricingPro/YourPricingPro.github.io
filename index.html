@@ -128,7 +128,7 @@
 	<!-- Self-hosted fonts (css/style.css); preload the two weights the hero needs first -->
 	<link rel="preload" href="fonts/poppins-600-latin.woff2" as="font" type="font/woff2" crossorigin>
 	<link rel="preload" href="fonts/poppins-800-latin.woff2" as="font" type="font/woff2" crossorigin>
-	<link rel="stylesheet" href="css/style.css?v=2026-10-30">
+	<link rel="stylesheet" href="css/style.css?v=2026-10-30b">
 </head>
 
 <body>
@@ -359,7 +359,7 @@
 			</div>
 		</section>
 
-		<!-- Clients: a loose cloud of logos; each <picture> swaps in the dark-background version in dark mode -->
+		<!-- Clients: a loose cloud of logos; each SVG carries its own dark-mode colours -->
 		<section class="section section--alt" id="clients-section">
 			<div class="container">
 				<div class="section-text reveal">
@@ -369,31 +369,16 @@
 
 				<ul class="clients" data-shuffle>
 					<li class="client client--eightfold reveal">
-						<picture>
-							<source media="(prefers-color-scheme: dark)" srcset="images/clients/eightfold-dark.svg">
-							<img src="images/clients/eightfold.png" alt="Eightfold AI" width="606" height="155" loading="lazy" decoding="async">
-						</picture>
+						<img src="images/clients/eightfold.svg" alt="Eightfold AI" width="192" height="49" loading="lazy" decoding="async">
 					</li>
 					<li class="client client--kyriba reveal">
-						<picture>
-							<source media="(prefers-color-scheme: dark)" srcset="images/clients/kyriba-dark.svg">
-							<img src="images/clients/kyriba.svg" alt="Kyriba" width="146" height="50" loading="lazy" decoding="async">
-						</picture>
+						<img src="images/clients/kyriba.svg" alt="Kyriba" width="146" height="50" loading="lazy" decoding="async">
 					</li>
 					<li class="client client--ukg reveal">
-						<!-- UKG's brand guide: the "extreme" logo above 40px tall, the primary one below -->
-						<picture>
-							<source media="(min-width: 768px) and (prefers-color-scheme: dark)" srcset="images/clients/ukg-large-dark.svg">
-							<source media="(prefers-color-scheme: dark)" srcset="images/clients/ukg-dark.svg">
-							<source media="(min-width: 768px)" srcset="images/clients/ukg-large.svg">
-							<img src="images/clients/ukg.svg" alt="UKG" width="104" height="40" loading="lazy" decoding="async">
-						</picture>
+						<img src="images/clients/ukg.svg" alt="UKG" width="413" height="157" loading="lazy" decoding="async">
 					</li>
 					<li class="client client--mistral reveal">
-						<picture>
-							<source media="(prefers-color-scheme: dark)" srcset="images/clients/mistral-dark.svg">
-							<img src="images/clients/mistral.svg" alt="Mistral AI" width="91" height="16" loading="lazy" decoding="async">
-						</picture>
+						<img src="images/clients/mistral.svg" alt="Mistral AI" width="91" height="16" loading="lazy" decoding="async">
 					</li>
 				</ul>
 

@@ -36,7 +36,7 @@ To preview locally, open `index.html` in a browser, or serve the folder (`python
 ## Styling conventions
 
 - **Theme values** (colours, font, card shadow, gutter) are CSS variables in `:root` at the top of `style.css`. Change the accent colour there, for example. A colour used in more than one place gets a variable too, even when it is the same in both themes (`--icon-on-accent`).
-- **Dark mode** follows the visitor's device setting (`prefers-color-scheme`); there is no switch on the page. The dark values override the same variables in the `@media (prefers-color-scheme: dark)` block right below `:root`, so components only use the variables (`--ink`, `--on-accent`, `--bg-card`, …) instead of hard-coded `#000`/`#fff`. The few fixed colours are the same in both themes on purpose: white text and dots on the hero photos, the black menu bar on phones, the white icon circle on a hovered service card and the light footer text. A few image-specific tweaks sit next to their components: on desktop the hero photo is narrower and starts below the nav, so the light title sits on the grey page instead of the light wall in the photo, and the About photo is dimmed slightly. `images/pricing-cycle.svg` carries its own dark colours in a `<style>` block. Every dark text colour pair passes WCAG AA (4.5:1). A `darkreader-lock` meta tag stops the Dark Reader extension darkening the page a second time.
+- **Dark mode** follows the visitor's device setting (`prefers-color-scheme`); there is no switch on the page. The dark values override the same variables in the `@media (prefers-color-scheme: dark)` block right below `:root`, so components only use the variables (`--ink`, `--on-accent`, `--bg-card`, …) instead of hard-coded `#000`/`#fff`. The few fixed colours are the same in both themes on purpose: white text and dots on the hero photos, the black menu bar on phones, the white icon circle on a hovered service card and the light footer text. A few image-specific tweaks sit next to their components: on desktop the hero photo is narrower and starts below the nav, so the light title sits on the grey page instead of the light wall in the photo, and the About photo is dimmed slightly. `images/pricing-cycle.svg` and the client logos carry their own dark colours in a `<style>` block. Every dark text colour pair passes WCAG AA (4.5:1). A `darkreader-lock` meta tag stops the Dark Reader extension darkening the page a second time.
 - **Class names** describe what a thing is: `block`, `block_part`, `block--variant` (e.g. `service-card`, `service-card_icon`, `btn--primary`).
 - **State classes** set by JavaScript start with `is-` (`is-sticky`, `is-visible`, `is-leaving`, `is-open`, `is-animating`, `is-active`, `is-revealed`).
 - **JavaScript hooks** are `data-` attributes, so restyling never breaks behaviour.
@@ -100,14 +100,11 @@ Add inside the `.stats_grid` list. The number counts up from 0 to `data-count`. 
 
 ### Client logo
 
-Add an `<li>` inside `.clients`. Logos are the companies' official files (sources and brand rules in `src/clients/SOURCES.md`), cropped to the artwork in `images/clients/`, with a separate file for dark backgrounds:
+Add an `<li>` inside `.clients`. Logos are made from the companies' official files (sources and brand rules in `src/clients/SOURCES.md`), cropped to the artwork in `images/clients/`. Each logo is one SVG that carries its own dark colours in a `<style>` block, like `pricing-cycle.svg`:
 
 ```html
 <li class="client client--acme reveal">
-	<picture>
-		<source media="(prefers-color-scheme: dark)" srcset="images/clients/acme-dark.svg">
-		<img src="images/clients/acme.svg" alt="Acme" width="120" height="40" loading="lazy" decoding="async">
-	</picture>
+	<img src="images/clients/acme.svg" alt="Acme" width="120" height="40" loading="lazy" decoding="async">
 </li>
 ```
 
@@ -157,11 +154,11 @@ Don't mix in icons from other sets (Font Awesome, Flaticon, …): that's how the
 
 ## Images
 
-- **Names** say where the image appears: `hero-1.jpg`, `hero-2.jpg`, `about.jpg`, `cta.png`, `og.jpg`, `clients/<company>.svg` and `clients/<company>-dark.svg`. Cloudflare caches images for 30 days by name, so a changed image gets a new name (e.g. `about-2.jpg`), and every reference to it is updated (`index.html`, the JSON-LD, `robots.txt`, this README).
+- **Names** say where the image appears: `hero-1.jpg`, `hero-2.jpg`, `about.jpg`, `cta.png`, `og.jpg` and `clients/<company>.svg`. Cloudflare caches images for 30 days by name, so a changed image gets a new name (e.g. `about-2.jpg`), and every reference to it is updated (`index.html`, the JSON-LD, `robots.txt`, this README).
 - **Optimise losslessly** before committing, keeping the format and the sRGB colour profile:
   - PNG: `oxipng -o max --strip safe file.png`
   - JPEG: `jpegtran -copy icc -optimize -progressive -outfile out.jpg in.jpg`
-  - SVG: svgo with `floatPrecision: 10` and `convertColors`, `inlineStyles`, `minifyStyles`, `mergePaths`, `convertPathData`, `convertTransform` and `convertShapeToPath` turned off. Rounding path data shifts anti-aliasing, and `pricing-cycle.svg`'s dark style matches its exact `fill` values.
+  - SVG: svgo with `floatPrecision: 10` and `convertColors`, `inlineStyles`, `minifyStyles`, `mergePaths`, `convertPathData`, `convertTransform` and `convertShapeToPath` turned off. Rounding path data shifts anti-aliasing, and the dark styles in `pricing-cycle.svg` and the client logos match their exact `fill` values.
 
   Keep a result only if it is smaller and renders identically.
 - **Originals** (full-size photos, design files, logo sources) stay in the git-ignored `src/`, not in the repo.

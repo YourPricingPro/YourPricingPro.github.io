@@ -1314,10 +1314,6 @@ button {
 	translate: var(--x, 0) var(--y, 0);
 }
 
-.client picture {
-	display: block;
-}
-
 /* max-width: a wide logo landing in a narrow spot shrinks to fit it */
 .client img {
 	display: block;
@@ -1327,10 +1323,10 @@ button {
 }
 
 /* Phones: 2 + 2, each logo nudged a different way, sideways only inwards so a wide logo never
- * sticks out of the column (UKG stays under 40px tall: its brand guide's small logo) */
+ * sticks out of the column (UKG stays above 40px tall: its brand guide allows this drawing only from there) */
 .client--eightfold { --w: 148px; }
 .client--kyriba { --w: 128px; }
-.client--ukg { --w: 88px; }
+.client--ukg { --w: 106px; }
 .client--mistral { --w: 160px; }
 
 .client:nth-child(1) { --y: -0.75rem; }
@@ -1367,15 +1363,13 @@ button {
 	.client:nth-child(3) { --x: -1.5rem; }
 }
 
-/* Each logo drifts slowly: up and down on the image, side to side on its <picture>. The two
+/* Each logo drifts slowly: up and down with `transform`, side to side with `translate`. The two
  * cycles have different lengths, so the path never repeats exactly, and every logo has its own. */
 @media (prefers-reduced-motion: no-preference) {
 	.client img {
-		animation: float-y var(--float-y, 7s) ease-in-out var(--float-delay, 0s) infinite alternate;
-	}
-
-	.client picture {
-		animation: float-x var(--float-x, 13s) ease-in-out var(--float-delay, 0s) infinite alternate;
+		animation:
+			float-y var(--float-y, 7s) ease-in-out var(--float-delay, 0s) infinite alternate,
+			float-x var(--float-x, 13s) ease-in-out var(--float-delay, 0s) infinite alternate;
 	}
 
 	.client--eightfold { --float-y: 6.5s; --float-x: 12s; --float-delay: -2s; }
@@ -1390,8 +1384,8 @@ button {
 }
 
 @keyframes float-x {
-	from { transform: translateX(-4px); }
-	to { transform: translateX(4px); }
+	from { translate: -4px 0; }
+	to { translate: 4px 0; }
 }
 
 .clients_more {
