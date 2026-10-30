@@ -4,7 +4,8 @@ One-page static site. No frameworks, no build step: edit the files and push.
 
 ```
 index.html        the page
-404.html          "page not found", served by GitHub Pages for any missing URL (absolute paths only)
+404.html          "page not found", served by GitHub Pages for any missing URL (paths start from its <base>)
+impressum.html, privacy.html   legal pages (noindex, not in the sitemap)
 css/style.css     all styles (fonts and theme variables at the top)
 js/main.js        all behaviour (no dependencies)
 fonts/            Poppins, self-hosted (woff2, Latin and Latin Extended subsets)
@@ -21,7 +22,7 @@ src/              local only (git-ignored): design sources, original photos, the
 
 GitHub Pages serves the `master` branch root. Work on `dev`, then open a PR `dev → master`; merging it deploys the site.
 
-Browsers and Cloudflare cache `style.css` and `main.js` for up to 4 hours. When a release changes either file, bump the `?v=` date on its links in `index.html` and `404.html` (e.g. `css/style.css?v=2026-10-27`), so visitors fetch the new file along with the new page. For a second release on the same day, add a letter (`?v=2026-10-27b`).
+Browsers and Cloudflare cache `style.css` and `main.js` for up to 4 hours. When a release changes either file, bump the `?v=` date on its links in every `.html` page (e.g. `css/style.css?v=2026-10-27`), so visitors fetch the new file along with the new page. For a second release on the same day, add a letter (`?v=2026-10-27b`).
 
 When a release changes the page's content, set `<lastmod>` in `sitemap.xml` to the release date. Google and Bing only trust `lastmod` if it changes when the content does.
 
@@ -116,6 +117,28 @@ Then give `.client--acme` in `style.css` a width (`--w`, for phones and from md,
 
 Copy the second `.slide` inside `.hero-slider` (its title is a `<p class="slide_title">`: the first slide holds the page's only `<h1>`). The slider loops, autoplays every 5s, pauses on hover, can be swiped on touch screens, and creates one dot per slide. For the seamless loop `main.js` adds copies of the slides on both sides; it hides them from screen readers and the Tab key and turns their `<h1>` into a `<p>`, so edit only the slides in `index.html`.
 
+### Footer
+
+Every page has the same footer, on one line at every width: the copyright on the left, the legal links on the right. Below 373px the text shrinks a little (to 12px at 320px wide) so the line still fits.
+
+```html
+<footer class="site-footer">
+	<div class="container site-footer_inner">
+		<p>&copy; <span data-year>2026</span> Pavel Storozhuk</p>
+		<nav aria-label="Legal">
+			<ul class="site-footer_links">
+				<li><a href="impressum.html">Impressum</a></li>
+				<li><a href="privacy.html">Privacy</a></li>
+			</ul>
+		</nav>
+	</div>
+</footer>
+```
+
+There is no template, so each page holds its own copy. **Any change to the footer goes into every `.html` page in the same commit** (`index.html`, `404.html`, `impressum.html`, `privacy.html`, and any page added later); the markup is identical in all of them. If the text changes, update the footer line of `index.html.md` too.
+
+Pages that can be shorter than the window (`404.html`, `impressum.html`, `privacy.html`) have `class="page-fill"` on `<body>`, which keeps the footer at the bottom of the window however little content there is. A new page gets that class as well. `index.html` is always taller than the window and doesn't need it.
+
 ### Buttons
 
 `btn btn--primary` (orange), `btn btn--white` (white on orange), plus `btn--large` for more padding.
@@ -149,7 +172,7 @@ There is no test suite. The site should look and behave the same unless a change
 
 - Widths on both sides of each breakpoint (e.g. 375, 767/768, 991/992, 1199/1200 and 1440px), in light and dark mode, and once with "reduce motion" on.
 - The slider (autoplay, dots, swipe), the sticky navbar, the mobile menu, the counters, the reveal animations and the contact dialog (open, Esc, send).
-- `404.html`, and that the console shows no errors and no request returns 404.
+- `404.html`, `impressum.html` and `privacy.html`, and that the console shows no errors and no request returns 404.
 
 ## Behaviour (js/main.js)
 
@@ -166,7 +189,8 @@ There is no test suite. The site should look and behave the same unless a change
 
 ## Search engines and link previews
 
-- **Keep the copies in sync.** The services, facts and contact details appear in four places: the page itself, the JSON-LD block in `<head>` (structured data for Google and Bing: who Pavel is, the business, the services), `index.html.md` and `llms.txt`. Change one, change all. Likewise the menu and footer, which `404.html` repeats (with absolute links).
+- **Keep the copies in sync.** The services, facts and contact details appear in four places: the page itself, the JSON-LD block in `<head>` (structured data for Google and Bing: who Pavel is, the business, the services), `index.html.md` and `llms.txt`. Change one, change all. Likewise the menu and [footer](#footer), which `404.html`, `impressum.html` and `privacy.html` repeat. All three use relative links; because GitHub Pages serves `404.html` at any depth, its links start from a `<base href="/">`, which a small inline script points at the file's own folder when the page is opened by name (a local server in a subfolder).
+- **Keep the privacy policy true.** `privacy.html` names every provider that receives visitors' data (hosting, delivery, the contact form, email) and says the site sets no cookies and uses no analytics. Adding or changing a provider, a cookie or a tracker means updating it and its date in the same commit. Cloudflare's Bot Fight Mode sets a cookie, so it stays off.
 - **One `<h1>` per page.** The first hero slide's title is the `<h1>`; other slides use `<p class="slide_title">`, which looks the same.
 - **Link previews** use the Open Graph tags in `<head>` and `images/og.jpg` (1200×630, cropped from `hero-1.jpg`). After changing either, re-check a link with the [LinkedIn Post Inspector](https://linkedin.com/post-inspector/), which also refreshes LinkedIn's cache.
 - **Favicons** live in `images/favicon/`. `favicon.svg` is the one modern browsers use: transparent in light mode, on a white rounded square in dark mode. `favicon.ico` (16/32/48), `apple-touch-icon.png` (180) and `icon-192/512.png` (for `site.webmanifest` and the JSON-LD logo) are black on white, rendered from the same artwork.

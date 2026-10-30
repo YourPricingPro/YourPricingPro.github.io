@@ -34,3 +34,5 @@ Core services:
 - [Why work with me](https://yourpricing.pro/#why-section): Approach, methods, and ideal-client fit.
 - [Clients](https://yourpricing.pro/#clients-section): Companies helped, including Eightfold AI, Kyriba, UKG, and Mistral AI, plus a dozen small startups.
 - [Contact](https://yourpricing.pro/#contact-section): How to get in touch.
+- [Impressum](https://yourpricing.pro/impressum.html): Legal notice.
+- [Privacy Policy](https://yourpricing.pro/privacy.html): What personal data is processed and by whom.

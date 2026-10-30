@@ -13,8 +13,9 @@ Instructions for AI coding agents working on this repo. The README is the source
 
 ## Every change
 
-- **Content** (services, facts, contact details) lives in four places: `index.html`, its JSON-LD block, `index.html.md` and `llms.txt`. Menu and footer changes also go into `404.html` (absolute links). Change them all together.
-- **Release steps**: when `style.css` or `main.js` changes, bump `?v=` in both `index.html` and `404.html`. When the page's content changes, set `<lastmod>` in `sitemap.xml`. A changed image gets a new file name, and every reference to it is updated.
+- **Content** (services, facts, contact details) lives in four places: `index.html`, its JSON-LD block, `index.html.md` and `llms.txt`. Change them all together.
+- **Menu and footer** are copied into every `.html` page (`index.html`, `404.html`, `impressum.html`, `privacy.html`, and any page added later). Any change to either goes into all of them in the same commit, and a new page gets the same menu and footer. The footer stays on one line at every width, and pages that can be shorter than the window have `class="page-fill"` on `<body>` (see "Footer" in the README).
+- **Release steps**: when `style.css` or `main.js` changes, bump `?v=` in every `.html` page. When the page's content changes, set `<lastmod>` in `sitemap.xml`. A changed image gets a new file name, and every reference to it is updated.
 - **Check in the built-in browser** before calling a change done: start the `site` preview (`.claude/launch.json`, port 8765) and go through "Checking a change" in the README. Report what you checked, and anything you couldn't.
 - **Before removing CSS that looks unused**, check the README's "Rules that look unused but aren't". Compare screenshots before and after any change that touches painting, stacking or transforms.
 

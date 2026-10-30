@@ -88,4 +88,4 @@ Are you a growing tech company looking to level up your pricing? You're in the r
 
 ---
 
-© Pavel Storozhuk. All rights reserved.
+© Pavel Storozhuk · [Impressum](https://yourpricing.pro/impressum.html) · [Privacy Policy](https://yourpricing.pro/privacy.html)
