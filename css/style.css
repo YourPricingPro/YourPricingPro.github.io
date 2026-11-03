@@ -1467,8 +1467,8 @@ button {
 	min-height: 75vh;
 }
 
-/* Put on <body> of the pages that can be shorter than the window (404.html, impressum.html,
- * privacy.html): keeps the footer at the bottom of the window however little content there is */
+/* Put on <body> of the pages that can be shorter than the window (404.html, impressum/index.html,
+ * privacy/index.html): keeps the footer at the bottom of the window however little content there is */
 .page-fill {
 	display: flex;
 	flex-direction: column;
@@ -1479,7 +1479,7 @@ button {
 	flex: 1;
 }
 
-/* Legal pages (impressum.html, privacy.html): a narrower column of plain text.
+/* Legal pages (impressum/index.html, privacy/index.html): a narrower column of plain text.
  * On the children, so the text still starts in line with the navbar */
 .legal .container > * {
 	max-width: 800px;

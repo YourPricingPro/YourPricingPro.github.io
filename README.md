@@ -5,7 +5,7 @@ One-page static site. No frameworks, no build step: edit the files and push.
 ```
 index.html        the page
 404.html          "page not found", served by GitHub Pages for any missing URL (paths start from its <base>)
-impressum.html, privacy.html   legal pages (noindex, not in the sitemap)
+impressum/, privacy/   legal pages, each an index.html served at /impressum/ and /privacy/ (noindex, not in the sitemap; paths start from their <base>)
 css/style.css     all styles (fonts and theme variables at the top)
 js/main.js        all behaviour (no dependencies)
 fonts/            Poppins, self-hosted (woff2, Latin and Latin Extended subsets)
@@ -30,8 +30,9 @@ When a release changes the page's content, set `<lastmod>` in `sitemap.xml` to t
 
 - **Cache rule** (Caching → Cache Rules): when the query string contains `v=`, or the URI path starts with `/fonts/`, set Edge TTL and Browser TTL to 1 year. Versioned CSS/JS and the fonts never change under the same URL. When the URI path starts with `/images/`, use 30 days; image names aren't versioned, so give a changed image a new file name.
 - **Response header rule** (Rules → Transform Rules → Modify Response Header): when the URI path equals `/index.html.md`, set `Link` to `<https://yourpricing.pro/>; rel="canonical"`, so search engines treat the Markdown copy as a duplicate of the page instead of indexing it on its own (LLM crawlers can still read it).
+- **Response header rule** (same place): when the URI path is in `/404.html`, `/impressum/`, `/impressum/index.html`, `/privacy/` or `/privacy/index.html`, set `X-Robots-Tag` to `noindex`. A backup for the pages' own `noindex` meta tag. Don't block these pages in `robots.txt` instead: a crawler that can't fetch a page never sees its `noindex`, and may list the bare URL anyway.
 
-To preview locally, open `index.html` in a browser, or serve the folder (`python3 -m http.server`) and open http://localhost:8000.
+To preview locally, serve the folder (`python3 -m http.server`) and open http://localhost:8000. Opening `index.html` straight from disk works too, but the footer links then show a folder listing instead of the legal pages.
 
 ## Styling conventions
 
@@ -124,17 +125,17 @@ Every page has the same footer, on one line at every width: the copyright on the
 		<p>&copy; <span data-year>2026</span> Pavel Storozhuk</p>
 		<nav aria-label="Legal">
 			<ul class="site-footer_links">
-				<li><a href="impressum.html">Impressum</a></li>
-				<li><a href="privacy.html">Privacy</a></li>
+				<li><a href="impressum/">Impressum</a></li>
+				<li><a href="privacy/">Privacy</a></li>
 			</ul>
 		</nav>
 	</div>
 </footer>
 ```
 
-There is no template, so each page holds its own copy. **Any change to the footer goes into every `.html` page in the same commit** (`index.html`, `404.html`, `impressum.html`, `privacy.html`, and any page added later); the markup is identical in all of them. If the text changes, update the footer line of `index.html.md` too.
+There is no template, so each page holds its own copy. **Any change to the footer goes into every `.html` page in the same commit** (`index.html`, `404.html`, `impressum/index.html`, `privacy/index.html`, and any page added later); the markup is identical in all of them. If the text changes, update the footer line of `index.html.md` too.
 
-Pages that can be shorter than the window (`404.html`, `impressum.html`, `privacy.html`) have `class="page-fill"` on `<body>`, which keeps the footer at the bottom of the window however little content there is. A new page gets that class as well. `index.html` is always taller than the window and doesn't need it.
+Pages that can be shorter than the window (`404.html`, `impressum/index.html`, `privacy/index.html`) have `class="page-fill"` on `<body>`, which keeps the footer at the bottom of the window however little content there is. A new page gets that class as well. `index.html` is always taller than the window and doesn't need it.
 
 ### Buttons
 
@@ -169,7 +170,7 @@ There is no test suite. The site should look and behave the same unless a change
 
 - Widths on both sides of each breakpoint (e.g. 375, 767/768, 991/992, 1199/1200 and 1440px), in light and dark mode, and once with "reduce motion" on.
 - The slider (autoplay, dots, swipe), the sticky navbar, the mobile menu, the counters, the reveal animations and the contact dialog (open, Esc, send).
-- `404.html`, `impressum.html` and `privacy.html`, and that the console shows no errors and no request returns 404.
+- `404.html`, `impressum/index.html` and `privacy/index.html`, and that the console shows no errors and no request returns 404.
 
 ## Behaviour (js/main.js)
 
@@ -186,8 +187,8 @@ There is no test suite. The site should look and behave the same unless a change
 
 ## Search engines and link previews
 
-- **Keep the copies in sync.** The services, facts and contact details appear in four places: the page itself, the JSON-LD block in `<head>` (structured data for Google and Bing: who Pavel is, the business, the services), `index.html.md` and `llms.txt`. Change one, change all. Likewise the menu and [footer](#footer), which `404.html`, `impressum.html` and `privacy.html` repeat. All three use relative links; because GitHub Pages serves `404.html` at any depth, its links start from a `<base href="/">`, which a small inline script points at the file's own folder when the page is opened by name (a local server in a subfolder).
-- **Keep the privacy policy true.** `privacy.html` names every provider that receives visitors' data (hosting, delivery, the contact form, email) and says the site sets no cookies and uses no analytics. Adding or changing a provider, a cookie or a tracker means updating it and its date in the same commit. Cloudflare's Bot Fight Mode sets a cookie, so it stays off.
+- **Keep the copies in sync.** The services, facts and contact details appear in four places: the page itself, the JSON-LD block in `<head>` (structured data for Google and Bing: who Pavel is, the business, the services), `index.html.md` and `llms.txt`. Change one, change all. Likewise the menu and [footer](#footer), which `404.html`, `impressum/index.html` and `privacy/index.html` repeat. All pages use the same relative links, written from the site's root. The legal pages sit one folder down, so a `<base href="../">` points them back at the root, and each has a `<link rel="canonical">` to its address with the trailing slash. Because GitHub Pages serves `404.html` at any depth, its links start from a `<base href="/">`, which a small inline script points at the file's own folder when the page is opened by name (a local server in a subfolder). `404.html` must stay at the root under that name, or GitHub Pages won't use it.
+- **Keep the privacy policy true.** `privacy/index.html` names every provider that receives visitors' data (hosting, delivery, the contact form, email) and says the site sets no cookies and uses no analytics. Adding or changing a provider, a cookie or a tracker means updating it and its date in the same commit. Cloudflare's Bot Fight Mode sets a cookie, so it stays off.
 - **One `<h1>` per page.** The first hero slide's title is the `<h1>`; other slides use `<p class="slide_title">`, which looks the same.
 - **Link previews** use the Open Graph tags in `<head>` and `images/og.jpg` (1200×630, cropped from `hero-1.jpg`). After changing either, re-check a link with the [LinkedIn Post Inspector](https://linkedin.com/post-inspector/), which also refreshes LinkedIn's cache.
 - **Favicons** live in `images/favicon/`. `favicon.svg` is the one modern browsers use: transparent in light mode, on a white rounded square in dark mode. `favicon.ico` (16/32/48), `apple-touch-icon.png` (180) and `icon-192/512.png` (for `site.webmanifest` and the JSON-LD logo) are black on white, rendered from the same artwork.
