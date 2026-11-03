@@ -321,6 +321,8 @@ button {
 	margin-bottom: 3rem;
 }
 
+/* h1 on a page whose only section is its title (404.html) */
+.section-text h1,
 .section-text h2 {
 	margin-bottom: 1.5rem;
 	font-size: 40px;
@@ -328,6 +330,7 @@ button {
 }
 
 @media (width < 768px) {
+	.section-text h1,
 	.section-text h2 { font-size: 28px; }
 }
 
