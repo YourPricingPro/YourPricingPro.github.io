@@ -1749,12 +1749,6 @@ html:has(.contact-modal[open]) {
 	color: inherit; /* orange is under 4.5:1 on the red tint; the underline still marks the link */
 }
 
-/* Where the form's data goes, right above the button */
-.contact-form_note {
-	font-size: 14px;
-	line-height: 1.6;
-}
-
 .contact-form_submit:disabled {
 	opacity: 0.7;
 	cursor: progress;
