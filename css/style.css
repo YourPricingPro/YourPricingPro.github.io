@@ -504,6 +504,15 @@ button {
 	.site-nav { background: var(--bg-nav); }
 }
 
+/* Pages without a hero (all but index.html): on desktop in light mode the white bar casts the
+ * sticky bar's shadow from the start. On phones it's the black bar, and dark mode is unchanged */
+@media (width >= 992px) and (prefers-color-scheme: light) {
+	.site-nav--shadow {
+		background: var(--bg-nav);
+		box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+	}
+}
+
 .site-nav.is-sticky {
 	--nav-fg: var(--ink);
 	position: fixed;
