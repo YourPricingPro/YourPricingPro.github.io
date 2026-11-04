@@ -6,6 +6,7 @@ One-page static site. No frameworks, no build step: edit the files and push.
 index.html        the page
 404.html          "page not found", served by GitHub Pages for any missing URL (paths start from its <base>)
 impressum/, privacy/   legal pages, each an index.html served at /impressum/ and /privacy/ (noindex, not in the sitemap; paths start from their <base>)
+quick-call/       booking page with the Cal.com calendar, built like the legal pages; linked from nowhere (see "Booking page")
 css/style.css     all styles (fonts and theme variables at the top)
 js/main.js        all behaviour (no dependencies)
 fonts/            Poppins, self-hosted (woff2, Latin and Latin Extended subsets)
@@ -30,14 +31,14 @@ When a release changes the page's content, set `<lastmod>` in `sitemap.xml` to t
 
 - **Cache rule** (Caching → Cache Rules): when the query string contains `v=`, or the URI path starts with `/fonts/`, set Edge TTL and Browser TTL to 1 year. Versioned CSS/JS and the fonts never change under the same URL. When the URI path starts with `/images/`, use 30 days; image names aren't versioned, so give a changed image a new file name.
 - **Response header rule** (Rules → Transform Rules → Modify Response Header): when the URI path equals `/index.html.md`, set `Link` to `<https://yourpricing.pro/>; rel="canonical"`, so search engines treat the Markdown copy as a duplicate of the page instead of indexing it on its own (LLM crawlers can still read it).
-- **Response header rule** (same place): when the URI path is in `/404.html`, `/impressum/`, `/impressum/index.html`, `/privacy/` or `/privacy/index.html`, set `X-Robots-Tag` to `noindex`. A backup for the pages' own `noindex` meta tag. Don't block these pages in `robots.txt` instead: a crawler that can't fetch a page never sees its `noindex`, and may list the bare URL anyway.
+- **Response header rule** (same place): when the URI path is in `/404.html`, `/impressum/`, `/impressum/index.html`, `/privacy/`, `/privacy/index.html`, `/quick-call/` or `/quick-call/index.html`, set `X-Robots-Tag` to `noindex`. A backup for the pages' own `noindex` meta tag. Don't block these pages in `robots.txt` instead: a crawler that can't fetch a page never sees its `noindex`, and may list the bare URL anyway.
 
 To preview locally, serve the folder (`python3 -m http.server`) and open http://localhost:8000. Opening `index.html` straight from disk works too, but the footer links then show a folder listing instead of the legal pages.
 
 ## Styling conventions
 
 - **Theme values** (colours, font, card shadow, gutter) are CSS variables in `:root` at the top of `style.css`. Change the accent colour there, for example. A colour used in more than one place gets a variable too, even when it is the same in both themes (`--icon-on-accent`).
-- **Dark mode** follows the visitor's device setting (`prefers-color-scheme`); there is no switch on the page. The dark values override the same variables in the `@media (prefers-color-scheme: dark)` block right below `:root`, so components only use the variables (`--ink`, `--on-accent`, `--bg-card`, …) instead of hard-coded `#000`/`#fff`. The few fixed colours are the same in both themes on purpose: white text and dots on the hero photos, the black menu bar on phones, the white icon circle on a hovered service card and the light footer text. A few image-specific tweaks sit next to their components: on desktop the hero photo is narrower and starts below the nav, so the light title sits on the grey page instead of the light wall in the photo, and the About photo is dimmed slightly. `images/pricing-cycle.svg` and the client logos carry their own dark colours in a `<style>` block. Every dark text colour pair passes WCAG AA (4.5:1). A `darkreader-lock` meta tag stops the Dark Reader extension darkening the page a second time.
+- **Dark mode** follows the visitor's device setting (`prefers-color-scheme`); there is no switch on the page. The dark values override the same variables in the `@media (prefers-color-scheme: dark)` block right below `:root`, so components only use the variables (`--ink`, `--on-accent`, `--bg-card`, …) instead of hard-coded `#000`/`#fff`. The few fixed colours are the same in both themes on purpose: white text and dots on the hero photos, the black menu bar on phones, the white icon circle on a hovered service card and the light footer text. A few image-specific tweaks sit next to their components: on desktop the hero photo is narrower and starts below the nav, so the light title sits on the grey page instead of the light wall in the photo, and the About photo is dimmed slightly. `images/pricing-cycle.svg` and the client logos carry their own dark colours in a `<style>` block, and the booking calendar gets its dark colours from its embed snippet (see "Booking page"). Every dark text colour pair passes WCAG AA (4.5:1). A `darkreader-lock` meta tag stops the Dark Reader extension darkening the page a second time.
 - **Class names** describe what a thing is: `block`, `block_part`, `block--variant` (e.g. `service-card`, `service-card_icon`, `btn--primary`).
 - **State classes** set by JavaScript start with `is-` (`is-sticky`, `is-visible`, `is-leaving`, `is-open`, `is-animating`, `is-active`, `is-revealed`).
 - **JavaScript hooks** are `data-` attributes, so restyling never breaks behaviour.
@@ -133,9 +134,18 @@ Every page has the same footer, on one line at every width: the copyright on the
 </footer>
 ```
 
-There is no template, so each page holds its own copy. **Any change to the footer goes into every `.html` page in the same commit** (`index.html`, `404.html`, `impressum/index.html`, `privacy/index.html`, and any page added later); the markup is identical in all of them. If the text changes, update the footer line of `index.html.md` too.
+There is no template, so each page holds its own copy. **Any change to the footer goes into every `.html` page in the same commit** (`index.html`, `404.html`, `impressum/index.html`, `privacy/index.html`, `quick-call/index.html`, and any page added later); the markup is identical in all of them. If the text changes, update the footer line of `index.html.md` too.
 
-Pages that can be shorter than the window (`404.html`, `impressum/index.html`, `privacy/index.html`) have `class="page-fill"` on `<body>`, which keeps the footer at the bottom of the window however little content there is. A new page gets that class as well. `index.html` is always taller than the window and doesn't need it.
+Pages that can be shorter than the window (`404.html`, `impressum/index.html`, `privacy/index.html`, `quick-call/index.html`) have `class="page-fill"` on `<body>`, which keeps the footer at the bottom of the window however little content there is. A new page gets that class as well. `index.html` is always taller than the window and doesn't need it.
+
+### Booking page
+
+`quick-call/index.html` is the link Pavel sends to prospects who want a call: yourpricing.pro/quick-call/. It shows the Cal.com event `pavel-storozhuk/quick-zoom` as an inline calendar. On purpose, nothing links to it: not the menu, the footer, the sitemap, `llms.txt` or `index.html.md`. Like the legal pages it is `noindex`, and it isn't blocked in `robots.txt`, so search engines can read that.
+
+- Cal.com's embed snippet is inline at the bottom of the page, pointed at `[data-booking]`, so no other page loads anything from Cal.com. The `privacy/index.html` section "Booking a call" says so; keep it true.
+- The calendar follows the visitor's light or dark setting. Its orange (`cal-brand`) is set per theme in the snippet's `ui` call, and in dark mode its backgrounds (`cal-bg`, `cal-bg-muted`) repeat the dark `--bg` and its day buttons (`cal-bg-emphasis`) `--bg-card`, so the calendar sits on the page instead of in a darker box. Change them together with those variables. `.booking_calendar` sets `color-scheme` to a single value (`light` or `dark`): Cal.com's script passes it into the iframe only then, and without it Chrome paints a white backdrop behind the calendar in dark mode. The page's `darkreader-lock` doesn't reach into the iframe, so a visitor's dark-mode extension can still recolour the calendar; that isn't a bug on the page.
+- `forwardQueryParams` passes the page's query string on, so `quick-call/?name=Jane%20Doe&email=jane@example.com` opens the booking form already filled in.
+- `.booking_calendar` keeps 600px free while the calendar loads, so the footer doesn't jump. Without JavaScript a `<noscript>` link to the same event on cal.com shows instead.
 
 ### Buttons
 
@@ -170,7 +180,7 @@ There is no test suite. The site should look and behave the same unless a change
 
 - Widths on both sides of each breakpoint (e.g. 375, 767/768, 991/992, 1199/1200 and 1440px), in light and dark mode, and once with "reduce motion" on.
 - The slider (autoplay, dots, swipe), the sticky navbar, the mobile menu, the counters, the reveal animations and the contact dialog (open, Esc, send).
-- `404.html`, `impressum/index.html` and `privacy/index.html`, and that the console shows no errors and no request returns 404.
+- `404.html`, `impressum/index.html`, `privacy/index.html` and `quick-call/index.html` (the calendar loads, in both themes), and that the console shows no errors and no request returns 404.
 
 ## Behaviour (js/main.js)
 
@@ -187,7 +197,7 @@ There is no test suite. The site should look and behave the same unless a change
 
 ## Search engines and link previews
 
-- **Keep the copies in sync.** The services, facts and contact details appear in four places: the page itself, the JSON-LD block in `<head>` (structured data for Google and Bing: who Pavel is, the business, the services), `index.html.md` and `llms.txt`. Change one, change all. Likewise the menu and [footer](#footer), which `404.html`, `impressum/index.html` and `privacy/index.html` repeat. Their menu bar has one extra class, `site-nav--shadow`: with no hero photo under it, the bar casts its shadow from the top of the page on desktop in light mode, as it does on the home page once it sticks. All pages use the same relative links, written from the site's root. The legal pages sit one folder down, so a `<base href="../">` points them back at the root, and each has a `<link rel="canonical">` to its address with the trailing slash. Because GitHub Pages serves `404.html` at any depth, its links start from a `<base href="/">`, which a small inline script points at the file's own folder when the page is opened by name (a local server in a subfolder). `404.html` must stay at the root under that name, or GitHub Pages won't use it.
+- **Keep the copies in sync.** The services, facts and contact details appear in four places: the page itself, the JSON-LD block in `<head>` (structured data for Google and Bing: who Pavel is, the business, the services), `index.html.md` and `llms.txt`. Change one, change all. Likewise the menu and [footer](#footer), which `404.html`, `impressum/index.html`, `privacy/index.html` and `quick-call/index.html` repeat. Their menu bar has one extra class, `site-nav--shadow`: with no hero photo under it, the bar casts its shadow from the top of the page on desktop in light mode, as it does on the home page once it sticks. All pages use the same relative links, written from the site's root. The legal and booking pages sit one folder down, so a `<base href="../">` points them back at the root, and each has a `<link rel="canonical">` to its address with the trailing slash. Because GitHub Pages serves `404.html` at any depth, its links start from a `<base href="/">`, which a small inline script points at the file's own folder when the page is opened by name (a local server in a subfolder). `404.html` must stay at the root under that name, or GitHub Pages won't use it.
 - **Keep the privacy policy true.** `privacy/index.html` names every provider that receives visitors' data (hosting, delivery, the contact form, email) and says the site sets no cookies and uses no analytics. Adding or changing a provider, a cookie or a tracker means updating it and its date in the same commit. Cloudflare's Bot Fight Mode sets a cookie, so it stays off.
 - **One `<h1>` per page.** The first hero slide's title is the `<h1>`; other slides use `<p class="slide_title">`, which looks the same.
 - **Link previews** use the Open Graph tags in `<head>` and `images/og.jpg` (1200×630, cropped from `hero-1.jpg`). After changing either, re-check a link with the [LinkedIn Post Inspector](https://linkedin.com/post-inspector/), which also refreshes LinkedIn's cache.

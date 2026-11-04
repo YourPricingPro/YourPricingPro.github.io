@@ -13,7 +13,7 @@
  *   4. Components: buttons, icons, reveal animation
  *   5. Navigation
  *   6. Hero slider
- *   7. Page sections: stats, about, services, illustration, clients, call to action, 404, legal pages, footer
+ *   7. Page sections: stats, about, services, illustration, clients, call to action, 404, legal pages, booking page, footer
  *   8. Contact modal
  */
 
@@ -1536,6 +1536,19 @@ button {
 
 .legal_details dd {
 	margin: 0;
+}
+
+/* Booking page (quick-call/index.html): Cal.com's calendar, which sizes its own iframe to fit.
+ * The minimum height holds its place while it loads, so the footer doesn't jump */
+.booking_calendar {
+	min-height: 600px;
+	/* Cal.com's script passes this into its iframe only when it's a single scheme, not the page's "light dark".
+	 * Without it the calendar guesses its own theme, and Chrome paints a white backdrop behind it in dark mode */
+	color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+	.booking_calendar { color-scheme: dark; }
 }
 
 /* Footer */
