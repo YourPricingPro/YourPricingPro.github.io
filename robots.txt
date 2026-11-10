@@ -1,7 +1,7 @@
 User-agent: *
-Disallow: /images/cta.png
-Disallow: /images/hero-1.jpg
-Disallow: /images/hero-2.jpg
+Disallow: /images/cta.webp
+Disallow: /images/hero-1.webp
+Disallow: /images/hero-2.webp
 Disallow: /images/clients/
 
 Sitemap: https://yourpricing.pro/sitemap.xml
