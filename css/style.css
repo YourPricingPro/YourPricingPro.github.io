@@ -887,6 +887,12 @@ button {
 	color: var(--accent);
 }
 
+/* Below lg the eyebrow sits on the photo: a dark glow lifts the thin orange letters off the
+ * white shirt and the orange tie */
+@media (width < 992px) {
+	.slide_eyebrow { text-shadow: 0 0 2px rgba(0, 0, 0, 0.9), 0 1px 3px rgba(0, 0, 0, 0.8), 0 0 16px rgba(0, 0, 0, 0.6); }
+}
+
 /* The title's <span> is the orange highlighted word. The first slide's title is the page's
  * <h1>; the others are <p>s with the same look (one <h1> per page, for search engines). */
 .slide_title {
