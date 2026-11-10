@@ -850,8 +850,9 @@ button {
 	}
 }
 
-/* Phones: text starts just below the neck (the photo fills the slide height, so it's a fixed offset) */
-@media (width < 768px) {
+/* Below lg: text starts just below the neck (the photo fills the slide height up to 991px wide,
+ * so it's a fixed offset) */
+@media (width < 992px) {
 	.slide_content {
 		align-items: flex-start;
 		padding-top: 20rem;
