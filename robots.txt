@@ -1,7 +1,12 @@
 User-agent: *
-Disallow: /images/cta.webp
-Disallow: /images/hero-1.webp
-Disallow: /images/hero-2.webp
+Disallow: /images/*.webp
 Disallow: /images/clients/
+
+# Google Images follows only this group, so it repeats the rules above.
+# og.jpg is blocked only here: link-preview bots (LinkedIn, X) obey robots.txt.
+User-agent: Googlebot-Image
+Disallow: /images/*.webp
+Disallow: /images/clients/
+Disallow: /images/og.jpg
 
 Sitemap: https://yourpricing.pro/sitemap.xml
