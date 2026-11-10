@@ -1053,17 +1053,14 @@ button {
 	color: var(--accent);
 }
 
-/* About: photo on the left, intro + details on the right; one column on phones */
+/* About: photo on the left, intro + details on the right from lg; one column below that
+ * (the tight head-and-shoulders photo gets too narrow in two columns at md) */
 .about {
 	position: relative; /* affects paint order; removing it changes how the block is painted */
 }
 
 .about_grid {
 	display: grid;
-}
-
-@media (width >= 768px) {
-	.about_grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (width >= 992px) {
@@ -1088,11 +1085,12 @@ button {
 	object-position: center;
 }
 
-/* Phones: one column, so the photo needs its own height (it otherwise takes the text column's) */
-@media (width < 768px) {
-	.about_photo { height: 320px; }
+/* One column, so the photo needs its own height (it otherwise takes the text column's);
+ * 4:5 shows the whole head of the tight head-and-shoulders crop at every width */
+@media (width < 992px) {
+	.about_photo { aspect-ratio: 4 / 5; }
 
-	.about_photo img { object-position: center top; } /* keep the space above the head, as on desktop */
+	.about_photo img { object-position: center top; } /* crop from the bottom, never the head */
 }
 
 /* Dark mode: tone down the bright wall and white shirt a little next to the grey page */
@@ -1104,12 +1102,8 @@ button {
 	padding: 3rem 0 4rem;
 }
 
-@media (width >= 768px) {
-	.about_body { padding: 6rem 0 7rem 1.5rem; }
-}
-
 @media (width >= 992px) {
-	.about_body { padding-left: 3rem; }
+	.about_body { padding: 6rem 0 7rem 3rem; }
 }
 
 .about .section-text {
@@ -1164,8 +1158,8 @@ button {
 	.interests { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 
-/* Phones: the 2 x 2 block is centred, columns stay aligned */
-@media (width < 768px) {
+/* One column (below lg): the 2 x 2 block is centred, columns stay aligned */
+@media (width < 992px) {
 	.interests {
 		grid-template-columns: repeat(2, auto);
 		justify-content: center;
