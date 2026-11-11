@@ -795,9 +795,13 @@ button {
 	}
 }
 
-/* Phones: the person stands right of centre in the photos, so shift them into the middle */
-@media (width < 768px) {
-	.slide_photo { background-position: 58% center; }
+/* One column: the person stands at 58% of the photos' width, right of centre, so put that point
+ * in the middle of the slide. Below 992px the photo fills the slide height, so it is drawn
+ * var(--hero-height) × 2600 / 1985 wide (the photos' pixel size), and a % offset can't do this
+ * at every width. max() stops at 100%, where the photo's right edge meets the slide's,
+ * so near 992px the person stays a little right of centre rather than the wall running out */
+@media (width < 992px) {
+	.slide_photo { background-position: max(100%, 50% - 0.08 * var(--hero-height) * 2600 / 1985) center; }
 }
 
 /* Slanted panels in the page colour along the photo's left edge */

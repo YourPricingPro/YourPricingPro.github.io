@@ -116,6 +116,8 @@ Then give `.client--acme` in `style.css` a width (`--w`, for phones and from md,
 
 Copy the second `.slide` inside `.hero-slider` (its title is a `<p class="slide_title">`: the first slide holds the page's only `<h1>`). The slider loops, autoplays every 5s, pauses on hover, can be swiped on touch screens, and creates one dot per slide. For the seamless loop `main.js` adds copies of the slides on both sides; it hides them from screen readers and the Tab key and turns their `<h1>` into a `<p>`, so edit only the slides in `index.html`.
 
+Below 992px the photo fills the full width, and `style.css` shifts it so the person stands in the middle of the slide. The rule assumes he stands at 58% of the photo's width and that the photos are 2600×1985, as both hero photos are now. A new photo with the person elsewhere, or with other proportions, needs those numbers changed (the `0.08` is 0.58 − 0.5).
+
 ### Footer
 
 Every page has the same footer, on one line at every width: the copyright on the left, the legal links on the right. Below 373px the text shrinks a little (to 12px at 320px wide) so the line still fits.
