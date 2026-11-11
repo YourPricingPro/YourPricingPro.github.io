@@ -75,7 +75,6 @@ The strategic pricing cycle: **Price → Measure → Iterate**.
 
 - Eightfold AI
 - Kyriba
-- UKG
 - Mistral AI
 
 And a dozen small startups.
