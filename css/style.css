@@ -321,7 +321,7 @@ button {
 	margin-bottom: 3rem;
 }
 
-/* h1 on a page whose only section is its title (404.html) */
+/* h1 on a page whose title sits in a section's text (404.html, quick-call/index.html) */
 .section-text h1,
 .section-text h2 {
 	margin-bottom: 1.5rem;
@@ -1117,6 +1117,7 @@ button {
 	margin-bottom: 0;
 }
 
+.about .section-text h1,
 .about .section-text h2 {
 	font-size: 34px;
 }
@@ -1470,11 +1471,43 @@ button {
 	}
 }
 
-/* 404 page (404.html): one short section with its text vertically centred */
-.not-found {
-	display: flex;
-	align-items: center;
-	min-height: 75vh;
+/* 404 page (404.html): the About layout (photo left, text right from lg) with its own photo,
+ * cropped from the bottom when there's less room, so the head always shows */
+.not-found .about_photo img { object-position: center top; }
+
+/* One column: a little wider crop than About's 4:5 */
+@media (width < 992px) {
+	.not-found .about_photo { aspect-ratio: 1 / 1; }
+}
+
+/* From lg the section fills the window below the 82px menu bar (which lies over the page),
+ * with the photo and text centred vertically in it. The photo is as tall as the whole picture
+ * (the 5/12 column's width × 3616 / 2640) if the window has room for it, else as tall as
+ * --room, the space between menu bar and 57px footer, but never shorter than the text beside it */
+@media (width >= 992px) {
+	.page-fill main:has(> .not-found) {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.not-found {
+		--room: calc(100dvh - 82px - 57px);
+		display: flex;
+		flex: 1;
+		align-items: center;
+		padding-top: 82px;
+	}
+
+	.not-found .about_photo { min-height: min(531px, var(--room)); }
+
+	.not-found .about_body {
+		align-self: center;
+		padding: 2rem 0 2rem 3rem; /* even top and bottom, so the text sits in the middle */
+	}
+}
+
+@media (width >= 1200px) {
+	.not-found .about_photo { min-height: min(633px, var(--room)); }
 }
 
 /* Put on <body> of the pages that can be shorter than the window (404.html, impressum/index.html,

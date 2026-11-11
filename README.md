@@ -4,7 +4,7 @@ One-page static site. No frameworks, no build step: edit the files and push.
 
 ```
 index.html        the page
-404.html          "page not found", served by GitHub Pages for any missing URL (paths start from its <base>)
+404.html          "page not found" in the About layout with its own photo, served by GitHub Pages for any missing URL (paths start from its <base>)
 impressum/, privacy/   legal pages, each an index.html served at /impressum/ and /privacy/ (noindex, not in the sitemap; paths start from their <base>)
 quick-call/       booking page with the Cal.com calendar, built like the legal pages; linked from nowhere (see "Booking page")
 css/style.css     all styles (fonts and theme variables at the top)
@@ -38,7 +38,7 @@ To preview locally, serve the folder (`python3 -m http.server`) and open http://
 ## Styling conventions
 
 - **Theme values** (colours, font, card shadow, gutter) are CSS variables in `:root` at the top of `style.css`. Change the accent colour there, for example. A colour used in more than one place gets a variable too, even when it is the same in both themes (`--icon-on-accent`).
-- **Dark mode** follows the visitor's device setting (`prefers-color-scheme`); there is no switch on the page. The dark values override the same variables in the `@media (prefers-color-scheme: dark)` block right below `:root`, so components only use the variables (`--ink`, `--on-accent`, `--bg-card`, …) instead of hard-coded `#000`/`#fff`. The few fixed colours are the same in both themes on purpose: white text and dots on the hero photos, the black menu bar on phones, the white icon circle on a hovered service card and the light footer text. A few image-specific tweaks sit next to their components: on desktop the hero photo is narrower and starts below the nav, so the light title sits on the grey page instead of the light wall in the photo, and the About photo is dimmed slightly. `images/pricing-cycle.svg` and the client logos carry their own dark colours in a `<style>` block, and the booking calendar gets its dark colours from its embed snippet (see "Booking page"). Every dark text colour pair passes WCAG AA (4.5:1). A `darkreader-lock` meta tag stops the Dark Reader extension darkening the page a second time.
+- **Dark mode** follows the visitor's device setting (`prefers-color-scheme`); there is no switch on the page. The dark values override the same variables in the `@media (prefers-color-scheme: dark)` block right below `:root`, so components only use the variables (`--ink`, `--on-accent`, `--bg-card`, …) instead of hard-coded `#000`/`#fff`. The few fixed colours are the same in both themes on purpose: white text and dots on the hero photos, the black menu bar on phones, the white icon circle on a hovered service card and the light footer text. A few image-specific tweaks sit next to their components: on desktop the hero photo is narrower and starts below the nav, so the light title sits on the grey page instead of the light wall in the photo, and the About and 404 photos are dimmed slightly. `images/pricing-cycle.svg` and the client logos carry their own dark colours in a `<style>` block, and the booking calendar gets its dark colours from its embed snippet (see "Booking page"). Every dark text colour pair passes WCAG AA (4.5:1). A `darkreader-lock` meta tag stops the Dark Reader extension darkening the page a second time.
 - **Class names** describe what a thing is: `block`, `block_part`, `block--variant` (e.g. `service-card`, `service-card_icon`, `btn--primary`).
 - **State classes** set by JavaScript start with `is-` (`is-sticky`, `is-visible`, `is-leaving`, `is-open`, `is-animating`, `is-active`, `is-revealed`).
 - **JavaScript hooks** are `data-` attributes, so restyling never breaks behaviour.
@@ -165,7 +165,7 @@ Don't mix in icons from other sets (Font Awesome, Flaticon, …): that's how the
 
 ## Images
 
-- **Names** say where the image appears: `hero-1.webp`, `hero-2.webp`, `about.webp`, `about.jpg`, `cta.webp`, `og.jpg` and `clients/<company>.svg`. Cloudflare caches images for 30 days by name, so a changed image gets a new name (e.g. `about-2.webp`), and every reference to it is updated (`index.html`, the JSON-LD, `robots.txt`, this README).
+- **Names** say where the image appears: `hero-1.webp`, `hero-2.webp`, `about.webp`, `about.jpg`, `cta.webp`, `404.webp`, `og.jpg` and `clients/<company>.svg`. Cloudflare caches images for 30 days by name, so a changed image gets a new name (e.g. `about-2.webp`), and every reference to it is updated (`index.html`, the JSON-LD, `robots.txt`, this README).
 - **Photos on the page are WebP**, which every supported browser shows, so no fallback is needed. Make them from the originals in `src/` with `cwebp -q 85 -m 6 -sharp_yuv -metadata icc` (the CTA photo, which is transparent, also with `-alpha_q 100 -exact`). If the source is a PNG, cwebp drops its colour profile; add it back with `webpmux -set icc srgb.icc`. `about.jpg` and `og.jpg` stay JPEG: the first is the `image` in the JSON-LD, the second the link preview, and link-preview crawlers don't all read WebP.
 - **No metadata but the colour profile.** Photo editors and cameras write the author, editing dates, source file names and the camera's and lens's serial numbers into the file. `-metadata icc` (cwebp) and `-copy icc` (jpegtran) keep only the colour profile, so run every new photo through one of them before committing, even if it needs no other change.
 - **Optimise losslessly** before committing, keeping the format and the sRGB colour profile:
@@ -182,7 +182,7 @@ There is no test suite. The site should look and behave the same unless a change
 
 - Widths on both sides of each breakpoint (e.g. 375, 767/768, 991/992, 1199/1200 and 1440px), in light and dark mode, and once with "reduce motion" on.
 - The slider (autoplay, dots, swipe), the sticky navbar, the mobile menu, the counters, the reveal animations and the contact dialog (open, Esc, send).
-- `404.html`, `impressum/index.html`, `privacy/index.html` and `quick-call/index.html` (the calendar loads, in both themes), and that the console shows no errors and no request returns 404.
+- `404.html` (the photo and text centred between menu bar and footer, the head never cropped, also in a short window), `impressum/index.html`, `privacy/index.html` and `quick-call/index.html` (the calendar loads, in both themes), and that the console shows no errors and no request returns 404.
 
 ## Behaviour (js/main.js)
 
