@@ -3,19 +3,134 @@
  *
  * Breakpoints (media queries can't use variables):
  *   sm 576px · md 768px · lg 992px · xl 1200px
- *   "below sm" = max-width: 575.98px, "below md" = max-width: 767.98px,
- *   "below lg" = max-width: 991.98px, "below xl" = max-width: 1199.98px
+ *   "from md" = (width >= 768px), "below md" = (width < 768px)
  *
  * Sections:
+ *   0. Fonts
  *   1. Theme variables
  *   2. Base elements
- *   3. Layout: container, section, section heading, eyebrow
+ *   3. Layout: container, section, section text, eyebrow
  *   4. Components: buttons, icons, reveal animation
  *   5. Navigation
  *   6. Hero slider
- *   7. Page sections: stats, about, services, illustration, call to action, footer
+ *   7. Page sections: stats, about, services, illustration, clients, call to action, 404, legal pages, booking page, footer
  *   8. Contact modal
  */
+
+
+/* 0. Fonts --------------------------------------------------------------- */
+
+/* Poppins (SIL Open Font License, see licenses/poppins.txt), self-hosted: Latin and Latin Extended
+ * subsets of the six weights in use. The browser only downloads a subset when the page has
+ * characters in its unicode-range. */
+
+@font-face {
+	font-family: "Poppins";
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url("../fonts/poppins-400-latin-ext.woff2") format("woff2");
+	unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+	font-family: "Poppins";
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url("../fonts/poppins-400-latin.woff2") format("woff2");
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+	font-family: "Poppins";
+	font-style: normal;
+	font-weight: 500;
+	font-display: swap;
+	src: url("../fonts/poppins-500-latin-ext.woff2") format("woff2");
+	unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+	font-family: "Poppins";
+	font-style: normal;
+	font-weight: 500;
+	font-display: swap;
+	src: url("../fonts/poppins-500-latin.woff2") format("woff2");
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+	font-family: "Poppins";
+	font-style: normal;
+	font-weight: 600;
+	font-display: swap;
+	src: url("../fonts/poppins-600-latin-ext.woff2") format("woff2");
+	unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+	font-family: "Poppins";
+	font-style: normal;
+	font-weight: 600;
+	font-display: swap;
+	src: url("../fonts/poppins-600-latin.woff2") format("woff2");
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+	font-family: "Poppins";
+	font-style: normal;
+	font-weight: 700;
+	font-display: swap;
+	src: url("../fonts/poppins-700-latin-ext.woff2") format("woff2");
+	unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+	font-family: "Poppins";
+	font-style: normal;
+	font-weight: 700;
+	font-display: swap;
+	src: url("../fonts/poppins-700-latin.woff2") format("woff2");
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+	font-family: "Poppins";
+	font-style: normal;
+	font-weight: 800;
+	font-display: swap;
+	src: url("../fonts/poppins-800-latin-ext.woff2") format("woff2");
+	unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+	font-family: "Poppins";
+	font-style: normal;
+	font-weight: 800;
+	font-display: swap;
+	src: url("../fonts/poppins-800-latin.woff2") format("woff2");
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+	font-family: "Poppins";
+	font-style: normal;
+	font-weight: 900;
+	font-display: swap;
+	src: url("../fonts/poppins-900-latin-ext.woff2") format("woff2");
+	unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+	font-family: "Poppins";
+	font-style: normal;
+	font-weight: 900;
+	font-display: swap;
+	src: url("../fonts/poppins-900-latin.woff2") format("woff2");
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
 
 
 /* 1. Theme variables ------------------------------------------------------ */
@@ -29,12 +144,13 @@
 	--accent-hover: #d9640a; /* buttons: hover and press darken the fill a step each */
 	--accent-pressed: #a24a01;
 	--focus-on-accent: #1f2124; /* focus ring on the orange band */
+	--icon-on-accent: #000; /* line icons in the orange circles, in both themes */
 
 	/* The light button on the orange band: white with orange text */
 	--btn-light: var(--bg);
 	--btn-light-hover: #fff3e8;
 	--btn-light-pressed: #ffe3cc;
-	--btn-light-text-active: #a24a01; /* hover and press darken its orange text too */
+	--btn-light-text-active: var(--accent-pressed); /* hover and press darken its orange text too */
 
 	/* Text */
 	--text: #7b7b7b;
@@ -128,10 +244,6 @@ ul {
 	margin: 0 0 1rem;
 }
 
-strong {
-	font-weight: bolder;
-}
-
 a {
 	color: var(--accent);
 	text-decoration: underline;
@@ -162,6 +274,19 @@ button {
 	cursor: pointer;
 }
 
+/* Text for screen readers and search engines only, e.g. the final value of an animated counter */
+.visually-hidden {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	padding: 0;
+	overflow: hidden;
+	clip-path: inset(50%);
+	white-space: nowrap;
+	border: 0;
+}
+
 
 /* 3. Layout --------------------------------------------------------------- */
 
@@ -171,39 +296,42 @@ button {
 	padding: 0 15px;
 }
 
-@media (min-width: 576px) { .container { max-width: 540px; } }
-@media (min-width: 768px) { .container { max-width: 720px; } }
-@media (min-width: 992px) { .container { max-width: 960px; } }
-@media (min-width: 1200px) { .container { max-width: 1140px; } }
+@media (width >= 576px) { .container { max-width: 540px; } }
+@media (width >= 768px) { .container { max-width: 720px; } }
+@media (width >= 992px) { .container { max-width: 960px; } }
+@media (width >= 1200px) { .container { max-width: 1140px; } }
 
 /* Page section with vertical spacing; add .section--alt for the grey background */
 .section {
 	position: relative;
-	padding: 7em 0;
+	padding: 112px 0;
 }
 
-@media (max-width: 767.98px) {
-	.section { padding: 6em 0; }
+@media (width < 768px) {
+	.section { padding: 96px 0; }
 }
 
 .section--alt {
 	background: var(--bg-alt);
 }
 
-/* Block of intro text at the top of a section: eyebrow, title, paragraphs */
-.section-heading {
+/* A section's text: eyebrow, title and copy */
+.section-text {
 	display: flow-root;
 	margin-bottom: 3rem;
 }
 
-.section-heading h2 {
+/* h1 on a page whose title sits in a section's text (404.html, quick-call/index.html) */
+.section-text h1,
+.section-text h2 {
 	margin-bottom: 1.5rem;
 	font-size: 40px;
 	font-weight: 600;
 }
 
-@media (max-width: 767.98px) {
-	.section-heading h2 { font-size: 28px; }
+@media (width < 768px) {
+	.section-text h1,
+	.section-text h2 { font-size: 28px; }
 }
 
 /* Small orange caps label above a section title */
@@ -336,7 +464,7 @@ button {
 	from {
 		opacity: 0;
 		visibility: hidden;
-		transform: translate3d(0, 40px, 0);
+		transform: translateY(40px);
 	}
 	to {
 		opacity: 1;
@@ -362,7 +490,7 @@ button {
 	padding: 0.5rem 1rem;
 }
 
-@media (max-width: 991.98px) {
+@media (width < 992px) {
 	.site-nav {
 		--nav-fg: #fff;
 		position: relative;
@@ -374,6 +502,15 @@ button {
 /* Dark mode: a solid dark bar at every width (on desktop the hero photo starts below it) */
 @media (prefers-color-scheme: dark) {
 	.site-nav { background: var(--bg-nav); }
+}
+
+/* Pages without a hero (all but index.html): on desktop in light mode the white bar casts the
+ * sticky bar's shadow from the start. On phones it's the black bar, and dark mode is unchanged */
+@media (width >= 992px) and (prefers-color-scheme: light) {
+	.site-nav--shadow {
+		background: var(--bg-nav);
+		box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+	}
 }
 
 .site-nav.is-sticky {
@@ -403,11 +540,11 @@ button {
 	justify-content: space-between;
 }
 
-@media (max-width: 991.98px) {
+@media (width < 992px) {
 	.site-nav_inner { padding: 0; }
 }
 
-@media (min-width: 992px) {
+@media (width >= 992px) {
 	.site-nav_inner { flex-wrap: nowrap; }
 }
 
@@ -447,7 +584,7 @@ button {
 	color: color-mix(in srgb, var(--ink) 50%, transparent);
 }
 
-@media (min-width: 992px) {
+@media (width >= 992px) {
 	.site-nav_toggle { display: none; }
 }
 
@@ -458,8 +595,8 @@ button {
 	align-items: center;
 }
 
-.site-nav_menu:not(.is-open):not(.is-animating) {
-	display: none;
+@media (width < 992px) {
+	.site-nav_menu:not(.is-open):not(.is-animating) { display: none; }
 }
 
 .site-nav_menu.is-animating {
@@ -473,9 +610,9 @@ button {
 	.site-nav_menu.is-animating { transition: none; }
 }
 
-@media (min-width: 992px) {
+@media (width >= 992px) {
 	.site-nav_menu {
-		display: flex !important;
+		display: flex;
 		flex-basis: auto;
 	}
 }
@@ -489,11 +626,11 @@ button {
 	list-style: none;
 }
 
-@media (max-width: 991.98px) {
+@media (width < 992px) {
 	.site-nav_list { padding-bottom: 20px; }
 }
 
-@media (min-width: 992px) {
+@media (width >= 992px) {
 	.site-nav_list { flex-direction: row; }
 }
 
@@ -507,7 +644,7 @@ button {
 	color: var(--nav-fg);
 }
 
-@media (max-width: 991.98px) {
+@media (width < 992px) {
 	.site-nav_link { padding: 0 0 1rem; }
 	.site-nav.is-sticky .site-nav_link { padding-bottom: 20px; }
 }
@@ -519,7 +656,7 @@ button {
 	padding-bottom: 2px;
 }
 
-@media (max-width: 1199.98px) {
+@media (width < 1200px) {
 	.site-nav_link span { display: inline-block; }
 }
 
@@ -557,7 +694,7 @@ button {
 .hero-slider_viewport {
 	position: relative;
 	overflow: hidden;
-	transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0); /* own GPU layer, see .hero-slider_item */
 }
 
 /* Row of all slides; main.js sets its width and slides it with transform */
@@ -572,6 +709,7 @@ button {
 	position: relative;
 	flex: none;
 	opacity: 0.4;
+	/* Own GPU layers: the slide text is rasterised this way; will-change renders it differently */
 	backface-visibility: hidden;
 	transform: translate3d(0, 0, 0);
 }
@@ -589,11 +727,11 @@ button {
 	text-align: center;
 }
 
-@media (max-width: 767.98px) {
+@media (width < 768px) {
 	.hero-slider_dots { bottom: 5px; }
 }
 
-@media (min-width: 992px) {
+@media (width >= 992px) {
 	.hero-slider_dots { display: none; }
 }
 
@@ -630,13 +768,12 @@ button {
 	position: relative;
 	z-index: 0;
 	display: flex;
-	flex-wrap: wrap;
 	align-items: flex-end;
 	justify-content: flex-end;
 	height: var(--hero-height);
 }
 
-@media (max-width: 991.98px) {
+@media (width < 992px) {
 	.slide { text-align: center; }
 }
 
@@ -651,7 +788,7 @@ button {
 	box-shadow: 20px -20px 69px -27px rgba(0, 0, 0, 0.16);
 }
 
-@media (max-width: 991.98px) {
+@media (width < 992px) {
 	.slide_photo {
 		z-index: 0;
 		width: 100%;
@@ -659,7 +796,7 @@ button {
 }
 
 /* Phones: the person stands right of centre in the photos, so shift them into the middle */
-@media (max-width: 767.98px) {
+@media (width < 768px) {
 	.slide_photo { background-position: 58% center; }
 }
 
@@ -683,7 +820,7 @@ button {
 	transform: skewX(-20deg);
 }
 
-@media (max-width: 991.98px) {
+@media (width < 992px) {
 	.slide_shape { display: none; }
 }
 
@@ -698,23 +835,24 @@ button {
 	align-items: center;
 }
 
-@media (min-width: 992px) {
+@media (width >= 992px) {
 	.slide_content {
 		width: 1200px;
 		margin: 0 auto;
 	}
 }
 
-@media (max-width: 991.98px) {
+@media (width < 992px) {
 	.slide_content {
 		z-index: 1;
 		width: 100%;
-		padding: 1em;
+		padding: 16px;
 	}
 }
 
-/* Phones: text starts just below the neck (the photo fills the slide height, so it's a fixed offset) */
-@media (max-width: 767.98px) {
+/* Below lg: text starts just below the neck (the photo fills the slide height up to 991px wide,
+ * so it's a fixed offset) */
+@media (width < 992px) {
 	.slide_content {
 		align-items: flex-start;
 		padding-top: 20rem;
@@ -728,7 +866,7 @@ button {
 }
 
 /* Desktop: vertically centred in the left part of the slide */
-@media (min-width: 992px) {
+@media (width >= 992px) {
 	.slide_text {
 		position: absolute;
 		top: 50%;
@@ -736,7 +874,7 @@ button {
 		right: 0;
 		max-width: 60%;
 		padding-left: 45px;
-		padding-right: 3em;
+		padding-right: 48px;
 		transform: translateY(-50%);
 	}
 }
@@ -749,7 +887,14 @@ button {
 	color: var(--accent);
 }
 
-/* The title's <span> is the orange highlighted word */
+/* Below lg the eyebrow sits on the photo: a dark glow lifts the thin orange letters off the
+ * white shirt and the orange tie */
+@media (width < 992px) {
+	.slide_eyebrow { text-shadow: 0 0 2px rgba(0, 0, 0, 0.9), 0 1px 3px rgba(0, 0, 0, 0.8), 0 0 16px rgba(0, 0, 0, 0.6); }
+}
+
+/* The title's <span> is the orange highlighted word. The first slide's title is the page's
+ * <h1>; the others are <p>s with the same look (one <h1> per page, for search engines). */
 .slide_title {
 	margin: 1rem 0 1.5rem;
 	font-size: 55px;
@@ -763,25 +908,25 @@ button {
 }
 
 /* Below lg the text sits on the photo, so it turns white */
-@media (max-width: 991.98px) {
+@media (width < 992px) {
 	.slide_title {
 		font-size: 50px;
 		color: #fff;
 	}
 }
 
-@media (max-width: 767.98px) {
+@media (width < 768px) {
 	.slide_title { font-size: 34px; }
 }
 
-.slide_text p {
+.slide_text p:not(.slide_title) {
 	font-size: 20px;
 	line-height: 1.5;
 	color: color-mix(in srgb, var(--ink) 80%, transparent);
 }
 
-@media (max-width: 991.98px) {
-	.slide_text p {
+@media (width < 992px) {
+	.slide_text p:not(.slide_title) {
 		font-size: 23px;
 		color: rgba(255, 255, 255, 0.7);
 	}
@@ -791,11 +936,11 @@ button {
  * it's cropped top and bottom and the head runs under the menu bar. So keep the space above
  * the head, and from 1200px the photo stops widening with the page: its left edge (and the
  * chevron) follows the centred content, which keeps the crop small. */
-@media (prefers-color-scheme: light) and (min-width: 992px) {
+@media (prefers-color-scheme: light) and (width >= 992px) {
 	.slide_photo { background-position: center 10%; }
 }
 
-@media (prefers-color-scheme: light) and (min-width: 1200px) {
+@media (prefers-color-scheme: light) and (width >= 1200px) {
 	.slide_photo { width: calc(50% + 300px); } /* = 75% at 1200px, so it doesn't jump */
 }
 
@@ -803,7 +948,7 @@ button {
  * moves out from under the title. It starts below the nav (which then sits on the page colour
  * with light links) and gets narrower, with the title and button on the page colour beside it.
  * Sizes are measured so the chevron clears both the title and the person in both photos. */
-@media (prefers-color-scheme: dark) and (min-width: 992px) {
+@media (prefers-color-scheme: dark) and (width >= 992px) {
 	.slide_photo {
 		width: 60%;
 		height: calc(100% - 82px); /* starts under the 82px menu bar */
@@ -822,7 +967,7 @@ button {
 	.slide_title { font-size: 44px; }
 }
 
-@media (prefers-color-scheme: dark) and (min-width: 1200px) {
+@media (prefers-color-scheme: dark) and (width >= 1200px) {
 	.slide_photo {
 		width: calc(50% + 60px); /* left edge follows the centred 1200px content */
 		background-position: 30% 20%; /* on wide screens the photo is cropped top and bottom: keep the space above the head */
@@ -840,9 +985,10 @@ button {
 
 /* Stats: animated counters under the hero, 4 in a row from md */
 .stats {
+	/* Own stacking context and clip: removing them changes how the block is painted */
 	position: relative;
 	z-index: 0;
-	padding: 5em 0;
+	padding: 80px 0;
 	overflow-x: hidden;
 	background: var(--bg-alt);
 }
@@ -850,13 +996,16 @@ button {
 .stats_grid {
 	display: grid;
 	column-gap: var(--gutter);
+	margin: 0;
+	padding: 0;
+	list-style: none;
 }
 
-@media (min-width: 768px) {
+@media (width >= 768px) {
 	.stats_grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 
-@media (max-width: 767.98px) {
+@media (width < 768px) {
 	.stats_grid { padding-left: 15%; }
 }
 
@@ -865,16 +1014,15 @@ button {
 	display: flex;
 }
 
-@media (max-width: 991.98px) {
-	.stat { margin-bottom: 2em; }
+@media (width < 992px) {
+	.stat { margin-bottom: 32px; }
 }
 
-@media (max-width: 767.98px) {
+@media (width < 768px) {
 	.stat { margin-bottom: 30px; }
 }
 
 .stat_icon {
-	position: relative;
 	display: flex;
 	flex: none; /* never squeezed by the text next to it, so it stays a circle */
 	align-items: center;
@@ -892,7 +1040,6 @@ button {
 }
 
 .stat_text {
-	position: relative;
 	width: calc(100% - 60px);
 	padding-left: 15px;
 }
@@ -913,20 +1060,17 @@ button {
 	color: var(--accent);
 }
 
-/* About: photo on the left, intro + details on the right; one column on phones */
+/* About: photo on the left, intro + details on the right from lg; one column below that
+ * (the tight head-and-shoulders photo gets too narrow in two columns at md) */
 .about {
-	position: relative;
+	position: relative; /* affects paint order; removing it changes how the block is painted */
 }
 
 .about_grid {
 	display: grid;
 }
 
-@media (min-width: 768px) {
-	.about_grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-
-@media (min-width: 992px) {
+@media (width >= 992px) {
 	.about_grid { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
 }
 
@@ -934,18 +1078,26 @@ button {
 	position: relative;
 	z-index: 0;
 	width: 100%;
-	background-size: cover;
-	background-position: center;
-	background-repeat: no-repeat;
 	box-shadow: -20px 20px 69px -27px rgba(0, 0, 0, 0.33);
 }
 
-/* Phones: one column, so the photo needs its own height (it otherwise takes the text column's) */
-@media (max-width: 767.98px) {
-	.about_photo {
-		height: 320px;
-		background-position: center top; /* keep the space above the head, as on desktop */
-	}
+/* A real <img> (so search engines index it), laid over the box like a cover background:
+ * the box takes its height from the text column, not from the photo */
+.about_photo img {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
+}
+
+/* One column, so the photo needs its own height (it otherwise takes the text column's);
+ * 4:5 shows the whole head of the tight head-and-shoulders crop at every width */
+@media (width < 992px) {
+	.about_photo { aspect-ratio: 4 / 5; }
+
+	.about_photo img { object-position: center top; } /* crop from the bottom, never the head */
 }
 
 /* Dark mode: tone down the bright wall and white shirt a little next to the grey page */
@@ -957,38 +1109,36 @@ button {
 	padding: 3rem 0 4rem;
 }
 
-@media (min-width: 768px) {
-	.about_body { padding: 6rem 0 7rem 1.5rem; }
+@media (width >= 992px) {
+	.about_body { padding: 6rem 0 7rem 3rem; }
 }
 
-@media (min-width: 992px) {
-	.about_body { padding-left: 3rem; }
-}
-
-.about .section-heading {
+.about .section-text {
 	margin-bottom: 0;
 }
 
-.about .section-heading h2 {
+.about .section-text h1,
+.about .section-text h2 {
 	font-size: 34px;
 }
 
 /* Label / value rows (Name, Location, ...) */
 .info-list {
-	display: inline-block;
-	width: 100%;
-	margin: 1.5rem 0 0;
+	margin: 2.5rem 0 0;
 	padding: 0 0.5rem;
 }
 
-@media (min-width: 768px) {
+@media (width >= 768px) {
 	.info-list { padding: 0; }
 }
 
-.info-list li {
+.info-list > div {
 	display: flex;
 	margin-bottom: 10px;
-	list-style: none;
+}
+
+.info-list dd {
+	margin: 0;
 }
 
 .info-list_label {
@@ -1003,44 +1153,37 @@ button {
 	color: var(--accent);
 }
 
-/* Interests: round icon + label; one row from xl, 2 x 2 below */
+/* Interests: round icon + label; 2 x 2, one row from lg */
 .interests {
-	width: 100%;
-	margin-top: 30px;
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	margin: 30px 0 0;
+	padding: 0;
+	list-style: none;
 }
 
-@media (min-width: 992px) {
-	.interests { display: flex; }
+@media (width >= 992px) {
+	.interests { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+/* One column (below lg): the 2 x 2 block is centred, columns stay aligned */
+@media (width < 992px) {
+	.interests {
+		grid-template-columns: repeat(2, auto);
+		justify-content: center;
+		column-gap: 40px;
+	}
 }
 
 .interest {
 	display: flex;
 	align-items: center;
-	width: 25%;
+	margin-bottom: 10px;
 	padding-left: 10px;
 }
 
-@media (max-width: 1199.98px) {
-	.interest {
-		float: left;
-		width: 50%;
-		margin-bottom: 10px;
-	}
-}
-
-/* Phones: the 2 x 2 block is centred, columns stay aligned */
-@media (max-width: 767.98px) {
-	.interests {
-		display: grid;
-		grid-template-columns: repeat(2, auto);
-		justify-content: center;
-		column-gap: 40px;
-	}
-
-	.interest {
-		float: none;
-		width: auto;
-	}
+@media (width >= 1200px) {
+	.interest { margin-bottom: 0; }
 }
 
 .interest_icon {
@@ -1055,7 +1198,7 @@ button {
 
 .interest_icon .icon {
 	font-size: 18px;
-	color: #000;
+	color: var(--icon-on-accent);
 	stroke-width: 2;
 }
 
@@ -1070,13 +1213,16 @@ button {
 	display: grid;
 	align-items: start;
 	column-gap: var(--gutter);
+	margin: 0;
+	padding: 0;
+	list-style: none;
 }
 
-@media (min-width: 768px) {
+@media (width >= 768px) {
 	.services { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
-@media (min-width: 992px) {
+@media (width >= 992px) {
 	.services { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 
@@ -1091,7 +1237,7 @@ button {
 }
 
 .service-card_icon {
-	position: relative;
+	position: relative; /* paints the circle and its shadow above the card it overlaps */
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -1107,7 +1253,7 @@ button {
 
 .service-card_icon .icon {
 	font-size: 40px;
-	color: #000;
+	color: var(--icon-on-accent);
 }
 
 .service-card h3 {
@@ -1133,33 +1279,132 @@ button {
 	color: color-mix(in srgb, var(--on-accent) 80%, transparent);
 }
 
-/* Diagram floated beside the text of a .section-heading--with-figure */
+/* Diagram floated beside the text of a .section-text--with-figure */
 .illustration {
 	display: block;
 	float: right;
-	width: 20em;
-	height: 20em;
+	width: 320px;
+	height: 320px;
 	margin: 0 auto;
 }
 
 /* Phones: the diagram is centred below the second paragraph instead of floating beside it */
-@media (max-width: 767.98px) {
+@media (width < 768px) {
 	.illustration {
 		float: none;
-		width: 18em;
+		width: 288px;
 		height: auto;
 		margin-bottom: 1rem;
 		order: 1;
 	}
 
-	.section-heading--with-figure {
+	.section-text--with-figure {
 		display: flex;
 		flex-direction: column;
 	}
 
-	.section-heading--with-figure > p:last-child {
+	.section-text--with-figure > p:last-child {
 		order: 2;
 	}
+}
+
+/* Clients: a cloud of logos. The spots in the cloud belong to the 1st…4th list item, so main.js can
+ * shuffle the logos between them on every load ([data-shuffle]). Each .client--name only sets its
+ * width (--w, picked so the logos look equally heavy rather than equally wide) and float timing.
+ * A spot's nudge out of the grid (--x, --y) uses `translate`, which stacks with the reveal
+ * animation's `transform` instead of being reset by it. */
+.clients {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	align-items: center;
+	gap: 3rem var(--gutter);
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.client {
+	justify-self: center;
+	translate: var(--x, 0) var(--y, 0);
+}
+
+/* max-width: a wide logo landing in a narrow spot shrinks to fit it */
+.client img {
+	display: block;
+	width: var(--w);
+	max-width: 100%;
+	height: auto;
+}
+
+/* Phones: 2 + 2, each logo nudged a different way, sideways only inwards so a wide logo never
+ * sticks out of the column (UKG stays above 40px tall: its brand guide allows this drawing only from there) */
+.client--eightfold { --w: 148px; }
+.client--kyriba { --w: 128px; }
+.client--ukg { --w: 106px; }
+.client--mistral { --w: 160px; }
+
+.client:nth-child(1) { --y: -0.75rem; }
+.client:nth-child(2) { --y: 1rem; }
+.client:nth-child(3) { --x: 0.75rem; --y: 0.25rem; }
+.client:nth-child(4) { --x: -0.5rem; --y: 1.75rem; }
+
+/* From md: four spots on a 12-column grid that line up neither in rows nor in columns: low on
+ * the left, high in the middle, low left of centre, and the right-hand one rising halfway into the
+ * first row. Scattered, but evenly spread, with no clumps or holes */
+@media (width >= 768px) {
+	.clients {
+		grid-template-columns: repeat(12, 1fr);
+		row-gap: 4.5rem;
+		padding-top: 1rem;
+	}
+
+	.client--eightfold { --w: 222px; }
+	.client--kyriba { --w: 182px; }
+	.client--ukg { --w: 140px; }
+	.client--mistral { --w: 244px; }
+
+	.client:nth-child(1) { --x: 0; --y: 2.25rem; grid-area: 1 / 1 / 2 / 6; }
+	.client:nth-child(2) { --x: 0; --y: -1.25rem; grid-area: 1 / 6 / 2 / 11; }
+	.client:nth-child(3) { --x: 0; --y: 1.25rem; grid-area: 2 / 4 / 3 / 9; }
+	.client:nth-child(4) { --x: 0; --y: -1.75rem; grid-area: 2 / 9 / 3 / 13; }
+}
+
+/* From lg there's room to nudge sideways too; on tablets a wide logo in a right-hand spot would
+ * stick out past the container */
+@media (width >= 992px) {
+	.client:nth-child(1) { --x: 0.75rem; }
+	.client:nth-child(2) { --x: 2rem; }
+	.client:nth-child(3) { --x: -1.5rem; }
+}
+
+/* Each logo drifts slowly: up and down with `transform`, side to side with `translate`. The two
+ * cycles have different lengths, so the path never repeats exactly, and every logo has its own. */
+@media (prefers-reduced-motion: no-preference) {
+	.client img {
+		animation:
+			float-y var(--float-y, 7s) ease-in-out var(--float-delay, 0s) infinite alternate,
+			float-x var(--float-x, 13s) ease-in-out var(--float-delay, 0s) infinite alternate;
+	}
+
+	.client--eightfold { --float-y: 6.5s; --float-x: 12s; --float-delay: -2s; }
+	.client--kyriba { --float-y: 8s; --float-x: 14.5s; --float-delay: -5s; }
+	.client--ukg { --float-y: 7s; --float-x: 11s; --float-delay: -1s; }
+	.client--mistral { --float-y: 9s; --float-x: 13s; --float-delay: -6s; }
+}
+
+@keyframes float-y {
+	from { transform: translateY(-7px); }
+	to { transform: translateY(7px); }
+}
+
+@keyframes float-x {
+	from { translate: -4px 0; }
+	to { translate: 4px 0; }
+}
+
+.clients_more {
+	margin: 4.5rem 0 0;
+	font-size: 15px;
 }
 
 /* Call to action: orange band with text and photo */
@@ -1178,7 +1423,7 @@ button {
 	color: var(--on-accent);
 }
 
-@media (max-width: 767.98px) {
+@media (width < 768px) {
 	.cta h2 { font-size: 28px; }
 }
 
@@ -1189,7 +1434,7 @@ button {
 	column-gap: var(--gutter);
 }
 
-@media (max-width: 767.98px) {
+@media (width < 768px) {
 	.cta_grid { grid-template-columns: 100%; }
 }
 
@@ -1203,19 +1448,21 @@ button {
 	margin-bottom: 0;
 }
 
-/* Desktop: the photo rises above the band */
+/* Desktop: the photo rises above the band. position: relative lifts it over the section above,
+ * which is positioned too (.section) and would otherwise paint its grey background over the head. */
 .cta_photo {
+	position: relative;
 	align-self: end;
 	max-width: 100%;
 	height: auto;
 }
 
-@media (min-width: 992px) {
+@media (width >= 992px) {
 	.cta_photo { margin-top: -90px; }
 }
 
 /* Phones: photo under the text, pulled up so the head sits level with the button, to its right */
-@media (max-width: 767.98px) {
+@media (width < 768px) {
 	.cta_photo {
 		justify-self: end;
 		width: 200px;
@@ -1224,29 +1471,170 @@ button {
 	}
 }
 
+/* 404 page (404.html): the About layout (photo left, text right from lg) with its own photo,
+ * cropped from the bottom when there's less room, so the head always shows */
+.not-found .about_photo img { object-position: center top; }
+
+/* One column: a little wider crop than About's 4:5 */
+@media (width < 992px) {
+	.not-found .about_photo { aspect-ratio: 1 / 1; }
+}
+
+/* From lg the section fills the window below the 82px menu bar (which lies over the page),
+ * with the photo and text centred vertically in it. The photo is as tall as the whole picture
+ * (the 5/12 column's width × 1918 / 1400) if the window has room for it, else as tall as
+ * --room, the space between menu bar and 57px footer, but never shorter than the text beside it */
+@media (width >= 992px) {
+	.page-fill main:has(> .not-found) {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.not-found {
+		--room: calc(100dvh - 82px - 57px);
+		display: flex;
+		flex: 1;
+		align-items: center;
+		padding-top: 82px;
+	}
+
+	.not-found .about_photo { min-height: min(531px, var(--room)); }
+
+	.not-found .about_body {
+		align-self: center;
+		padding: 2rem 0 2rem 3rem; /* even top and bottom, so the text sits in the middle */
+	}
+}
+
+@media (width >= 1200px) {
+	.not-found .about_photo { min-height: min(633px, var(--room)); }
+}
+
+/* Put on <body> of the pages that can be shorter than the window (404.html, impressum/index.html,
+ * privacy/index.html): keeps the footer at the bottom of the window however little content there is */
+.page-fill {
+	display: flex;
+	flex-direction: column;
+	min-height: 100dvh;
+}
+
+.page-fill main {
+	flex: 1;
+}
+
+/* Legal pages (impressum/index.html, privacy/index.html): a narrower column of plain text.
+ * On the children, so the text still starts in line with the navbar */
+.legal .container > * {
+	max-width: 800px;
+}
+
+.legal h1 {
+	margin-bottom: 1.5rem;
+	font-weight: 600;
+}
+
+.legal h2 {
+	margin: 2.5rem 0 0.75rem;
+	font-size: 22px;
+	font-weight: 600;
+}
+
+@media (width < 768px) {
+	.legal h1 { font-size: 28px; }
+}
+
+.legal li {
+	margin-bottom: 0.5rem;
+}
+
+.legal strong {
+	font-weight: 600;
+}
+
+.legal_details {
+	margin: 0;
+}
+
+.legal_details div {
+	margin-bottom: 1rem;
+}
+
+.legal_details dt {
+	font-weight: 600;
+	color: var(--ink);
+}
+
+.legal_details abbr {
+	text-decoration: none; /* browsers dot the underline of an abbreviation with a title */
+}
+
+.legal_details dd {
+	margin: 0;
+}
+
+/* Booking page (quick-call/index.html): Cal.com's calendar, which sizes its own iframe to fit.
+ * The minimum height holds its place while it loads, so the footer doesn't jump */
+.booking_calendar {
+	min-height: 600px;
+	/* Cal.com's script passes this into its iframe only when it's a single scheme, not the page's "light dark".
+	 * Without it the calendar guesses its own theme, and Chrome paints a white backdrop behind it in dark mode */
+	color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+	.booking_calendar { color-scheme: dark; }
+}
+
 /* Footer */
 .site-footer {
 	display: flow-root;
+	/* Own stacking context: removing it changes how the footer is painted */
 	position: relative;
 	z-index: 0;
-	padding: 1em 0 0;
-	text-align: center;
+	padding: 16px 0;
+	/* Shrinks on the narrowest phones, so the line still fits at 320px */
+	font-size: clamp(12px, 3.75vw, 14px);
+	color: rgba(255, 255, 255, 0.7);
 	background: var(--bg-footer);
 }
 
+/* One line at every width: copyright on the left, legal links on the right */
+.site-footer_inner {
+	display: flex;
+	justify-content: space-between;
+}
+
 .site-footer p {
-	color: rgba(255, 255, 255, 0.7);
+	margin: 0;
+}
+
+.site-footer_links {
+	display: flex;
+	gap: 24px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.site-footer_links a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.site-footer_links a:hover,
+.site-footer_links a:focus {
+	text-decoration: underline;
 }
 
 
 /* 8. Contact modal ---------------------------------------------------------
  * A native <dialog> that main.js opens with showModal(), so it sits above the
  * whole page (sticky nav included), keeps focus inside and closes on Esc.
- * main.js sets .has-modal on <html> while it is open.
  */
 
-html.has-modal {
-	overflow: hidden; /* the page behind doesn't scroll */
+/* The page behind doesn't scroll while the dialog is open */
+html:has(.contact-modal[open]) {
+	overflow: hidden;
 }
 
 .contact-modal {
@@ -1286,7 +1674,7 @@ html.has-modal {
 @keyframes modal-in {
 	from {
 		opacity: 0;
-		transform: translate3d(0, 20px, 0);
+		transform: translateY(20px);
 	}
 }
 
@@ -1299,7 +1687,7 @@ html.has-modal {
 	padding: 40px;
 }
 
-@media (max-width: 575.98px) {
+@media (width < 576px) {
 	.contact-modal_card { padding: 24px 20px; }
 }
 
@@ -1344,7 +1732,7 @@ html.has-modal {
 	font-weight: 600;
 }
 
-@media (max-width: 575.98px) {
+@media (width < 576px) {
 	.contact-modal h2 { font-size: 26px; }
 }
 
@@ -1391,11 +1779,9 @@ html.has-modal {
 }
 
 /* Shrinks on short screens (phones, tablets in landscape) so the whole form fits without scrolling;
- * 37rem is roughly everything else in the modal. The first height is the fallback for browsers
- * without dvh units. */
+ * 42rem is roughly everything else in the modal. */
 .contact-form_field textarea {
-	height: 13.5rem;
-	height: clamp(7rem, 100dvh - 37rem, 13.5rem);
+	height: clamp(7rem, 100dvh - 42rem, 13.5rem);
 	resize: vertical;
 }
 
@@ -1425,7 +1811,7 @@ html.has-modal {
 }
 
 /* Phones: full-width buttons and tighter fields */
-@media (max-width: 575.98px) {
+@media (width < 576px) {
 	.contact-modal .btn { width: 100%; }
 	.contact-form_field { margin-bottom: 1rem; }
 }
