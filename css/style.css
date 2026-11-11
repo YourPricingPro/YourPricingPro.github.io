@@ -168,6 +168,7 @@
 	/* Type and layout */
 	--font: "Poppins", Arial, sans-serif;
 	--shadow-card: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+	--shadow-text-on-photo: 0 0 2px rgba(0, 0, 0, 0.9), 0 1px 3px rgba(0, 0, 0, 0.8), 0 0 16px rgba(0, 0, 0, 0.6); /* orange hero text over the photo */
 	--gutter: 30px;
 	--hero-height: 750px;
 }
@@ -894,7 +895,7 @@ button {
 /* Below lg the eyebrow sits on the photo: a dark glow lifts the thin orange letters off the
  * white shirt and the orange tie */
 @media (width < 992px) {
-	.slide_eyebrow { text-shadow: 0 0 2px rgba(0, 0, 0, 0.9), 0 1px 3px rgba(0, 0, 0, 0.8), 0 0 16px rgba(0, 0, 0, 0.6); }
+	.slide_eyebrow { text-shadow: var(--shadow-text-on-photo); }
 }
 
 /* The title's <span> is the orange highlighted word. The first slide's title is the page's
@@ -921,6 +922,8 @@ button {
 
 @media (width < 768px) {
 	.slide_title { font-size: 34px; }
+
+	.slide_title span { text-shadow: var(--shadow-text-on-photo); } /* the orange word crosses the orange tie */
 }
 
 .slide_text p:not(.slide_title) {
