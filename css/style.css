@@ -1482,7 +1482,7 @@ button {
 
 /* From lg the section fills the window below the 82px menu bar (which lies over the page),
  * with the photo and text centred vertically in it. The photo is as tall as the whole picture
- * (the 5/12 column's width × 3616 / 2640) if the window has room for it, else as tall as
+ * (the 5/12 column's width × 1918 / 1400) if the window has room for it, else as tall as
  * --room, the space between menu bar and 57px footer, but never shorter than the text beside it */
 @media (width >= 992px) {
 	.page-fill main:has(> .not-found) {
