@@ -74,7 +74,7 @@ To preview locally, serve the folder (`python3 -m http.server`) and open http://
 
 Link it from the menu by adding an `<li>` to `.site-nav_list` with `href="#my-section"`. Menu links scroll smoothly to the section and stop just below the sticky navbar.
 
-On a page without a hero photo (the legal and booking pages), the first section also gets `section--page-top`: it keeps the same 96px gap below the menu bar at every width. From 992px the bar lies over the top of the page, so the rule adds the bar's 82px height; if the menu bar's height changes, change that number too.
+On a page without a hero photo (the legal and booking pages, and `404.html`), the first section also gets `section--page-top`: it keeps the same 96px gap below the menu bar at every width. From 992px the bar lies over the top of the page, so the rule adds the bar's 82px height; if the menu bar's height changes, change that number too. `404.html` uses it only below 992px: from there its photo and text are centred in the window instead.
 
 ### Service card
 
@@ -186,7 +186,7 @@ There is no test suite. The site should look and behave the same unless a change
 
 - Widths on both sides of each breakpoint (e.g. 375, 767/768, 991/992, 1199/1200 and 1440px), in light and dark mode, and once with "reduce motion" on.
 - The slider (autoplay, dots, swipe), the sticky navbar, the mobile menu, the counters, the reveal animations and the contact dialog (open, Esc, send).
-- `404.html` (the photo and text centred between menu bar and footer, the head never cropped, also in a short window), `impressum/index.html`, `privacy/index.html` and `quick-call/index.html` (the calendar loads, in both themes), and that the console shows no errors and no request returns 404.
+- `404.html` (from 992px the photo and text centred between menu bar and footer, the head never cropped, also in a short window; below that the smaller square photo, centred, under the same 96px gap as the other pages), `impressum/index.html`, `privacy/index.html` and `quick-call/index.html` (the calendar loads, in both themes), and that the console shows no errors and no request returns 404.
 
 ## Behaviour (js/main.js)
 

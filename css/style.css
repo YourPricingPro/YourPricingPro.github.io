@@ -1493,9 +1493,14 @@ button {
  * cropped from the bottom when there's less room, so the head always shows */
 .not-found .about_photo img { object-position: center top; }
 
-/* One column: a little wider crop than About's 4:5 */
+/* One column: a little wider crop than About's 4:5, and smaller than the full width and centred, so
+ * the photo doesn't fill half the screen. The 96px gap below the menu bar comes from .section--page-top */
 @media (width < 992px) {
-	.not-found .about_photo { aspect-ratio: 1 / 1; }
+	.not-found .about_photo {
+		justify-self: center;
+		width: min(66%, 320px);
+		aspect-ratio: 1 / 1;
+	}
 }
 
 /* From lg the section fills the window below the 82px menu bar (which lies over the page),
@@ -1513,7 +1518,7 @@ button {
 		display: flex;
 		flex: 1;
 		align-items: center;
-		padding-top: 82px;
+		padding-top: 82px; /* overrides .section--page-top: here the text is centred in the window instead */
 	}
 
 	.not-found .about_photo { min-height: min(531px, var(--room)); }
