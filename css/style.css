@@ -316,6 +316,17 @@ button {
 	background: var(--bg-alt);
 }
 
+/* First section of a page without a hero (legal and booking pages): the same 96px gap below the
+ * menu bar at every width. From 992px the bar lies over the page, so its 82px height is added;
+ * change it with the bar's height */
+.section--page-top {
+	padding-top: 96px;
+}
+
+@media (width >= 992px) {
+	.section--page-top { padding-top: calc(96px + 82px); }
+}
+
 /* A section's text: eyebrow, title and copy */
 .section-text {
 	display: flow-root;

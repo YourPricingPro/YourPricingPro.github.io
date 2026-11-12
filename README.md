@@ -74,6 +74,8 @@ To preview locally, serve the folder (`python3 -m http.server`) and open http://
 
 Link it from the menu by adding an `<li>` to `.site-nav_list` with `href="#my-section"`. Menu links scroll smoothly to the section and stop just below the sticky navbar.
 
+On a page without a hero photo (the legal and booking pages), the first section also gets `section--page-top`: it keeps the same 96px gap below the menu bar at every width. From 992px the bar lies over the top of the page, so the rule adds the bar's 82px height; if the menu bar's height changes, change that number too.
+
 ### Service card
 
 Add another card inside `.services` (the grid places 1 / 2 / 4 per row automatically):
