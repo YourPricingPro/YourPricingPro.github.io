@@ -82,7 +82,7 @@ And a dozen small startups.
 
 ## Ready to Rock & Roll?
 
-Are you a growing tech company looking to level up your pricing? You're in the right place. Let's build a pricing strategy that helps your business grow. I'm only two clicks away (yes, I counted)!
+Are you a growing tech company looking to level up your pricing? You're in the right place. Let's build a pricing strategy that helps your business grow. I'm only two buttons away (yes, I counted)!
 
 [Contact me](mailto:info@yourpricing.pro) — by email, or through the contact form on the [website](https://yourpricing.pro/#contact-section).
 
