@@ -2,7 +2,7 @@
 
 *I'm Pavel, and pricing is what I do best.*
 
-Freelance software pricing consultant based in Frankfurt, Germany, with more than 14 years of experience at leading software companies. I help software companies create and implement pricing strategies that reflect the value of their offerings — across software licenses, SaaS, PaaS, IaaS, and any other model.
+Freelance software pricing consultant based in Frankfurt, Germany, with more than 14 years of experience in pricing for leading software companies. I help software companies create and implement pricing strategies that reflect the value of their offerings — across software licenses, SaaS, PaaS, IaaS, and any other model.
 
 [Get pricing help now](mailto:info@yourpricing.pro)
 
