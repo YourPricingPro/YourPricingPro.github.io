@@ -9,7 +9,7 @@ Working model: remote, project-based or ongoing advisory. Languages: English (pr
 Core services:
 
 - **Pricing strategy**: New pricing models — packaging, tiers, and discounting frameworks aligned to product strategy and business goals.
-- **Price realization**: Stronger discount discipline and pricing governance across go-to-market (GTM) channels.
+- **Price realization**: Stronger discount discipline and pricing governance across GTM channels.
 - **Price level calibration**: Optimizing price points to maximize revenue, product adoption, or customer retention.
 - **New product launches**: Data-driven pricing for new offerings and business-model transitions.
 - **Pricing diagnostics**: Assessing current pricing strategy and price realization to surface improvement opportunities.

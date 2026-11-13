@@ -35,7 +35,7 @@ Designing a new pricing strategy, including packaging, price structure, and disc
 
 ### Price realization
 
-Making discounting more strategic and building pricing discipline across go-to-market (GTM) channels.
+Making discounting more strategic and building pricing discipline across GTM channels.
 
 ### Price level calibration
 
@@ -59,7 +59,7 @@ Ensuring your pricing organization, tools, and processes enable efficient, well-
 
 ### CPQ implementation
 
-Defining comprehensive pricing requirements for a new CPQ (quoting) tool and price-list implementation.
+Defining comprehensive pricing requirements for a new CPQ tool and price-list implementation.
 
 ## Why Work With Me
 
