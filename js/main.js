@@ -431,6 +431,38 @@
 			openModal();
 		});
 
+		// The menu's Contact link scrolls down to the contact band and then opens the form, once
+		// the scroll has stopped (no scroll event for 150ms) with the band on screen. A slow device
+		// may start the scroll late, so it keeps waiting for the band for up to 3s; a visitor who
+		// scrolls away meanwhile isn't interrupted. Links from the other pages arrive with
+		// #contact-section, and so do shared links: they open it after the jump too.
+		const band = $('#contact-section');
+		const openAfterScroll = () => {
+			const deadline = Date.now() + 3000;
+			let timer;
+			const stop = () => {
+				const box = band.getBoundingClientRect();
+				const inView = box.top < window.innerHeight && box.bottom > 0;
+				if (!inView && Date.now() < deadline) return wait();
+				window.removeEventListener('scroll', wait);
+				if (inView && !modal.open) openModal();
+			};
+			const wait = () => {
+				clearTimeout(timer);
+				timer = setTimeout(stop, 150);
+			};
+			window.addEventListener('scroll', wait, { passive: true });
+			wait();
+		};
+		document.addEventListener('click', (e) => {
+			if (e.target.closest('a[href="#contact-section"]')) openAfterScroll();
+		});
+		// Arriving with the hash, jump to the band first: the browser's own jump can come late
+		if (location.hash === '#contact-section') {
+			band.scrollIntoView({ behavior: 'instant' });
+			openAfterScroll();
+		}
+
 		// Close with the × and Close buttons, or a click on the backdrop. A click on the backdrop
 		// lands on the dialog itself; drags that start inside the card are ignored.
 		$$('[data-contact-close]', modal).forEach((btn) => {
