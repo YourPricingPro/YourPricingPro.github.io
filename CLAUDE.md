@@ -202,7 +202,7 @@ Don't mix in icons from other sets (Font Awesome, Flaticon, …): that's how the
 | `.reveal` | Fades the element up when it scrolls into view (staggered by 50ms) |
 | `data-shuffle` | Puts the element's children in a random order on every page load (the client logos) |
 | `data-counters` / `data-count` | Counts numbers up over 7s when the section scrolls into view |
-| `data-contact` | Opens the contact form in a modal dialog instead of following the `mailto:` link (which stays as the fallback without JavaScript); the form posts to web3forms |
+| `data-contact` | Opens the contact form in a modal dialog instead of following the `mailto:` link (which stays as the fallback without JavaScript); the form posts to web3forms. Links to `#contact-section` (the menu's Contact) also open it, once the scroll to the contact band has stopped, and so does arriving at the page with that hash |
 | `data-year` | Filled with the current year |
 
 ## Images
