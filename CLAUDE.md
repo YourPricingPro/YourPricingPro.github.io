@@ -103,7 +103,7 @@ On a page without a hero photo (the legal and booking pages, and `404.html`), th
 
 ### Service card
 
-Add another card inside `.services` (the grid places 1 / 2 / 4 per row automatically):
+Add another card inside `.services` (the grid places 1 / 2 / 4 per row automatically and, from 768px, makes every card as tall as the tallest one):
 
 ```html
 <li class="service-card">
