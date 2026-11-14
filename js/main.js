@@ -12,6 +12,7 @@
  *   8. Reveal             .reveal
  *   9. Contact form       [data-contact], [data-contact-modal]
  *  10. Footer year        [data-year]
+ *  11. Back to top        [data-to-top]
  */
 
 (() => {
@@ -510,5 +511,32 @@
 	/* 10. Footer year ----------------------------------------------------- */
 
 	$$('[data-year]').forEach((el) => { el.textContent = new Date().getFullYear(); });
+
+
+	/* 11. Back to top -----------------------------------------------------
+	 * Shows the footer's [data-to-top] notch on pages at least SCREENS windows tall (the home
+	 * page and the privacy policy), re-checked whenever the page or the window changes size.
+	 * A click scrolls to the top (smoothly, unless the visitor has turned on "reduce motion":
+	 * style.css sets scroll-behavior) and moves keyboard focus to the logo, the page's first link.
+	 */
+
+	const backToTop = () => {
+		const SCREENS = 3;
+		const btn = $('[data-to-top]');
+		if (!btn) return;
+
+		const update = () => {
+			const long = document.documentElement.scrollHeight >= window.innerHeight * SCREENS;
+			btn.classList.toggle('is-visible', long);
+		};
+		new ResizeObserver(update).observe(document.body);
+		window.addEventListener('resize', update);
+
+		btn.addEventListener('click', () => {
+			window.scrollTo({ top: 0 });
+			$('.site-nav_brand')?.focus({ preventScroll: true });
+		});
+	};
+	backToTop();
 
 })();

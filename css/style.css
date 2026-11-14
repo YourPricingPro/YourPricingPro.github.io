@@ -1649,6 +1649,58 @@ button {
 	text-decoration: underline;
 }
 
+/* Back to top: a notch rising from the footer's top edge, centred. main.js shows it (.is-visible)
+ * on long pages only. The notch is a third of a circle: the top 120° of a circle of radius 28px,
+ * so 28 × √3 ≈ 48.5px wide and 14px (half the radius) tall. The button itself is a plain box
+ * reaching 16px into the footer, above its text, for a larger tap area */
+.site-footer_top {
+	position: absolute;
+	top: -14px;
+	left: 50%;
+	display: none;
+	justify-content: center;
+	width: 48px;
+	height: 30px;
+	padding: 5px 0 0; /* the chevron's middle sits just above the footer's edge */
+	color: inherit;
+	background: none;
+	border: none;
+	translate: -50% 0;
+}
+
+.site-footer_top.is-visible {
+	display: flex;
+}
+
+.site-footer_top::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 50%;
+	width: calc(28px * 1.7320508);
+	height: 14px;
+	background: var(--bg-footer);
+	clip-path: circle(28px at 50% 28px);
+	translate: -50% 0;
+}
+
+.site-footer_top .icon {
+	position: relative; /* paints the chevron above the notch */
+	font-size: 16px;
+	transition: color 0.15s ease-in-out;
+}
+
+.site-footer_top:hover .icon,
+.site-footer_top:focus-visible .icon {
+	color: var(--accent);
+}
+
+/* Keyboard focus: a white ring, rounded over the notch (the orange one would vanish on the orange band) */
+.site-footer_top:focus-visible {
+	outline-color: #fff;
+	border-radius: 24px 24px 4px 4px;
+}
+
 
 /* 8. Contact modal ---------------------------------------------------------
  * A native <dialog> that main.js opens with showModal(), so it sits above the

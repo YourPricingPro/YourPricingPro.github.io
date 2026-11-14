@@ -18,7 +18,7 @@
 	<meta name="theme-color" content="#1b1d20" media="(prefers-color-scheme: dark)">
 	<meta name="darkreader-lock">
 	<link rel="preload" href="fonts/poppins-600-latin.woff2" as="font" type="font/woff2" crossorigin>
-	<link rel="stylesheet" href="css/style.css?v=2026-11-12b">
+	<link rel="stylesheet" href="css/style.css?v=2026-11-14">
 </head>
 
 <body class="page-fill">
@@ -71,9 +71,10 @@
 				</ul>
 			</nav>
 		</div>
+		<button class="site-footer_top" type="button" data-to-top aria-label="Back to top"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 15l6 -6l6 6" /></svg></button>
 	</footer>
 
-	<script src="js/main.js?v=2026-11-13"></script>
+	<script src="js/main.js?v=2026-11-14"></script>
 	<!-- Cal.com inline embed (their snippet, pointed at [data-booking]); only this page loads anything from Cal.com -->
 	<script>
 		(function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");

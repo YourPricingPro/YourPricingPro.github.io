@@ -160,8 +160,11 @@ Every page has the same footer, on one line at every width: the copyright on the
 			</ul>
 		</nav>
 	</div>
+	<button class="site-footer_top" type="button" data-to-top aria-label="Back to top"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 15l6 -6l6 6" /></svg></button>
 </footer>
 ```
+
+The button at the end is the back-to-top control: a small notch, a third of a circle in the footer's colour, rising from the middle of the footer's top edge, with a chevron that turns orange on hover. It's hidden until `main.js` finds the page at least 3 windows tall (today the home page and the privacy policy), so it never covers content and the footer line is untouched. It's a `<button>`, not a link: a `href="#"` would resolve against the subpages' `<base>` and lead to the home page. It comes last in the footer so it's the last stop for the Tab key. If the footer's colour or the band above it changes, check that the notch still reads as part of the footer.
 
 Each page holds its own copy, so a change to the footer goes into every `.html` page in the same commit (see "Copies to keep in sync"). If the text changes, update the footer line of `index.html.md` too.
 
@@ -204,6 +207,7 @@ Don't mix in icons from other sets (Font Awesome, Flaticon, …): that's how the
 | `data-counters` / `data-count` | Counts numbers up over 7s when the section scrolls into view |
 | `data-contact` | Opens the contact form in a modal dialog instead of following the `mailto:` link (which stays as the fallback without JavaScript); the form posts to web3forms. Links to `#contact-section` (the menu's Contact) also open it, once the scroll to the contact band has stopped, and so does arriving at the page with that hash |
 | `data-year` | Filled with the current year |
+| `data-to-top` | The footer's back-to-top notch: shown on pages at least 3 windows tall, scrolls to the top (smoothly unless "reduce motion" is on) and moves keyboard focus to the logo |
 
 ## Images
 
