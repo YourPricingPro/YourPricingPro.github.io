@@ -1054,7 +1054,7 @@ button {
 .stat_icon .icon {
 	font-size: 30px;
 	color: var(--on-accent);
-	stroke-width: 1.75; /* small icons need a heavier line to look as bold as the 40px ones */
+	stroke-width: 1.5; /* smaller icons get a relatively heavier line to stay legible: 1.25 at 40px, 1.5 at 30px, 1.75 at 18px */
 }
 
 .stat_text {
@@ -1217,7 +1217,7 @@ button {
 .interest_icon .icon {
 	font-size: 18px;
 	color: var(--icon-on-accent);
-	stroke-width: 2;
+	stroke-width: 1.75;
 }
 
 .interest_label {
@@ -1272,6 +1272,7 @@ button {
 .service-card_icon .icon {
 	font-size: 40px;
 	color: var(--icon-on-accent);
+	stroke-width: 1.25;
 }
 
 .service-card h3 {
