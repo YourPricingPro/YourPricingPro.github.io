@@ -514,19 +514,25 @@
 
 
 	/* 11. Back to top -----------------------------------------------------
-	 * Shows the footer's [data-to-top] notch on pages at least SCREENS windows tall (the home
-	 * page and the privacy policy), re-checked whenever the page or the window changes size.
+	 * Shows the footer's [data-to-top] notch on long pages (the home page and the privacy policy):
+	 * at least MIN_HEIGHT px tall and SCREENS windows tall, re-checked whenever the page or the
+	 * window changes size. The pixel floor keeps it off the short pages on small phones (the
+	 * booking page is 2 windows tall at 320px but only about 1300px); the window ratio keeps it
+	 * off a page that barely scrolls on a very tall screen. A ratio alone fails on big screens:
+	 * the privacy policy is only 2 windows tall at 3840x2000.
 	 * A click scrolls to the top (smoothly, unless the visitor has turned on "reduce motion":
 	 * style.css sets scroll-behavior) and moves keyboard focus to the logo, the page's first link.
 	 */
 
 	const backToTop = () => {
-		const SCREENS = 3;
+		const MIN_HEIGHT = 2400;
+		const SCREENS = 1.5;
 		const btn = $('[data-to-top]');
 		if (!btn) return;
 
 		const update = () => {
-			const long = document.documentElement.scrollHeight >= window.innerHeight * SCREENS;
+			const height = document.documentElement.scrollHeight;
+			const long = height >= MIN_HEIGHT && height >= window.innerHeight * SCREENS;
 			btn.classList.toggle('is-visible', long);
 		};
 		new ResizeObserver(update).observe(document.body);
