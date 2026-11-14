@@ -193,6 +193,8 @@ Icons are inline SVG with class `icon`; they take their size from `font-size` an
 <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 8l-4 4l4 4 M17 8l4 4l-4 4 M14 4l-4 16" /></svg>
 ```
 
+An icon that looks off-centre although it is centred gets an offset `viewBox` instead of extra CSS: the coffee cup's `viewBox="-1 0 24 24"` moves it one unit right, so the cup and its handle look balanced in the circle.
+
 Don't mix in icons from other sets (Font Awesome, Flaticon, …): that's how the page ended up with three different styles before.
 
 ## Behaviour (js/main.js)
