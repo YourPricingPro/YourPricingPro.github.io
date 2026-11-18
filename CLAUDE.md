@@ -43,11 +43,11 @@ src/              local only (git-ignored): design sources, original photos, the
 
 - **Asset versions.** Browsers and Cloudflare cache `style.css` and `main.js` for up to 4 hours. When a release changes either file, bump the `?v=` date on its links in every `.html` page (e.g. `css/style.css?v=2026-10-27`), so visitors fetch the new file along with the new page. For a second release on the same day, add a letter (`?v=2026-10-27b`).
 - **Sitemap.** When a release changes the page's content, set `<lastmod>` in `sitemap.xml` to the release date. Google and Bing only trust `lastmod` if it changes when the content does.
-- **Images.** A changed image gets a new file name, and every reference to it is updated (see "Images").
+- **Images.** A minor update to an image keeps its file name. Only a complete replacement, or a rename Pavel asks for, gets a new name (see "Images").
 
 ### Cloudflare settings (dashboard, not in this repo)
 
-- **Cache rule** (Caching → Cache Rules): when the query string contains `v=`, or the URI path starts with `/fonts/`, set Edge TTL and Browser TTL to 1 year. Versioned CSS/JS and the fonts never change under the same URL. When the URI path starts with `/images/`, use 30 days; image names aren't versioned, so give a changed image a new file name.
+- **Cache rule** (Caching → Cache Rules): when the query string contains `v=`, or the URI path starts with `/fonts/`, set Edge TTL and Browser TTL to 1 year. Versioned CSS/JS and the fonts never change under the same URL. When the URI path starts with `/images/`, use 30 days; image names aren't versioned, so after a minor update some visitors see the old image for up to 30 days.
 - **Response header rule** (Rules → Transform Rules → Modify Response Header): when the URI path equals `/index.html.md`, set `Link` to `<https://yourpricing.pro/>; rel="canonical"`, so search engines treat the Markdown copy as a duplicate of the page instead of indexing it on its own (LLM crawlers can still read it).
 - **Response header rule** (same place): when the URI path is in `/404.html`, `/impressum/`, `/impressum/index.html`, `/privacy/`, `/privacy/index.html`, `/quick-call/` or `/quick-call/index.html`, set `X-Robots-Tag` to `noindex`. A backup for the pages' own `noindex` meta tag. Don't block these pages in `robots.txt` instead: a crawler that can't fetch a page never sees its `noindex`, and may list the bare URL anyway.
 
@@ -103,7 +103,7 @@ On a page without a hero photo (the legal and booking pages, and `404.html`), th
 
 ### Service card
 
-Add another card inside `.services` (the grid places 1 / 2 / 4 per row automatically):
+Add another card inside `.services` (the grid places 1 / 2 / 4 per row automatically and, from 768px, makes every card as tall as the tallest one):
 
 ```html
 <li class="service-card">
@@ -160,8 +160,11 @@ Every page has the same footer, on one line at every width: the copyright on the
 			</ul>
 		</nav>
 	</div>
+	<button class="site-footer_top" type="button" data-to-top aria-label="Back to top"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 15l6 -6l6 6" /></svg></button>
 </footer>
 ```
+
+The button at the end is the back-to-top control: a small notch, a third of a circle in the footer's colour, rising from the middle of the footer's top edge, with a chevron that turns orange on hover. It's hidden until `main.js` finds the page long: at least 2400px and 1.5 windows tall (today the home page and the privacy policy, at every window size), so it never covers content and the footer line is untouched. **Rule: every long page, one that takes a few scrolls to reach the bottom, has the notch.** Because the button is in every page's footer and `main.js` decides by height, a long page gets it simply by having the standard footer: never leave the button out of a page's footer or hide it on one page, and don't add a second one. If a long page somehow doesn't show it, fix the thresholds (`MIN_HEIGHT` and `SCREENS` in `main.js`) rather than the page. Keep the short pages under them: the booking page reaches about 1300px on a phone. It's a `<button>`, not a link: a `href="#"` would resolve against the subpages' `<base>` and lead to the home page. It comes last in the footer so it's the last stop for the Tab key. If the footer's colour or the band above it changes, check that the notch still reads as part of the footer.
 
 Each page holds its own copy, so a change to the footer goes into every `.html` page in the same commit (see "Copies to keep in sync"). If the text changes, update the footer line of `index.html.md` too.
 
@@ -190,6 +193,8 @@ Icons are inline SVG with class `icon`; they take their size from `font-size` an
 <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 8l-4 4l4 4 M17 8l4 4l-4 4 M14 4l-4 16" /></svg>
 ```
 
+An icon that looks off-centre although it is centred gets an offset `viewBox` instead of extra CSS: the coffee cup's `viewBox="-1 0 24 24"` moves it one unit right, so the cup and its handle look balanced in the circle.
+
 Don't mix in icons from other sets (Font Awesome, Flaticon, …): that's how the page ended up with three different styles before.
 
 ## Behaviour (js/main.js)
@@ -204,10 +209,11 @@ Don't mix in icons from other sets (Font Awesome, Flaticon, …): that's how the
 | `data-counters` / `data-count` | Counts numbers up over 7s when the section scrolls into view |
 | `data-contact` | Opens the contact form in a modal dialog instead of following the `mailto:` link (which stays as the fallback without JavaScript); the form posts to web3forms. Links to `#contact-section` (the menu's Contact) also open it, once the scroll to the contact band has stopped, and so does arriving at the page with that hash |
 | `data-year` | Filled with the current year |
+| `data-to-top` | The footer's back-to-top notch: shown on long pages (at least 2400px and 1.5 windows tall), scrolls to the top (smoothly unless "reduce motion" is on) and moves keyboard focus to the logo |
 
 ## Images
 
-- **Names** say where the image appears: `hero-1.webp`, `hero-2.webp`, `about.webp`, `about.jpg`, `cta.webp`, `404.webp`, `og.jpg` and `clients/<company>.svg`. Cloudflare caches images for 30 days by name, so a changed image gets a new name (e.g. `about-2.webp`), and every reference to it is updated (`index.html`, the JSON-LD, `robots.txt`, this file).
+- **Names** say where the image appears: `hero-1.webp`, `hero-2.webp`, `about.webp`, `about.jpg`, `cta.webp`, `404.webp`, `og.jpg` and `clients/<company>.svg`. A minor update (a tweak or a re-export, such as thinner lines in `pricing-cycle.svg`) keeps the file name, and no `?v=` is added to image links. Cloudflare and browsers cache images for 30 days by name, so some visitors see the old version for a while; that's acceptable. Only a complete replacement with a different image, or a rename Pavel asks for, gets a new name (e.g. `about-2.webp`), and then every reference to it is updated (`index.html`, the JSON-LD, `robots.txt`, this file).
 - **Photos on the page are WebP**, which every supported browser shows, so no fallback is needed. Make them from the originals in `src/` with `cwebp -q 85 -m 6 -sharp_yuv -metadata icc` (the CTA photo, which is transparent, also with `-alpha_q 100 -exact`). If the source is a PNG, cwebp drops its colour profile; add it back with `webpmux -set icc srgb.icc`. The 404 photo is scaled to 1400px wide (`-resize 1400 1918`): it never shows wider than 690 CSS px, so this is still sharp on 2x screens. If its proportions change, update the ratio in the `.not-found` comment and the `min-height`s in `style.css`. `about.jpg` and `og.jpg` stay JPEG: the first is the `image` in the JSON-LD, the second the link preview, and link-preview crawlers don't all read WebP.
 - **No metadata but the colour profile.** Photo editors and cameras write the author, editing dates, source file names and the camera's and lens's serial numbers into the file. `-metadata icc` (cwebp) and `-copy icc` (jpegtran) keep only the colour profile, so run every new photo through one of them before committing, even if it needs no other change.
 - **Optimise losslessly** before committing, keeping the format and the sRGB colour profile:
