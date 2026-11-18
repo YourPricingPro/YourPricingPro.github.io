@@ -133,9 +133,11 @@ Add an `<li>` inside `.clients`. Logos are made from the companies' official fil
 
 ```html
 <li class="client client--acme reveal">
-	<img src="images/clients/acme.svg" alt="Acme" width="120" height="40" loading="lazy" decoding="async">
+	<a class="client_link" href="https://acme.com/" target="_blank" rel="noopener"><img src="images/clients/acme.svg" alt="Acme" width="120" height="40" loading="lazy" decoding="async"></a>
 </li>
 ```
+
+Each logo links to the company's home page (no `www.`) in a new tab, so the page stays open; the `alt` text is the link's name. On hover the logo grows slightly rather than changing colour, since brand guides forbid recolouring.
 
 Then give `.client--acme` in `style.css` a width (`--w`, for phones and from md, chosen so it looks as heavy as the others rather than as wide) and its float timing (`--float-y`, `--float-x`, `--float-delay`). The spots in the cloud belong to positions, not logos: `.client:nth-child(n)` sets each spot's place on the 12-column grid from md (`grid-area`) and its nudge (`--x`, `--y`), so another logo also needs another spot. `data-shuffle` on the list puts the logos in a random order on every load, and each one drifts gently unless the visitor has turned on "reduce motion".
 
