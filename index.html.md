@@ -73,10 +73,10 @@ The strategic pricing cycle: **Price → Measure → Iterate**.
 
 ## Clients I Helped
 
-- Eightfold AI
-- Kyriba
-- UKG
-- Mistral AI
+- [Eightfold AI](https://eightfold.ai/)
+- [Kyriba](https://kyriba.com/)
+- [UKG](https://ukg.com/)
+- [Mistral AI](https://mistral.ai/)
 
 And a dozen small startups.
 

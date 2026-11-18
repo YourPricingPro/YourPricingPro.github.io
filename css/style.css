@@ -1346,6 +1346,21 @@ button {
 	translate: var(--x, 0) var(--y, 0);
 }
 
+/* Each logo links to the company's site. A hover grows it a little instead of recolouring it
+ * (brand guides forbid that); the focus ring sits further out so the drifting logo stays inside it */
+.client_link {
+	display: block;
+	transition: scale 0.25s ease;
+}
+
+.client_link:hover {
+	scale: 1.06;
+}
+
+.client_link:focus-visible {
+	outline-offset: 10px;
+}
+
 /* max-width: a wide logo landing in a narrow spot shrinks to fit it */
 .client img {
 	display: block;
